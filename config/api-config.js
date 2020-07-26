@@ -2,7 +2,6 @@ const express = require('express');
 
 const app = express();
 const path = require('path');
-const bodyParser = require('body-parser');
 const dbfunc = require('./db-function');
 const UserRoute = require('../app/routes/user');
 const AuthenticRoute = require('../app/routes/authenticate');
