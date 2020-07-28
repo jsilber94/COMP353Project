@@ -14,3 +14,9 @@ function getAdminById(id) {
     });
   });
 }
+
+const adminModel = {
+  getAdminById,
+};
+
+module.exports = adminModel;

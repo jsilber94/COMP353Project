@@ -20,6 +20,6 @@ function connectionRelease() {
 }
 
 module.exports = {
+  connectionRelease,
   connectionCheck: connectionCheck(),
-  connectionRelease: connectionRelease(),
 };

@@ -2,6 +2,7 @@ const adminService = require('../services/admin');
 
 function getAdminById(req, res) {
   const adminID = req.params;
+  console.log('hmm');
   adminService.getAdminById(adminID).then((data) => {
     res.send(data);
   }).catch((err) => {

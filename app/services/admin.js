@@ -1,8 +1,8 @@
-const userModel = require('../models/admin.js');
+const adminModel = require('../models/admin.js');
 
 function getAdminById(id) {
   return new Promise((resolve, reject) => {
-    userModel.getAdminById(id).then((data) => {
+    adminModel.getAdminById(id).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
