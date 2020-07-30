@@ -1,4 +1,4 @@
-const authenticModel = require('../models/authenticate');
+const authenticModel = require('../models/authenticate-model');
 
 function authentic(authenticData) {
   return new Promise((resolve, reject) => {
