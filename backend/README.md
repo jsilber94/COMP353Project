@@ -1,6 +1,22 @@
-# COMP353Project
-COMP 353 Web Career Portal
+# COMP 353 Web Career Portal
 
 
-Database creds: COMP353Project\config\database.js
-Email creds: COMP353Project\common\mailer.js
+
+#### TO RUN
+npm install
+<br />
+nodemon app.js
+
+#### Credential Locations
+COMP353Project\config\database.js
+<br />
+COMP353Project\common\mailer.js
+
+
+#### File locations
+
+SQL statements: app/models
+<br />
+Entity specific routes: app/routes
+<br />
+Entity services: app/services
