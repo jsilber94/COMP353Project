@@ -39,7 +39,7 @@ function signup(user) {
             reject(error);
           } else if (rows.length > 0) {
             dbFunc.connectionRelease();
-            reject(new Error({ success: false, message: 'user already exist ! try with different user' }));
+            reject({success: false,message: 'User already exists. Please try with a different email'});
           } else {
             db.query(`INSERT INTO User(fname,lname,email,password_hash)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}')`, (error2, rows2) => {
               if (error2) {
