@@ -1,9 +1,9 @@
-const authenticService = require('../services/authenticate');
+const authenticateService = require('../services/authenticate');
 
-function authentic(req, res) {
+function authenticate(req, res) {
   const authenticData = req.body;
 
-  authenticService.authentic(authenticData).then((data) => {
+  authenticateService.authentic(authenticData).then((data) => {
     if (data) {
       res.json({
         success: true,
@@ -17,7 +17,7 @@ function authentic(req, res) {
 
 function signup(req, res) {
   const signUpData = req.body;
-  authenticService.signup(signUpData).then((data) => {
+  authenticateService.signup(signUpData).then((data) => {
     if (data) {
       res.json({
         success: true,
@@ -31,7 +31,7 @@ function signup(req, res) {
 
 function init(router) {
   router.route('/login')
-    .post(authentic);
+    .post(authenticate);
   router.route('/signup')
     .post(signup);
 }

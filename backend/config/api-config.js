@@ -1,6 +1,8 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 
 const app = express();
+
 const path = require('path');
 const dbfunc = require('./db-function');
 
@@ -14,6 +16,11 @@ dbfunc.connectionCheck.then((data) => {
   console.log(err);
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE');
@@ -21,13 +28,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
 
 const router = express.Router();
 app.use('/', router);
 
 // set static folder
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser middleware
 

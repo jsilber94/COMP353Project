@@ -4,17 +4,17 @@ const dbFunc = require('../../config/db-function');
 
 function authentic(authenticData) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user WHERE username ='${authenticData.username}'`, (error, rows) => {
+    db.query(`SELECT * FROM user WHERE email ='${authenticData.email}'`, (error, rows) => {
       if (error) {
         reject(error);
       } else {
-        bcrypt.compare(authenticData.password, rows[0].password, (err, isMatch) => {
+        bcrypt.compare(authenticData.password, rows[0].password_hash, (err, isMatch) => {
           if (err) {
             reject(error);
           } else if (isMatch) {
-            resolve(rows);
+            resolve('Logged in user:' + authenticData.email);
           } else {
-            reject(new Error({ success: false, message: 'password doesnot match' }));
+            reject({ success: false, message: 'password does not match' });
           }
         });
       }
@@ -32,9 +32,8 @@ function signup(user) {
         if (err2) {
           return next(err2);
         }
-        // eslint-disable-next-line no-param-reassign
-        user.password = hash;
-        return db.query(`SELECT * FROM user WHERE username='${user.username}'`, (error, rows) => {
+        user.password_hash = hash;
+        return db.query(`SELECT * FROM user WHERE email='${user.email}'`, (error, rows) => {
           if (error) {
             dbFunc.connectionRelease();
             reject(error);
@@ -42,7 +41,7 @@ function signup(user) {
             dbFunc.connectionRelease();
             reject(new Error({ success: false, message: 'user already exist ! try with different user' }));
           } else {
-            db.query(`INSERT INTO user(username,password)VALUES('${user.username}','${user.password}')`, (error2, rows2) => {
+            db.query(`INSERT INTO User(fname,lname,email,password_hash)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}')`, (error2, rows2) => {
               if (error2) {
                 dbFunc.connectionRelease();
                 reject(error2);

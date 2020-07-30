@@ -1,6 +1,6 @@
 const authenticModel = require('../models/authenticate-model');
 
-function authentic(authenticData) {
+function authenticate(authenticData) {
   return new Promise((resolve, reject) => {
     authenticModel.authentic(authenticData).then((data) => {
       resolve(data);
@@ -21,7 +21,7 @@ function signup(signUpData) {
 }
 
 const authenticService = {
-  authentic,
+  authentic: authenticate,
   signup,
 };
 
