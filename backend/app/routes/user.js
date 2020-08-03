@@ -49,12 +49,9 @@ function deleteUser(req, res) {
 
 function respondToApplication(req,res){
   const responseToApplication = req.body['status'];
-  if (responseToApplication == 'True')
-    response = 'accepted'
-  else response = 'rejected'
 
   const applicationId = req.params.id;
-  userService.respondToApplication(applicationId, response).then((data) => {
+  userService.respondToApplication(applicationId, responseToApplication).then((data) => {
     res.json(data);
   }).catch((err) => {
     res.json(err);
