@@ -3,7 +3,7 @@ const mysql = require('mysql');
 module.exports = mysql.createPool({
   connectionLimit: 100,
   host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'careerportal',
+  user: 'dyc353_1',
+  password: '1a2s3d4r',
+  database: 'dyc353_1',
 });
