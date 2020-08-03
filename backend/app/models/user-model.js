@@ -71,12 +71,27 @@ function deleteUser(id) {
   });
 }
 
+function respondToApplication(id, response){
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE application set status='${response}' WHERE application_id='${id}'`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const userModel = {
   getAllUser,
   addUser,
   updateUser,
   deleteUser,
   getUserById,
+  respondToApplication,
 };
 
 module.exports = userModel;

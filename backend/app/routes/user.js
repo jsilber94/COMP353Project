@@ -47,6 +47,20 @@ function deleteUser(req, res) {
   });
 }
 
+function respondToApplication(req,res){
+  const responseToApplication = req.body['status'];
+  if (responseToApplication == 'True')
+    response = 'accepted'
+  else response = 'rejected'
+
+  const applicationId = req.params.id;
+  userService.respondToApplication(applicationId, response).then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+}
+
 function init(router) {
   router.route('/user')
     .get(getAllUsers)
@@ -55,6 +69,8 @@ function init(router) {
     .get(getUserById)
     .delete(deleteUser)
     .put(updateUser);
+  router.route('/user/application/:id')
+    .post(respondToApplication);
 }
 
 module.exports.init = init;
