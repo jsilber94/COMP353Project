@@ -9,7 +9,7 @@ function getAllJobs(req, res) {
 }
 
 function getJobById(req, res) {
-  const jobId = req.params;
+  const jobId = req.params.id;
 
   jobService.getJobById(jobId).then((data) => {
     res.send(data);
@@ -30,7 +30,7 @@ function addJob(req, res) {
 
 function updateJob(req, res) {
   const jobData = req.body;
-  const { id } = req.params;
+  const { id } = req.params.id;
   jobService.updateJob(id, jobData).then((data) => {
     res.json(data);
   }).catch((err) => {

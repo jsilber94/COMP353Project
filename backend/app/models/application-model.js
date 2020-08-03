@@ -45,7 +45,7 @@ function addApplication(application) {
 
 function updateApplication(id, application) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='${application.status} WHERE application_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE application set status='${application.status}' WHERE application_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

@@ -9,7 +9,7 @@ function getAllEmployers(req, res) {
 }
 
 function getEmployerById(req, res) {
-  const employerId = req.params;
+  const employerId = req.params.id;
 
   employerService.getEmployerById(employerId).then((data) => {
     res.send(data);
@@ -30,7 +30,7 @@ function addEmployer(req, res) {
 
 function updateEmployer(req, res) {
   const employerData = req.body;
-  const { id } = req.params;
+  const { id } = req.params.id;
   employerService.updateEmployer(id, employerData).then((data) => {
     res.json(data);
   }).catch((err) => {

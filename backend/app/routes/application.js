@@ -9,7 +9,7 @@ function getAllApplications(req, res) {
 }
 
 function getApplicationById(req, res) {
-  const applicationId = req.params;
+  const applicationId = req.params.id;
 
   applicationService.getApplicationById(applicationId).then((data) => {
     res.send(data);
@@ -30,7 +30,7 @@ function addApplication(req, res) {
 
 function updateApplication(req, res) {
   const applicationData = req.body;
-  const { id } = req.params;
+  const { id } = req.params.id;
   applicationService.updateApplication(id, applicationData).then((data) => {
     res.json(data);
   }).catch((err) => {

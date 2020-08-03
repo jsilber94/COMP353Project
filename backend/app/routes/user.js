@@ -1,17 +1,17 @@
 const userService = require('../services/user');
 
-function getAllUsers(req, res) {
-  userService.getAllUser().then((data) => {
+function getUserById(req, res) {
+  const userID = req.params.id;
+
+  userService.getUserById(userID).then((data) => {
     res.send(data);
   }).catch((err) => {
     res.send(err);
   });
 }
 
-function getUserById(req, res) {
-  const userId = req.params;
-
-  userService.getUserById(userId).then((data) => {
+function getAllUsers(req, res) {
+  userService.getAllUser().then((data) => {
     res.send(data);
   }).catch((err) => {
     res.send(err);
@@ -30,7 +30,7 @@ function addUser(req, res) {
 
 function updateUser(req, res) {
   const userData = req.body;
-  const { id } = req.params;
+  const { id } = req.params.id;
   userService.updateUser(id, userData).then((data) => {
     res.json(data);
   }).catch((err) => {
