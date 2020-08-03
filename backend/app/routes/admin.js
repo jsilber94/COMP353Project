@@ -45,6 +45,23 @@ function addAdmin(req, res) {
   });
 }
 
+function getOutstandingBalanceReport(req, res) {
+  adminService.getOutstandingBalanceReport().then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.send(err);
+  });
+}
+
+function getUsersForEmployerReport(req, res) {
+  const employerId = req.params.id;
+  adminService.getUsersForEmployerReport(employerId).then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.send(err);
+  });
+}
+
 function init(router) {
   router.route('/admin')
     .get(getAllAdmin)
@@ -53,6 +70,10 @@ function init(router) {
     .get(getAdminById)
     .delete(deleteAdmin)
     .post(updateAdmin);
+  router.route('/admin/report/balance')
+    .get(getOutstandingBalanceReport);
+  router.route('/admin/report/employer/:id')
+    .get(getUsersForEmployerReport);
 }
 
 module.exports.init = init;

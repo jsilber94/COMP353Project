@@ -67,7 +67,7 @@ function init(router) {
     .delete(deleteUser)
     .put(updateUser);
   router.route('/user/application/:id')
-    .post(respondToApplication);
+    .put(respondToApplication);
 }
 
 module.exports.init = init;

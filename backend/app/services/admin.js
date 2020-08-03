@@ -50,12 +50,34 @@ function deleteAdmin(id) {
   });
 }
 
+function getOutstandingBalanceReport() {
+  return new Promise((resolve, reject) => {
+    adminModel.getOutstandingBalanceReport().then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
+function getUsersForEmployerReport(id) {
+  return new Promise((resolve, reject) => {
+    adminModel.getUsersForEmployerReport(id).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const adminService = {
   getAdminById,
   getAllAdmin,
   updateAdmin,
   deleteAdmin,
   addAdmin,
+  getOutstandingBalanceReport,
+  getUsersForEmployerReport,
 };
 
 module.exports = adminService;
