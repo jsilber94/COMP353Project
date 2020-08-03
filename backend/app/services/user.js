@@ -50,12 +50,23 @@ function getUserById(id) {
   });
 }
 
+function respondToApplication(id, response){
+  return new Promise((resolve, reject) => {
+    userModel.respondToApplication(id, response).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const userService = {
   getAllUser,
   getUserById,
   addUser,
   updateUser,
   deleteUser,
+  respondToApplication,
 };
 
 module.exports = userService;
