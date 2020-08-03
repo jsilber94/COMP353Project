@@ -15,6 +15,20 @@ function getCheckingAccountById(id) {
   });
 }
 
+function getCheckingAccountByUserId(id) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM checkingAccount WHERE user_id_fk =${id}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 function addCheckingAccount(checkingAccount) {
   return new Promise((resolve, reject) => {
     db.query(`INSERT INTO CheckingAccount(bank_routing_number,account_number,user_id_fk)VALUES('${checkingAccount.bank_routing_number}','${checkingAccount.account_number}','${checkingAccount.user_id_fk}')`, (error, rows) => {
@@ -62,6 +76,7 @@ const checkingAccountModel = {
   updateCheckingAccount,
   deleteCheckingAccount,
   getCheckingAccountById,
+  getCheckingAccountByUserId
 };
 
 module.exports = checkingAccountModel;

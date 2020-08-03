@@ -15,6 +15,20 @@ function getCreditCardById(id) {
   });
 }
 
+function getCreditCardByUserId(id) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM creditCard WHERE user_id_fk=${id}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 function addCreditCard(creditCard) {
   return new Promise((resolve, reject) => {
     db.query(`INSERT INTO CreditCard(credit_card_number,expiry_date,pin,name_on_card,user_id_fk)VALUES('${creditCard.credit_card_number}','${creditCard.expiry_date}','${creditCard.name_on_card}','${creditCard.user_id_fk}')`, (error, rows) => {
@@ -62,6 +76,7 @@ const creditCardModel = {
   updateCreditCard,
   deleteCreditCard,
   getCreditCardById,
+  getCreditCardByUserId
 };
 
 module.exports = creditCardModel;

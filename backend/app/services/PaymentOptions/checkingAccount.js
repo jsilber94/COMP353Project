@@ -41,11 +41,22 @@ function getCheckingAccountById(id) {
   });
 }
 
+function getCheckingAccountByUserId(id) {
+  return new Promise((resolve, reject) => {
+    checkingAccountModel.getCheckingAccountByUserId(id).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const checkingAccountService = {
   getCheckingAccountById,
   addCheckingAccount,
   updateCheckingAccount,
-  deleteCheckingAccount
+  deleteCheckingAccount,
+  getCheckingAccountByUserId
 };
 
 module.exports = checkingAccountService;

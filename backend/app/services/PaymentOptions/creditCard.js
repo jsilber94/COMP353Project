@@ -40,11 +40,22 @@ function getCreditCardById(id) {
   });
 }
 
+function getCreditCardByUserId(id) {
+  return new Promise((resolve, reject) => {
+    creditCardModel.getCreditCardByUserId(id).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const creditCardService = {
   getCreditCardById,
   addCreditCard,
   updateCreditCard,
-  deleteCreditCard
+  deleteCreditCard,
+  getCreditCardByUserId
 };
 
 module.exports = creditCardService;

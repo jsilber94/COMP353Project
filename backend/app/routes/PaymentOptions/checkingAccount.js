@@ -10,6 +10,16 @@ function getCheckingAccountById(req, res) {
   });
 }
 
+function getCheckingAccountByUserId(req, res) {
+  const userId = req.params.id;
+
+  checkingAccountService.getCheckingAccountByUserId(userId).then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.send(err);
+  });
+}
+
 function addCheckingAccount(req, res) {
   const checkingAccountData = req.body;
 
@@ -46,6 +56,8 @@ function init(router) {
     .get(getCheckingAccountById)
     .delete(deleteCheckingAccount)
     .put(updateCheckingAccount);
+  router.route('/checkingAccount/user/:id')
+   .get(getCheckingAccountByUserId);
 }
 
 module.exports.init = init;
