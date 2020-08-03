@@ -1,4 +1,4 @@
-const checkingAccountService = require('../../services/PaymentOptions/checkingAccount');
+const checkingAccountService = require('../../services/PaymentOptions/checkingAccount.js');
 
 function getCheckingAccountById(req, res) {
   const checkingAccountId = req.params.id;

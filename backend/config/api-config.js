@@ -11,7 +11,7 @@ const AdminRoute = require('../app/routes/admin');
 const AuthenticRoute = require('../app/routes/authenticate');
 const JobRoute = require('../app/routes/job');
 const EmployerRoute = require('../app/routes/employer');
-const ApplicationRoute = require('../app/routes/Application');
+const ApplicationRoute = require('../app/routes/application');
 const CheckingAccountRoute = require('../app/routes/PaymentOptions/checkingAccount');
 const CreditCardRoute = require('../app/routes/PaymentOptions/creditCard');
 

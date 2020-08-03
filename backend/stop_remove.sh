@@ -4,6 +4,10 @@ docker stop $(docker ps -a -q)
 
 docker rm $(docker ps -a -q)
 
-docker build . -t test1
+docker build . -t backend
 
-docker run --name test1 -d -p 9891:9891 test1
+docker run --name backend -d -p 9891:9891 backend
+
+heroku container:push web --app db-backend353
+
+heroku container:release web --app db-backend353

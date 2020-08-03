@@ -1,4 +1,4 @@
-const checkingAccountModel = require('../../models/paymentOptions/checkingAccount-model.js');
+const checkingAccountModel = require('../../models/PaymentOptions/checkingAccount-model.js');
 
 function addCheckingAccount(checkingAccountData) {
   return new Promise((resolve, reject) => {

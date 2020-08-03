@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllUser() {
   return new Promise((resolve, reject) => {
-    db.query('select * from User', (error, rows) => {
+    db.query('select * FROM User', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -17,7 +17,7 @@ function getAllUser() {
 
 function getUserById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user WHERE user_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM User WHERE user_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateUser(id, user) {
 
 function deleteUser(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM user WHERE user_id='${id}'`, (error, rows) => {
+    db.query(`DELETE FROM User WHERE user_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
