@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllUser() {
   return new Promise((resolve, reject) => {
-    db.query('select * from user', (error, rows) => {
+    db.query('select * from User', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
