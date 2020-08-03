@@ -1,9 +1,9 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
 
-function getAllUser() {
+function getAllJob() {
   return new Promise((resolve, reject) => {
-    db.query('select * from user', (error, rows) => {
+    db.query('select * from job', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -15,9 +15,9 @@ function getAllUser() {
   });
 }
 
-function getUserById(id) {
+function getJobById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user WHERE user_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM job WHERE job_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -29,9 +29,9 @@ function getUserById(id) {
   });
 }
 
-function addUser(user) {
+function addJob(job) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO User(fname,lname,category,email,password_hash,balance,date_last_payment,withdrawal_status)VALUES('${user.fname}','${user.lname}','${user.category}','${user.email}','${user.password_hash}',${user.balance},'${user.date_last_payment}','${user.withdrawal_status}')`, (error, rows) => {
+    db.query(`INSERT INTO Job(title,description,date_posted,employer_id_fk)VALUES('${job.title}','${job.description}','${job.category}','${job.employer_id_fk}')`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -43,9 +43,9 @@ function addUser(user) {
   });
 }
 
-function updateUser(id, user) {
+function updateJob(id, job) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance='${user.balance}',date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE job set title='${job.title}',description='${job.description}' WHERE job_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -57,9 +57,9 @@ function updateUser(id, user) {
   });
 }
 
-function deleteUser(id) {
+function deleteJob(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM user WHERE user_id='${id}'`, (error, rows) => {
+    db.query(`DELETE FROM job WHERE job_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -71,12 +71,12 @@ function deleteUser(id) {
   });
 }
 
-const userModel = {
-  getAllUser,
-  addUser,
-  updateUser,
-  deleteUser,
-  getUserById,
+const jobModel = {
+  getAllJob,
+  addJob,
+  updateJob,
+  deleteJob,
+  getJobById,
 };
 
-module.exports = userModel;
+module.exports = jobModel;

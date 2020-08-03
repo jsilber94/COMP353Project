@@ -45,7 +45,7 @@ function addEmployer(employer) {
 
 function updateEmployer(id, employer) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE employer set fname='${employer.fname}',lname='${employer.lname}',category='${employer.category}',email='${employer.email}',password_hash='${employer.password_hash}',balance='${employer.balance}',date_last_payment='${employer.date_last_payment}',withdrawal_status='${employer.withdrawal_status}' WHERE id='${id}'`, (error, rows) => {
+    db.query(`UPDATE employer set fname='${employer.fname}',lname='${employer.lname}',category='${employer.category}',email='${employer.email}',password_hash='${employer.password_hash}',balance='${employer.balance}',date_last_payment='${employer.date_last_payment}',withdrawal_status='${employer.withdrawal_status}' WHERE employer_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
