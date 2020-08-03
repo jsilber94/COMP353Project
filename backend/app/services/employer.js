@@ -30,6 +30,16 @@ function deleteEmployer(id) {
   });
 }
 
+function getAppliedJobsReport(id, dates) {
+  return new Promise((resolve, reject) => {
+    employerModel.getAppliedJobsReport(id, dates).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 function getAllEmployer() {
   return new Promise((resolve, reject) => {
     employerModel.getAllEmployer().then((data) => {
@@ -56,6 +66,7 @@ const employerService = {
   addEmployer,
   updateEmployer,
   deleteEmployer,
+  getAppliedJobsReport,
 };
 
 module.exports = employerService;
