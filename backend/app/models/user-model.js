@@ -45,7 +45,7 @@ function addUser(user) {
 
 function updateUser(id, user) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance='${user.balance}',date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -73,7 +73,7 @@ function deleteUser(id) {
 
 function respondToApplication(id, response) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='${response}' WHERE application_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE application set status='${response}' WHERE application_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -85,6 +85,19 @@ function respondToApplication(id, response) {
   });
 }
 
+function makeManualPayment(id, customAmount) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE user set balance=(balance-${customAmount}), date_last_payment = current_date() WHERE user_id=${id}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
 const userModel = {
   getAllUser,
   addUser,
@@ -92,6 +105,7 @@ const userModel = {
   deleteUser,
   getUserById,
   respondToApplication,
+  makeManualPayment,
 };
 
 module.exports = userModel;

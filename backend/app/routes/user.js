@@ -58,6 +58,22 @@ function respondToApplication(req, res) {
   });
 }
 
+function makeManualPayment(req, res) {
+  const { customAmount } = req.body;
+
+  const userId = req.params.id;
+  userService.makeManualPayment(userId, customAmount).then((data) => {
+    if (data) {
+      res.json({
+        success: true,
+        message: `Payment in the amount of: ${customAmount} has been made successfully.`,
+      });
+    }
+  }).catch((err) => {
+    res.json(err);
+  });
+}
+
 function init(router) {
   router.route('/user')
     .get(getAllUsers)
@@ -68,6 +84,8 @@ function init(router) {
     .put(updateUser);
   router.route('/user/application/:id')
     .patch(respondToApplication);
+  router.route('/user/payment/:id')
+    .patch(makeManualPayment);
 }
 
 module.exports.init = init;

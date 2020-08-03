@@ -60,6 +60,16 @@ function respondToApplication(id, response) {
   });
 }
 
+function makeManualPayment(id, customAmount) {
+  return new Promise((resolve, reject) => {
+    userModel.makeManualPayment(id, parseFloat(customAmount)).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const userService = {
   getAllUser,
   getUserById,
@@ -67,6 +77,7 @@ const userService = {
   updateUser,
   deleteUser,
   respondToApplication,
+  makeManualPayment,
 };
 
 module.exports = userService;
