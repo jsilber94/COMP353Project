@@ -45,7 +45,7 @@ function addUser(user) {
 
 function updateUser(id, user) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance='${user.balance}',date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE id='${id}'`, (error, rows) => {
+    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance='${user.balance}',date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -71,12 +71,27 @@ function deleteUser(id) {
   });
 }
 
+function respondToApplication(id, response){
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE application set status='${response}' WHERE application_id='${id}'`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const userModel = {
   getAllUser,
   addUser,
   updateUser,
   deleteUser,
   getUserById,
+  respondToApplication,
 };
 
 module.exports = userModel;

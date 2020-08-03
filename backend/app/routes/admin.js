@@ -1,7 +1,7 @@
 const adminService = require('../services/admin');
 
 function getAdminById(req, res) {
-  const adminID = req.params;
+  const adminID = req.params.id;
   adminService.getAdminById(adminID).then((data) => {
     res.send(data);
   }).catch((err) => {
@@ -19,7 +19,7 @@ function getAllAdmin(req, res) {
 
 function updateAdmin(req, res) {
   const adminData = req.body;
-  const { id } = req.params;
+  const { id } = req.params.id;
   adminService.updateAdmin(id, adminData).then((data) => {
     res.send(data);
   }).catch((err) => {
