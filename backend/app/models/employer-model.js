@@ -71,12 +71,28 @@ function deleteEmployer(id) {
   });
 }
 
+function getAppliedJobsReport(id, dates) {
+  return new Promise((resolve, reject) => {
+    db.query(`select substring(description, 1, 50) as job_description, title, date_applied, status
+    from application,job,employer
+    where date_applied between '${dates.startDate}' and '${dates.endDate}' and application.employer_id_fk = employer.Employer_id and employer_id='${id}'`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
 const employerModel = {
   getAllEmployer,
   addEmployer,
   updateEmployer,
   deleteEmployer,
   getEmployerById,
+  getAppliedJobsReport,
 };
 
 module.exports = employerModel;

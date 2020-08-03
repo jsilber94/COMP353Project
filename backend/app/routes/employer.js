@@ -47,6 +47,16 @@ function deleteEmployer(req, res) {
   });
 }
 
+function getAppliedJobsReport(req, res) {
+  const employerId = req.params.id;
+  const dates = req.body;
+  employerService.getAppliedJobsReport(employerId, dates).then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+}
+
 function init(router) {
   router.route('/employer')
     .get(getAllEmployers)
@@ -55,6 +65,8 @@ function init(router) {
     .get(getEmployerById)
     .delete(deleteEmployer)
     .put(updateEmployer);
+  router.route('/employer/report/user/:id')
+    .get(getAppliedJobsReport);
 }
 
 module.exports.init = init;
