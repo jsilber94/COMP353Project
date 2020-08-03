@@ -47,8 +47,8 @@ function deleteUser(req, res) {
   });
 }
 
-function respondToApplication(req,res){
-  const responseToApplication = req.body['status'];
+function respondToApplication(req, res) {
+  const responseToApplication = req.body.status;
 
   const applicationId = req.params.id;
   userService.respondToApplication(applicationId, responseToApplication).then((data) => {

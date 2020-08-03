@@ -2,7 +2,7 @@ const adminModel = require('../models/admin-model.js');
 
 function addAdmin(userData) {
   return new Promise((resolve, reject) => {
-    userModel.addAdmin(userData).then((data) => {
+    adminModel.addAdmin(userData).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -42,7 +42,7 @@ function updateAdmin(id, userData) {
 
 function deleteAdmin(id) {
   return new Promise((resolve, reject) => {
-    userModel.deleteAdmin(id).then((data) => {
+    adminModel.deleteAdmin(id).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);

@@ -57,7 +57,7 @@ function init(router) {
     .delete(deleteCheckingAccount)
     .put(updateCheckingAccount);
   router.route('/checkingAccount/user/:id')
-   .get(getCheckingAccountByUserId);
+    .get(getCheckingAccountByUserId);
 }
 
 module.exports.init = init;

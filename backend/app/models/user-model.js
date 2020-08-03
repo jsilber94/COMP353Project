@@ -71,7 +71,7 @@ function deleteUser(id) {
   });
 }
 
-function respondToApplication(id, response){
+function respondToApplication(id, response) {
   return new Promise((resolve, reject) => {
     db.query(`UPDATE application set status='${response}' WHERE application_id='${id}'`, (error, rows) => {
       if (error) {

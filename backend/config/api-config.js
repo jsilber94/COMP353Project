@@ -15,7 +15,6 @@ const ApplicationRoute = require('../app/routes/application');
 const CheckingAccountRoute = require('../app/routes/PaymentOptions/checkingAccount');
 const CreditCardRoute = require('../app/routes/PaymentOptions/creditCard');
 
-
 dbfunc.connectionCheck.then((data) => {
   console.log(data);
 }).catch((err) => {
@@ -23,9 +22,9 @@ dbfunc.connectionCheck.then((data) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
+app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
+  extended: true,
+}));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -34,12 +33,11 @@ app.use((req, res, next) => {
   next();
 });
 
-
 const router = express.Router();
 app.use('/', router);
 
 // set static folder
-// app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // body parser middleware
 
@@ -65,9 +63,8 @@ UserRoute.init(router);
 AdminRoute.init(router);
 JobRoute.init(router);
 EmployerRoute.init(router);
-ApplicationRoute.init(router)
+ApplicationRoute.init(router);
 CreditCardRoute.init(router);
-CheckingAccountRoute.init(router)
-
+CheckingAccountRoute.init(router);
 
 module.exports = ApiConfig;
