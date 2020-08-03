@@ -11,6 +11,7 @@ const AdminRoute = require('../app/routes/admin');
 const AuthenticRoute = require('../app/routes/authenticate');
 const JobRoute = require('../app/routes/job');
 const EmployerRoute = require('../app/routes/employer');
+const ApplicationRoute = require('../app/routes/Application');
 
 dbfunc.connectionCheck.then((data) => {
   console.log(data);
@@ -61,6 +62,7 @@ UserRoute.init(router);
 AdminRoute.init(router);
 JobRoute.init(router);
 EmployerRoute.init(router);
+ApplicationRoute.init(router)
 
 
 module.exports = ApiConfig;
