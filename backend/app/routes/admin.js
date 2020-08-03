@@ -27,7 +27,6 @@ function updateAdmin(req, res) {
   });
 }
 
-
 function deleteAdmin(req, res) {
   const { id } = req.params;
   adminService.deleteAdmin(id).then((data) => {
@@ -57,6 +56,3 @@ function init(router) {
 }
 
 module.exports.init = init;
-
-
-

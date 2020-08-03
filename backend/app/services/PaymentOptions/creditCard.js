@@ -55,7 +55,7 @@ const creditCardService = {
   addCreditCard,
   updateCreditCard,
   deleteCreditCard,
-  getCreditCardByUserId
+  getCreditCardByUserId,
 };
 
 module.exports = creditCardService;

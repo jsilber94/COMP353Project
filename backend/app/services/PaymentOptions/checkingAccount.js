@@ -1,4 +1,4 @@
-const checkingAccountModel = require('../../models/paymentOptions/checkingAccount-model.js');
+const checkingAccountModel = require('../../models/PaymentOptions/checkingAccount-model.js');
 
 function addCheckingAccount(checkingAccountData) {
   return new Promise((resolve, reject) => {
@@ -30,7 +30,6 @@ function deleteCheckingAccount(id) {
   });
 }
 
-
 function getCheckingAccountById(id) {
   return new Promise((resolve, reject) => {
     checkingAccountModel.getCheckingAccountById(id).then((data) => {
@@ -56,7 +55,7 @@ const checkingAccountService = {
   addCheckingAccount,
   updateCheckingAccount,
   deleteCheckingAccount,
-  getCheckingAccountByUserId
+  getCheckingAccountByUserId,
 };
 
 module.exports = checkingAccountService;

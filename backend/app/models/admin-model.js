@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllAdmin() {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM Admin`, (error, rows) => {
+    db.query('SELECT * FROM Admin', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

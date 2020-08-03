@@ -76,7 +76,7 @@ const checkingAccountModel = {
   updateCheckingAccount,
   deleteCheckingAccount,
   getCheckingAccountById,
-  getCheckingAccountByUserId
+  getCheckingAccountByUserId,
 };
 
 module.exports = checkingAccountModel;

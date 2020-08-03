@@ -50,7 +50,7 @@ function getUserById(id) {
   });
 }
 
-function respondToApplication(id, response){
+function respondToApplication(id, response) {
   return new Promise((resolve, reject) => {
     userModel.respondToApplication(id, response).then((data) => {
       resolve(data);

@@ -76,7 +76,7 @@ const creditCardModel = {
   updateCreditCard,
   deleteCreditCard,
   getCreditCardById,
-  getCreditCardByUserId
+  getCreditCardByUserId,
 };
 
 module.exports = creditCardModel;
