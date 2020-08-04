@@ -19,9 +19,19 @@ function signup(signUpData) {
     });
   });
 }
-function resetPassword(userId, oldPassword, newPassword) {
+function changePassword(userId, oldPassword, newPassword) {
   return new Promise((resolve, reject) => {
-    authenticModel.resetPassword(userId, oldPassword, newPassword).then((data) => {
+    authenticModel.changePassword(userId, oldPassword, newPassword).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
+function resetPassword(email) {
+  return new Promise((resolve, reject) => {
+    authenticModel.resetPassword(email).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -32,6 +42,7 @@ function resetPassword(userId, oldPassword, newPassword) {
 const authenticService = {
   authenticate,
   signup,
+  changePassword,
   resetPassword,
 };
 

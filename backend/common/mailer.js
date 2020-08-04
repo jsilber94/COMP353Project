@@ -1,17 +1,20 @@
 const nodemailer = require('nodemailer');
 
+const fromEmail = 'comp353testemail@gmail.com';
+const fromPassword = 'Create123!';
+
 const smtpTransport = nodemailer.createTransport({
   service: 'Gmail', // sets automatically host, port and connection security settings
   auth: {
-    user: 'xxxxxxxxxx95@Gmail.com',
-    pass: 'xxxxxxxxxxxx',
+    user: fromEmail,
+    pass: fromPassword,
   },
 });
 
 function mail(messageBody, to, subject) {
   const messageBodyJson = JSON.stringify(messageBody);
   smtpTransport.sendMail({ // email options
-    from: 'xxxxxxxxxx95@Gmail.com', // sender address.  Must be the same as authenticated user if using Gmail.
+    from: fromEmail, // sender address.  Must be the same as authenticated user if using Gmail.
     to, // receiver
     subject, // subject
     text: messageBodyJson, // body

@@ -2,6 +2,8 @@ const bcrypt = require('bcryptjs');
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
 
+const mailer = require('../../common/mailer');
+
 function authenticate(authenticData) {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM user WHERE email ='${authenticData.email}'`, (error, rows) => {
@@ -60,7 +62,7 @@ function signup(user) {
   });
 }
 
-function resetPassword(userId, oldPassword, newPassword) {
+function changePassword(userId, oldPassword, newPassword) {
   return new Promise((resolve, reject) => {
     db.query(`SELECT password_hash FROM user WHERE user_id =${userId}`, (error, rows) => {
       if (error) {
@@ -98,9 +100,20 @@ function resetPassword(userId, oldPassword, newPassword) {
   });
 }
 
+function resetPassword(email) {
+  return new Promise((resolve, reject) => db.query(`SELECT * FROM user WHERE email='${email}'`, (error, rows) => {
+    if (rows.length > 0 && rows[0]) {
+      mailer.mail('Reset your email here: ', email, 'Password reset');
+      resolve('Reset email sent!');
+    }
+    reject(new Error('Email is not a match'));
+  }));
+}
+
 const authenticModel = {
   authenticate,
   signup,
+  changePassword,
   resetPassword,
 };
 

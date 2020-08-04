@@ -29,11 +29,11 @@ function signup(req, res) {
   });
 }
 
-function resetPassword(req, res) {
+function changePassword(req, res) {
   const { newPassword, oldPassword } = req.body;
 
   const userId = req.params.id;
-  authenticateService.resetPassword(userId, oldPassword, newPassword).then((data) => {
+  authenticateService.changePassword(userId, oldPassword, newPassword).then((data) => {
     if (data) {
       res.json({
         success: true,
@@ -45,13 +45,32 @@ function resetPassword(req, res) {
   });
 }
 
+function resetPassword(req, res) {
+  const { email } = req.params;
+  authenticateService.resetPassword(email).then((data) => {
+    if (data) {
+      res.json({
+        success: true,
+        message: data,
+      });
+    }
+  }).catch((err) => {
+    res.json({
+      success: false,
+      message: err.message,
+    });
+  });
+}
+
 function init(router) {
   router.route('/login')
     .post(authenticate);
   router.route('/signup')
     .post(signup);
-  router.route('/reset/user/:id')
-    .post(resetPassword);
+  router.route('/password/user/change/:id')
+    .post(changePassword);
+  router.route('/password/user/reset/:email')
+    .get(resetPassword);
 }
 
 module.exports.init = init;
