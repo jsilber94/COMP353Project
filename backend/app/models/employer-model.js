@@ -73,9 +73,12 @@ function deleteEmployer(id) {
 
 function getAppliedJobsReport(id, dates) {
   return new Promise((resolve, reject) => {
-    db.query(`select substring(description, 1, 50) as job_description, title, date_applied, status
-    from application,job,employer
-    where date_applied between '${dates.startDate}' and '${dates.endDate}' and application.employer_id_fk = employer.Employer_id and employer_id='${id}'`, (error, rows) => {
+    db.query(`select substring(description, 1, 50), title, date_applied, status
+    from application, job, employer
+    where date_applied between '${dates.startDate}' and '${dates.endDate}'
+    and application.employer_id_fk = employer.Employer_id 
+    and employer_id=${id}
+    group by employer.employer_id;`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -86,6 +89,25 @@ function getAppliedJobsReport(id, dates) {
     });
   });
 }
+
+function getJobReport(id) {
+  return new Promise((resolve, reject) => {
+    db.query(`select title, description, date_posted, status
+    from application, job, user  
+    where application.job_id_fk = job.job_id 
+    and application.job_id_fk = user.user_id
+    and job_id = ${id}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const employerModel = {
   getAllEmployer,
   addEmployer,
@@ -93,6 +115,7 @@ const employerModel = {
   deleteEmployer,
   getEmployerById,
   getAppliedJobsReport,
+  getJobReport,
 };
 
 module.exports = employerModel;

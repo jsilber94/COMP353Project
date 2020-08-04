@@ -60,6 +60,16 @@ function getEmployerById(id) {
   });
 }
 
+function getJobReport(jobId) {
+  return new Promise((resolve, reject) => {
+    employerModel.getJobReport(jobId).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const employerService = {
   getAllEmployer,
   getEmployerById,
@@ -67,6 +77,7 @@ const employerService = {
   updateEmployer,
   deleteEmployer,
   getAppliedJobsReport,
+  getJobReport,
 };
 
 module.exports = employerService;

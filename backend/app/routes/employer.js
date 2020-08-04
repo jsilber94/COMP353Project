@@ -57,6 +57,15 @@ function getAppliedJobsReport(req, res) {
   });
 }
 
+function getJobReport(req, res) {
+  const jobId = req.params.id;
+  employerService.getJobReport(jobId).then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.json(err);
+  });
+}
+
 function init(router) {
   router.route('/employer')
     .get(getAllEmployers)
@@ -65,8 +74,10 @@ function init(router) {
     .get(getEmployerById)
     .delete(deleteEmployer)
     .put(updateEmployer);
-  router.route('/employer/report/user/:id')
+  router.route('/employer/report/:id/user/')
     .get(getAppliedJobsReport);
+  router.route('/employer/report/job/:id')
+    .get(getJobReport);
 }
 
 module.exports.init = init;
