@@ -19,10 +19,20 @@ function signup(signUpData) {
     });
   });
 }
+function resetPassword(userId, oldPassword, newPassword) {
+  return new Promise((resolve, reject) => {
+    authenticModel.resetPassword(userId, oldPassword, newPassword).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
 
 const authenticService = {
-  authentic: authenticate,
+  authenticate,
   signup,
+  resetPassword,
 };
 
 module.exports = authenticService;

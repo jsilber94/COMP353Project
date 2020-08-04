@@ -29,11 +29,29 @@ function signup(req, res) {
   });
 }
 
+function resetPassword(req, res) {
+  const { newPassword, oldPassword } = req.body;
+
+  const userId = req.params.id;
+  authenticateService.resetPassword(userId, oldPassword, newPassword).then((data) => {
+    if (data) {
+      res.json({
+        success: true,
+        data,
+      });
+    }
+  }).catch((err) => {
+    res.json(err);
+  });
+}
+
 function init(router) {
   router.route('/login')
     .post(authenticate);
   router.route('/signup')
     .post(signup);
+  router.route('/reset/user/:id')
+    .post(resetPassword);
 }
 
 module.exports.init = init;
