@@ -1,8 +1,8 @@
-const authenticModel = require('../models/authenticate-model');
+const authenticateModel = require('../models/authenticate-model');
 
 function authenticate(authenticData) {
   return new Promise((resolve, reject) => {
-    authenticModel.authentic(authenticData).then((data) => {
+    authenticateModel.authenticate(authenticData).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -12,7 +12,7 @@ function authenticate(authenticData) {
 
 function signup(signUpData) {
   return new Promise((resolve, reject) => {
-    authenticModel.signup(signUpData).then((data) => {
+    authenticateModel.signup(signUpData).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -21,7 +21,7 @@ function signup(signUpData) {
 }
 function changePassword(userId, oldPassword, newPassword) {
   return new Promise((resolve, reject) => {
-    authenticModel.changePassword(userId, oldPassword, newPassword).then((data) => {
+    authenticateModel.changePassword(userId, oldPassword, newPassword).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -31,7 +31,7 @@ function changePassword(userId, oldPassword, newPassword) {
 
 function resetPassword(email) {
   return new Promise((resolve, reject) => {
-    authenticModel.resetPassword(email).then((data) => {
+    authenticateModel.resetPassword(email).then((data) => {
       resolve(data);
     }).catch((err) => {
       reject(err);
@@ -39,11 +39,11 @@ function resetPassword(email) {
   });
 }
 
-const authenticService = {
+const authenticateService = {
   authenticate,
   signup,
   changePassword,
   resetPassword,
 };
 
-module.exports = authenticService;
+module.exports = authenticateService;

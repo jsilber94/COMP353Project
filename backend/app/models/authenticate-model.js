@@ -9,6 +9,8 @@ function authenticate(authenticData) {
     db.query(`SELECT * FROM user WHERE email ='${authenticData.email}'`, (error, rows) => {
       if (error) {
         reject(error);
+      } else if (rows.length < 1) {
+        reject(new Error('Email or password do not match'));
       } else {
         bcrypt.compare(authenticData.password, rows[0].password_hash, (err, isMatch) => {
           if (err) {
