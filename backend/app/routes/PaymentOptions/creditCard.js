@@ -6,7 +6,8 @@ function getCreditCardById(req, res) {
   creditCardService.getCreditCardById(creditCardID).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -16,7 +17,8 @@ function getCreditCardByUserId(req, res) {
   creditCardService.getCreditCardByUserId(userId).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -26,7 +28,8 @@ function addCreditCard(req, res) {
   creditCardService.addCreditCard(creditCardData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -36,7 +39,8 @@ function updateCreditCard(req, res) {
   creditCardService.updateCreditCard(id, creditCardData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -45,7 +49,8 @@ function deleteCreditCard(req, res) {
   creditCardService.deleteCreditCard(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 

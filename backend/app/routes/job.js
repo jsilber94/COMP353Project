@@ -24,7 +24,8 @@ function addJob(req, res) {
   jobService.addJob(jobData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -34,7 +35,8 @@ function updateJob(req, res) {
   jobService.updateJob(id, jobData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -43,7 +45,8 @@ function deleteJob(req, res) {
   jobService.deleteJob(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 

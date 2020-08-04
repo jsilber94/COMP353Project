@@ -6,7 +6,8 @@ function getUserById(req, res) {
   userService.getUserById(userID).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -14,7 +15,8 @@ function getAllUsers(req, res) {
   userService.getAllUser().then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -24,7 +26,8 @@ function addUser(req, res) {
   userService.addUser(userData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -34,7 +37,8 @@ function updateUser(req, res) {
   userService.updateUser(id, userData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -43,7 +47,8 @@ function deleteUser(req, res) {
   userService.deleteUser(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -54,7 +59,8 @@ function respondToApplication(req, res) {
   userService.respondToApplication(applicationId, responseToApplication).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -70,7 +76,8 @@ function makeManualPayment(req, res) {
       });
     }
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -84,9 +91,11 @@ function withdrawApplication(req, res) {
       });
     }
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
+
 function init(router) {
   router.route('/user')
     .get(getAllUsers)

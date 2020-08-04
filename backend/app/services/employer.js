@@ -70,6 +70,16 @@ function getJobReport(jobId) {
   });
 }
 
+function dealWithApplication(userId, applicationId, status) {
+  return new Promise((resolve, reject) => {
+    employerModel.dealWithApplication(userId, applicationId, status).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const employerService = {
   getAllEmployer,
   getEmployerById,
@@ -78,6 +88,7 @@ const employerService = {
   deleteEmployer,
   getAppliedJobsReport,
   getJobReport,
+  dealWithApplication,
 };
 
 module.exports = employerService;

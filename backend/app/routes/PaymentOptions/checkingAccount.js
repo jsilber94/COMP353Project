@@ -6,7 +6,8 @@ function getCheckingAccountById(req, res) {
   checkingAccountService.getCheckingAccountById(checkingAccountId).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -16,7 +17,8 @@ function getCheckingAccountByUserId(req, res) {
   checkingAccountService.getCheckingAccountByUserId(userId).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -26,7 +28,8 @@ function addCheckingAccount(req, res) {
   checkingAccountService.addCheckingAccount(checkingAccountData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -36,7 +39,8 @@ function updateCheckingAccount(req, res) {
   checkingAccountService.updateCheckingAccount(id, checkingAccountData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -45,7 +49,8 @@ function deleteCheckingAccount(req, res) {
   checkingAccountService.deleteCheckingAccount(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 

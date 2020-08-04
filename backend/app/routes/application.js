@@ -24,7 +24,8 @@ function addApplication(req, res) {
   applicationService.addApplication(applicationData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -34,7 +35,8 @@ function updateApplication(req, res) {
   applicationService.updateApplication(id, applicationData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -43,7 +45,8 @@ function deleteApplication(req, res) {
   applicationService.deleteApplication(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 

@@ -5,7 +5,8 @@ function getAdminById(req, res) {
   adminService.getAdminById(adminID).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -13,7 +14,8 @@ function getAllAdmin(req, res) {
   adminService.getAllAdmin().then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -23,7 +25,8 @@ function updateAdmin(req, res) {
   adminService.updateAdmin(id, adminData).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -32,7 +35,8 @@ function deleteAdmin(req, res) {
   adminService.deleteAdmin(id).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -41,7 +45,8 @@ function addAdmin(req, res) {
   adminService.addAdmin(adminData).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -49,7 +54,8 @@ function getOutstandingBalanceReport(req, res) {
   adminService.getOutstandingBalanceReport().then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -58,7 +64,8 @@ function getUsersForEmployerReport(req, res) {
   adminService.getUsersForEmployerReport(employerId).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 

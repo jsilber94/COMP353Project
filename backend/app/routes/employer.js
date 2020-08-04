@@ -4,7 +4,8 @@ function getAllEmployers(req, res) {
   employerService.getAllEmployer().then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -14,7 +15,8 @@ function getEmployerById(req, res) {
   employerService.getEmployerById(employerId).then((data) => {
     res.send(data);
   }).catch((err) => {
-    res.send(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -24,7 +26,8 @@ function addEmployer(req, res) {
   employerService.addEmployer(employerData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -34,7 +37,8 @@ function updateEmployer(req, res) {
   employerService.updateEmployer(id, employerData).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -43,7 +47,8 @@ function deleteEmployer(req, res) {
   employerService.deleteEmployer(delId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -53,7 +58,8 @@ function getAppliedJobsReport(req, res) {
   employerService.getAppliedJobsReport(employerId, dates).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -62,7 +68,24 @@ function getJobReport(req, res) {
   employerService.getJobReport(jobId).then((data) => {
     res.json(data);
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
+  });
+}
+
+function dealWithApplication(req, res) {
+  const { userId, applicationId } = req.params;
+  const { status } = req.body;
+  employerService.dealWithApplication(userId, applicationId, status).then((data) => {
+    if (data) {
+      res.json({
+        success: true,
+        message: `Application ${applicationId} has been ${status}.`,
+      });
+    }
+  }).catch((err) => {
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -78,6 +101,8 @@ function init(router) {
     .get(getAppliedJobsReport);
   router.route('/employer/report/job/:id')
     .get(getJobReport);
+  router.route('/employer/user/:userId/application/:applicationId')
+    .patch(dealWithApplication);
 }
 
 module.exports.init = init;

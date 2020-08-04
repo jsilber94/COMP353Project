@@ -11,10 +11,8 @@ function authenticate(req, res) {
       });
     }
   }).catch((err) => {
-    res.json({
-      success: false,
-      message: err.message,
-    });
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -28,7 +26,8 @@ function signup(req, res) {
       });
     }
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -44,7 +43,8 @@ function changePassword(req, res) {
       });
     }
   }).catch((err) => {
-    res.json(err);
+    res.status(400);
+    res.send(err.message);
   });
 }
 
@@ -58,10 +58,8 @@ function resetPassword(req, res) {
       });
     }
   }).catch((err) => {
-    res.json({
-      success: false,
-      message: err.message,
-    });
+    res.status(400);
+    res.send(err.message);
   });
 }
 

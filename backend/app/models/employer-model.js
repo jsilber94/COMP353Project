@@ -108,6 +108,20 @@ function getJobReport(id) {
   });
 }
 
+function dealWithApplication(userId, applicationId, status) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE application set status='${status}' WHERE user_id_fk=${userId} and application_Id='${applicationId}'`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const employerModel = {
   getAllEmployer,
   addEmployer,
@@ -116,6 +130,7 @@ const employerModel = {
   getEmployerById,
   getAppliedJobsReport,
   getJobReport,
+  dealWithApplication,
 };
 
 module.exports = employerModel;
