@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
-import {
-  Button, FormGroup, FormControl, FormLabel,
-} from 'react-bootstrap';
-import axios from 'axios';
+import { Button, FormControl, FormGroup, FormLabel } from 'react-bootstrap';
+import { apiLogin } from '../Api';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  axios()
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-  function authenticate() {
-    return true;
+  const authenticate = () => {
+    apiLogin(email, password)
+      .then((response) => {
+        // Store id
+        // redirect to main screen
+        console.log(response);
+      }).catch((error) => {
+        setErrorMessage(error.message);
+      });
   }
 
   return (
@@ -42,7 +40,7 @@ export default function Login() {
         />
       </FormGroup>
 
-      <Button onClick={authenticate()} type="Submit">Login</Button>
+      <Button onClick={authenticate} type="Submit">Login</Button>
 
     </div>
   );
