@@ -23,16 +23,4 @@ Entity services: app/services
 
 <h3>Endpoints </h3>
 
-`GET /user` 
-
-`POST /user Payload:` fname,lname,category,email,password_hash,balance,date_last_payment,withdrawal_status
-
-`GET /user/userId`
-
-`DELETE /user/userId`
-
-`PUT /user/userId  Payload:` fname,lname,category,email,balance,date_last_payment,withdrawal_status
-
-`PATCH /user/application/applicationId Payload: ` applicationId, responseToApplication(reviewing, accepted, rejected, submitted)
-
-`PATCH /user/payment/userId Payload: ` user_id, balance 
+- [User](endpointMarkDown/user.md) 
