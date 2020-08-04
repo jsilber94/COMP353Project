@@ -31,7 +31,7 @@ function getUserById(id) {
 
 function addUser(user) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO User(fname,lname,category,email,password_hash,balance,date_last_payment,withdrawal_status)VALUES('${user.fname}','${user.lname}','${user.category}','${user.email}','${user.password_hash}',${user.balance},'${user.date_last_payment}','${user.withdrawal_status}')`, (error, rows) => {
+    db.query(`INSERT INTO User(fname,lname,category,email,password_hash,balance,withdrawal_status)VALUES('${user.fname}','${user.lname}','${user.category}','${user.email}','${user.password_hash}',${user.balance},'${user.withdrawal_status}')`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addUser(user) {
 
 function updateUser(id, user) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',password_hash='${user.password_hash}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${id}`, (error, rows) => {
+    db.query(`UPDATE user set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
