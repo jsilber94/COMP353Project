@@ -98,6 +98,19 @@ function makeManualPayment(id, customAmount) {
     });
   });
 }
+function withdrawApplication(userId, applicationId) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE application set status='withdrawed' WHERE user_id_fk=${userId} and application_id=${applicationId}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
 const userModel = {
   getAllUser,
   addUser,
@@ -106,6 +119,7 @@ const userModel = {
   getUserById,
   respondToApplication,
   makeManualPayment,
+  withdrawApplication,
 };
 
 module.exports = userModel;

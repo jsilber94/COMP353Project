@@ -70,6 +70,16 @@ function makeManualPayment(id, customAmount) {
   });
 }
 
+function withdrawApplication(userId, applicationId) {
+  return new Promise((resolve, reject) => {
+    userModel.withdrawApplication(userId, applicationId).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const userService = {
   getAllUser,
   getUserById,
@@ -78,6 +88,7 @@ const userService = {
   deleteUser,
   respondToApplication,
   makeManualPayment,
+  withdrawApplication,
 };
 
 module.exports = userService;

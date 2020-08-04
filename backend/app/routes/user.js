@@ -61,7 +61,7 @@ function respondToApplication(req, res) {
 function makeManualPayment(req, res) {
   const { customAmount } = req.body;
 
-  const userId = req.params.id;
+  const { userId } = req.params;
   userService.makeManualPayment(userId, customAmount).then((data) => {
     if (data) {
       res.json({
@@ -74,6 +74,19 @@ function makeManualPayment(req, res) {
   });
 }
 
+function withdrawApplication(req, res) {
+  const { applicationId, userId } = req.params;
+  userService.withdrawApplication(userId, applicationId).then((data) => {
+    if (data) {
+      res.json({
+        success: true,
+        message: 'Application has been successfully withdrawn from.',
+      });
+    }
+  }).catch((err) => {
+    res.json(err);
+  });
+}
 function init(router) {
   router.route('/user')
     .get(getAllUsers)
@@ -82,9 +95,10 @@ function init(router) {
     .get(getUserById)
     .delete(deleteUser)
     .put(updateUser);
-  router.route('/user/application/:id')
-    .patch(respondToApplication);
-  router.route('/user/payment/:id')
+  router.route('/user/:userId/application/:applicationId')
+    .patch(respondToApplication)
+    .get(withdrawApplication);
+  router.route('/user/payment/:userId')
     .patch(makeManualPayment);
 }
 
