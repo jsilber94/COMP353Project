@@ -3,14 +3,14 @@ import React from 'react';
 import './App.css';
 import { apiURL } from './config/env';
 import Login from './components/Login';
-import Header from './components/header'
+import Header from './components/Header';
 
 function App() {
   axios.defaults.baseURL = apiURL;
 
   return (
     <div className="App">
-      <Header user="alex"/>
+      <Header user="alex" />
       <Login />
     </div>
   );
