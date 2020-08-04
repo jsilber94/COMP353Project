@@ -25,7 +25,8 @@ function mail(messageBody, to, subject) {
       console.log(response);
     }
 
-    // smtpTransport.close();
+    smtpTransport.close();
+    console.log('SMTP connection released');
     // shut down the connection pool, no more messages.
     // Comment this line out to continue sending emails.
   });
