@@ -69,8 +69,8 @@ function resetPassword(userId, oldPassword, newPassword) {
       return bcrypt.compare(oldPassword, rows[0].password_hash, (err, isMatch) => {
         if (err) {
           // eslint-disable-next-line prefer-promise-reject-errors
-          reject(err);
-        } else if (isMatch) {
+          return reject(err);
+        } if (isMatch) {
           return bcrypt.genSalt(10, (err3, salt) => {
             if (err3) {
               return err3;
@@ -81,19 +81,18 @@ function resetPassword(userId, oldPassword, newPassword) {
               }
               // eslint-disable-next-line no-param-reassign
               newPassword = hash;
-              return db.query(`UPDATE user set password_hash='${newPassword}' WHERE user_id=${userId}`, (error4, rows1) => {
+              return db.query(`UPDATE user set password_hash='${newPassword}' WHERE user_id=${userId}`, (error4) => {
                 if (error4) {
                   dbFunc.connectionRelease();
-                  reject(error4);
-                } else {
-                  dbFunc.connectionRelease();
-                  resolve('Password has been changed');
+                  return reject(error4);
                 }
+                dbFunc.connectionRelease();
+                return resolve('Password has been changed');
               });
             });
           });
           // eslint-disable-next-line prefer-promise-reject-errors
-        } else reject({ success: false, message: 'password does not match' });
+        } return reject({ success: false, message: 'password does not match' });
       });
     });
   });
