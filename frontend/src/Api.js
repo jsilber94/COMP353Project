@@ -6,3 +6,8 @@ export function apiLogin(email, password) {
     password,
   });
 }
+
+
+export function apiGetAllJobs(){
+  return axios.get('job')
+}
