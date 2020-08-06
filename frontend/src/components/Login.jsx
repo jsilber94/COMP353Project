@@ -2,28 +2,21 @@ import React, { useState } from 'react';
 import {
   Button, FormControl, FormGroup, FormLabel,
 } from 'react-bootstrap';
-import { Route, Router } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { apiLogin } from '../Api';
 
-export default function Login() {
+// eslint-disable-next-line react/prop-types
+export default function Login({ setLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const newHistory = createBrowserHistory();
-
   const authenticate = () => {
     apiLogin(email, password)
       .then((response) => {
-        // Store id
-        // redirect to main screen
-        console.log(response);
-        return (
-          <Router history={newHistory}>
-            <Route path="/home" />
-          </Router>
-        );
+        if (response.data.success) {
+          setLogin(true);
+        }
+        setErrorMessage(response.data.message);
       }).catch((error) => {
         setErrorMessage(error.message);
         console.log(errorMessage);

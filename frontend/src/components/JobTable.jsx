@@ -6,7 +6,7 @@ export default function Jobs() {
   const jobUrl = 'http://localhost:9891/job';
 
   axios.get(jobUrl).then((data) => {
-    setJobs(data.json());
+    setJobs(data);
   });
 
   function createTableRow(job) {
