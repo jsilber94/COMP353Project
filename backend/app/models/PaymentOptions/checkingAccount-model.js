@@ -3,7 +3,7 @@ const dbFunc = require('../../../config/db-function');
 
 function getCheckingAccountById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM checkingAccount WHERE checkingAccount_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM CheckingAccount WHERE checkingAccount_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -17,7 +17,7 @@ function getCheckingAccountById(id) {
 
 function getCheckingAccountByUserId(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM checkingAccount WHERE user_id_fk =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM CheckingAccount WHERE user_id_fk =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addCheckingAccount(checkingAccount) {
 
 function updateCheckingAccount(id, checkingAccount) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE checkingAccount set default_option=${checkingAccount.defaultOption} WHERE checkingAccount_id=${id}`, (error, rows) => {
+    db.query(`UPDATE CheckingAccount set default_option=${checkingAccount.defaultOption} WHERE checkingAccount_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateCheckingAccount(id, checkingAccount) {
 
 function deleteCheckingAccount(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM checkingAccount WHERE checkingAccount_id=${id}`, (error, rows) => {
+    db.query(`DELETE FROM CheckingAccount WHERE checkingAccount_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

@@ -6,7 +6,7 @@ const mailer = require('../../common/mailer');
 
 function authenticate(authenticData) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user WHERE email ='${authenticData.email}'`, (error, rows) => {
+    db.query(`SELECT * FROM User WHERE email ='${authenticData.email}'`, (error, rows) => {
       if (error) {
         reject(error);
       } else if (rows.length < 1) {
@@ -39,7 +39,7 @@ function signup(user) {
         }
         // eslint-disable-next-line no-param-reassign
         user.password_hash = hash;
-        return db.query(`SELECT * FROM user WHERE email='${user.email}'`, (error, rows) => {
+        return db.query(`SELECT * FROM User WHERE email='${user.email}'`, (error, rows) => {
           if (error) {
             dbFunc.connectionRelease();
             reject(error);
@@ -66,7 +66,7 @@ function signup(user) {
 
 function changePassword(userId, oldPassword, newPassword) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT password_hash FROM user WHERE user_id =${userId}`, (error, rows) => {
+    db.query(`SELECT password_hash FROM User WHERE user_id =${userId}`, (error, rows) => {
       if (error) {
         return reject(error);
       }
@@ -85,7 +85,7 @@ function changePassword(userId, oldPassword, newPassword) {
               }
               // eslint-disable-next-line no-param-reassign
               newPassword = hash;
-              return db.query(`UPDATE user set password_hash='${newPassword}' WHERE user_id=${userId}`, (error4) => {
+              return db.query(`UPDATE User set password_hash='${newPassword}' WHERE user_id=${userId}`, (error4) => {
                 if (error4) {
                   dbFunc.connectionRelease();
                   return reject(error4);
@@ -103,7 +103,7 @@ function changePassword(userId, oldPassword, newPassword) {
 }
 
 function resetPassword(email) {
-  return new Promise((resolve, reject) => db.query(`SELECT * FROM user WHERE email='${email}'`, (error, rows) => {
+  return new Promise((resolve, reject) => db.query(`SELECT * FROM User WHERE email='${email}'`, (error, rows) => {
     if (rows.length > 0 && rows[0]) {
       mailer.mail('Reset your email here: ', email, 'Password reset');
       resolve('Reset email sent!');

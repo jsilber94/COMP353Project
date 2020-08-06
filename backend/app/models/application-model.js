@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllApplication() {
   return new Promise((resolve, reject) => {
-    db.query('select * from application', (error, rows) => {
+    db.query('select * from Application', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -17,7 +17,7 @@ function getAllApplication() {
 
 function getApplicationById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM application WHERE application_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM Application WHERE application_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addApplication(application) {
 
 function updateApplication(id, application) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='${application.status}' WHERE application_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE Application set status='${application.status}' WHERE application_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateApplication(id, application) {
 
 function deleteApplication(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM application WHERE application_id='${id}'`, (error, rows) => {
+    db.query(`DELETE FROM Application WHERE application_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

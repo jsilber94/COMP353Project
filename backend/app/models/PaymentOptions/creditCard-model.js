@@ -3,7 +3,7 @@ const dbFunc = require('../../../config/db-function');
 
 function getCreditCardById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM creditCard WHERE CreditCard_id=${id}`, (error, rows) => {
+    db.query(`SELECT * FROM CreditCard WHERE CreditCard_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -17,7 +17,7 @@ function getCreditCardById(id) {
 
 function getCreditCardByUserId(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM creditCard WHERE user_id_fk=${id}`, (error, rows) => {
+    db.query(`SELECT * FROM CreditCard WHERE user_id_fk=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addCreditCard(creditCard) {
 
 function updateCreditCard(id, creditCard) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE creditCard set default_option=${creditCard.defaultOption}, expirary_date=${creditCard.expiry_date}, pin='${creditCard.pin}' WHERE creditCard_id=${id}`, (error, rows) => {
+    db.query(`UPDATE CreditCard set default_option=${creditCard.defaultOption}, expirary_date=${creditCard.expiry_date}, pin='${creditCard.pin}' WHERE creditCard_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateCreditCard(id, creditCard) {
 
 function deleteCreditCard(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM creditCard WHERE creditCard_id=${id}`, (error, rows) => {
+    db.query(`DELETE FROM CreditCard WHERE creditCard_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

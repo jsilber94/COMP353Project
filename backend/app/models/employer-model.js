@@ -17,7 +17,7 @@ function getAllEmployer() {
 
 function getEmployerById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM employer WHERE employer_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM Employer WHERE employer_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addEmployer(employer) {
 
 function updateEmployer(id, employer) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE employer set fname='${employer.fname}',lname='${employer.lname}',category='${employer.category}',email='${employer.email}',password_hash='${employer.password_hash}',balance='${employer.balance}',date_last_payment='${employer.date_last_payment}',withdrawal_status='${employer.withdrawal_status}' WHERE employer_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE Employer set fname='${employer.fname}',lname='${employer.lname}',category='${employer.category}',email='${employer.email}',password_hash='${employer.password_hash}',balance='${employer.balance}',date_last_payment='${employer.date_last_payment}',withdrawal_status='${employer.withdrawal_status}' WHERE employer_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateEmployer(id, employer) {
 
 function deleteEmployer(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM employer WHERE employer_id='${id}'`, (error, rows) => {
+    db.query(`DELETE FROM Employer WHERE employer_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -74,7 +74,7 @@ function deleteEmployer(id) {
 function getAppliedJobsReport(id, dates) {
   return new Promise((resolve, reject) => {
     db.query(`select substring(description, 1, 50), title, date_applied, status
-    from application, job, employer
+    from Application, Job, Employer
     where date_applied between '${dates.startDate}' and '${dates.endDate}'
     and application.employer_id_fk = employer.Employer_id 
     and employer_id=${id}
@@ -93,7 +93,7 @@ function getAppliedJobsReport(id, dates) {
 function getJobReport(id) {
   return new Promise((resolve, reject) => {
     db.query(`select title, description, date_posted, status
-    from application, job, user  
+    from Application, Job, User  
     where application.job_id_fk = job.job_id 
     and application.job_id_fk = user.user_id
     and job_id = ${id}`, (error, rows) => {
@@ -110,7 +110,7 @@ function getJobReport(id) {
 
 function dealWithApplication(userId, applicationId, status) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='${status}' WHERE user_id_fk=${userId} and application_Id='${applicationId}'`, (error, rows) => {
+    db.query(`UPDATE Application set status='${status}' WHERE user_id_fk=${userId} and application_Id='${applicationId}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

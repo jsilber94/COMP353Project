@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllJob() {
   return new Promise((resolve, reject) => {
-    db.query('select * from job', (error, rows) => {
+    db.query('select * from Job', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -17,7 +17,7 @@ function getAllJob() {
 
 function getJobById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM job WHERE job_id =${id}`, (error, rows) => {
+    db.query(`SELECT * FROM Job WHERE job_id =${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -45,7 +45,7 @@ function addJob(job) {
 
 function updateJob(id, job) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE job set title='${job.title}',description='${job.description}' WHERE job_id='${id}'`, (error, rows) => {
+    db.query(`UPDATE Job set title='${job.title}',description='${job.description}' WHERE job_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateJob(id, job) {
 
 function deleteJob(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM job WHERE job_id='${id}'`, (error, rows) => {
+    db.query(`DELETE FROM Job WHERE job_id='${id}'`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

@@ -45,7 +45,7 @@ function addAdmin(admin) {
 
 function updateAdmin(id, admin) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE admin set email='${admin.email}',password_hash='${admin.password_hash}' WHERE admin_id=${id}`, (error, rows) => {
+    db.query(`UPDATE Admin set email='${admin.email}',password_hash='${admin.password_hash}' WHERE admin_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -59,7 +59,7 @@ function updateAdmin(id, admin) {
 
 function deleteAdmin(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM admin WHERE admin_id=${id}`, (error, rows) => {
+    db.query(`DELETE FROM Admin WHERE admin_id=${id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -73,7 +73,7 @@ function deleteAdmin(id) {
 
 function getOutstandingBalanceReport() {
   return new Promise((resolve, reject) => {
-    db.query('(select fname, lname, email, balance, date_last_payment as \'owing since\' from user where (user.account_status = \'frozen\' || user.account_status = \'deactivated\'))union (select fname, lname, email, balance, date_last_payment as \'owing since\'  from employer where (employer.account_status = \'frozen\' || employer.account_status = \'deactivated\')) order by fname', (error, rows) => {
+    db.query('(select fname, lname, email, balance, date_last_payment as \'owing since\' from User where (user.account_status = \'frozen\' || user.account_status = \'deactivated\'))union (select fname, lname, email, balance, date_last_payment as \'owing since\'  from employer where (employer.account_status = \'frozen\' || employer.account_status = \'deactivated\')) order by fname', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -87,7 +87,7 @@ function getOutstandingBalanceReport() {
 
 function getUsersForEmployerReport(id) {
   return new Promise((resolve, reject) => {
-    db.query(`select user.fname, user.lname, user.category, user.email, user.balance, user.account_status from user, employer, application where Employer_id = ${id} and Employer_id = application.employer_id_fk and user_id = application.user_id_fk`, (error, rows) => {
+    db.query(`select user.fname, user.lname, user.category, user.email, user.balance, user.account_status from User, employer, application where Employer_id = ${id} and Employer_id = application.employer_id_fk and user_id = application.user_id_fk`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
