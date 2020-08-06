@@ -4,28 +4,45 @@ import './App.css';
 import {
   BrowserRouter as Router, Route, Switch, Redirect,
 } from 'react-router-dom';
-import {  deployedUrl } from './config/env';
-import Hello from './components/Hello';
+
+import { NavLink } from 'react-bootstrap';
+import { apiURL } from './config/env';
+
 import Login from './components/Login';
-import JobTable from './components/Jobs'
+// import JobTable from './components/Jobs';
+import SignUp from './components/SignUp';
 
 function App() {
-  axios.defaults.baseURL = deployedUrl;
+  axios.defaults.baseURL = apiURL;
   const [isLoggedIn, setLogin] = useState(false);
 
   return (
-    <div className="App">
-      <JobTable />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            {isLoggedIn ? <Redirect to="/test" /> : <Login setLogin={setLogin} />}
-          </Route>
-          <Route path="/test">
-            <Hello />
-          </Route>
-        </Switch>
-      </Router>
+    <div>
+
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              {isLoggedIn ? <Redirect to="/test" /> : <Login setLogin={setLogin} />}
+
+              <span className="input-group-btn">
+                <NavLink to="/signup" href="/signup">
+                  Sign Up
+                </NavLink>
+              </span>
+            </Route>
+
+            <Route exact path="/signup">
+              <SignUp />
+            </Route>
+
+            <Route path="/test" />
+
+          </Switch>
+
+        </Router>
+      </div>
+
     </div>
   );
 }

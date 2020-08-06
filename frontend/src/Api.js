@@ -8,6 +8,15 @@ export function apiLogin(email, password) {
 }
 
 
-export function apiGetAllJobs(){
+export function apiGetAllJobs() {
   return axios.get('job')
+}
+
+export function apiSignUp(email, password, fname, lname) {
+  return axios.post('signup', {
+    email,
+    password,
+    fname,
+    lname,
+  })
 }
