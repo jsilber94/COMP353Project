@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, FormControl, FormGroup, FormLabel } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, FormLabel, Card } from 'react-bootstrap';
 import { useHistory } from "react-router-dom";
 import { apiSignUp } from '../../Api';
 import { loginRedux } from '../../store/action/auth';
 import { useDispatch } from 'react-redux';
+import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
 export default function SignUp() {
@@ -31,43 +32,46 @@ export default function SignUp() {
 
   return (
     <div className="SignUp">
+      <AuthHeader />
+      <Card style={{ width: '50%', padding: '10%', margin: 'auto', marginTop: '2%' }}>
+        <FormGroup controlId="email">
+          <FormLabel>Email</FormLabel>
+          <FormControl
+            autoFocus
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </FormGroup>
 
-      <FormGroup controlId="email">
-        <FormLabel>Email</FormLabel>
-        <FormControl
-          autoFocus
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </FormGroup>
+        <FormGroup controlId="password">
+          <FormLabel>Password</FormLabel>
+          <FormControl
+            value={password}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup controlId="fname">
+          <FormLabel>First Name</FormLabel>
+          <FormControl
+            value={fname}
+            type="text"
+            onChange={(e) => setfName(e.target.value)}
+          />
+        </FormGroup>
+        <FormGroup controlId="lname">
+          <FormLabel>Last Name</FormLabel>
+          <FormControl
+            value={lname}
+            type="text"
+            onChange={(e) => setlName(e.target.value)}
+          />
+        </FormGroup>
 
-      <FormGroup controlId="password">
-        <FormLabel>Password</FormLabel>
-        <FormControl
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </FormGroup>
-      <FormGroup controlId="fname">
-        <FormLabel>First Name</FormLabel>
-        <FormControl
-          value={fname}
-          type="text"
-          onChange={(e) => setfName(e.target.value)}
-        />
-      </FormGroup>
-      <FormGroup controlId="lname">
-        <FormLabel>Last Name</FormLabel>
-        <FormControl
-          value={lname}
-          type="text"
-          onChange={(e) => setlName(e.target.value)}
-        />
-      </FormGroup>
+        <Button onClick={signup} type="Submit">Sign Up</Button>
+      </Card>
 
-      <Button onClick={signup} type="Submit">Sign Up</Button>
 
     </div>
   );

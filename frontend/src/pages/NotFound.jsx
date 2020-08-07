@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
@@ -16,11 +16,13 @@ function NotFound(props) {
     }
 
     return (
-        <div>
-            404 - This page doesn't exist!
+        <Card style={{ width: '50%', padding: '10%', margin: 'auto', marginTop: '2%' }}>
+            <div>
+                404 - This page doesn't exist!
             <br />
-            <Button onClick={returnToHome}>Return to home!</Button>
-        </div>
+                <Button style={{ marginTop: '2%' }} onClick={returnToHome}>Return to home!</Button>
+            </div>
+        </Card>
     );
 }
 

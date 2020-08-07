@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, FormControl, FormGroup, FormLabel } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, FormLabel, Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { apiLogin } from '../../Api';
 import { loginRedux } from '../../store/action/auth';
+import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
 export default function Login() {
@@ -28,41 +29,31 @@ export default function Login() {
       });
   };
 
-  const navigateToSignUp = () => {
-    history.push("/signup")
-  }
-
-  const navigateToForgotPassword = () => {
-    history.push("/forgot")
-  }
-
   return (
-    <div className="Login">
-      <Button onClick={navigateToSignUp}>Signup</Button>
+    <div>
+      <AuthHeader />
+      <Card style={{ width: '50%', padding: '10%', margin: 'auto', marginTop: '2%' }}>
+        <FormGroup controlId="email">
+          <FormLabel>Email</FormLabel>
+          <FormControl
+            autoFocus
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </FormGroup>
 
-      <FormGroup controlId="email">
-        <FormLabel>Email</FormLabel>
-        <FormControl
-          autoFocus
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </FormGroup>
+        <FormGroup controlId="password">
+          <FormLabel>Password</FormLabel>
+          <FormControl
+            value={password}
+            type="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FormGroup>
 
-      <FormGroup controlId="password">
-        <FormLabel>Password</FormLabel>
-        <FormControl
-          value={password}
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </FormGroup>
-
-      <Button onClick={authenticate} type="Submit">Login</Button>
-
-      <Button onClick={navigateToForgotPassword} >Forgot Password</Button>
-
+        <Button onClick={authenticate} type="Submit">Login</Button>
+      </Card>
     </div>
   );
 }
