@@ -16,6 +16,7 @@ export default function SignUp({ setSignUp }) {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
+          const user =  response.data.data
           setSignUp(true);
         }
         setErrorMessage(response.data.message);

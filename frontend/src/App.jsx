@@ -15,6 +15,7 @@ import SignUp from './components/SignUp';
 function App() {
   axios.defaults.baseURL = apiURL;
   const [isLoggedIn, setLogin] = useState(false);
+  const [isSignedUp, setSignUp] = useState(false);
 
   return (
     <div>
@@ -33,7 +34,7 @@ function App() {
             </Route>
 
             <Route exact path="/signup">
-              <SignUp />
+            {isSignedUp ? <Redirect to="/test" /> :  <SignUp setSignUp={setSignUp} />}
             </Route>
 
             <Route path="/test" />
