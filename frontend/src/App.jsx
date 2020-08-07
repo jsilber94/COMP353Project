@@ -10,12 +10,14 @@ import './App.css';
 import IndexRouter from './components/router/IndexRouter';
 import { apiURL } from './config/env';
 import authenticationReducer from './store/reducers/auth';
+import jesseReducer from './store/reducers/jesse';
 
 export const history = createBrowserHistory({ basename: '/' });
 
 
 const reducer = (history) => combineReducers({
   authenticationReducer,
+  jesseReducer,
   router: connectRouter(history),
 });
 

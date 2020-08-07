@@ -32,3 +32,16 @@ export function apiUpdateUser(user_id, fname, lname, category, email, balance, d
     withdrawal_status,
   })
 }
+
+export function apiUpdateUser(user_id, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
+  return axios.put('user/id:', {
+    user_id,
+    fname,
+    lname,
+    category,
+    email,
+    balance,
+    date_last_payment,
+    withdrawal_status,
+  })
+}
