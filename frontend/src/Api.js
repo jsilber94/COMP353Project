@@ -19,3 +19,7 @@ export function apiSignUp(email, password, fname, lname) {
     lname,
   })
 }
+
+export function apiForgotPassword(email) {
+  return axios.get('/password/user/reset/' + email);
+}

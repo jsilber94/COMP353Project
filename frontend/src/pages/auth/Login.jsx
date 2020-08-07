@@ -32,6 +32,10 @@ export default function Login() {
     history.push("/signup")
   }
 
+  const navigateToForgotPassword = () => {
+    history.push("/forgot")
+  }
+
   return (
     <div className="Login">
       <Button onClick={navigateToSignUp}>Signup</Button>
@@ -56,6 +60,8 @@ export default function Login() {
       </FormGroup>
 
       <Button onClick={authenticate} type="Submit">Login</Button>
+
+      <Button onClick={navigateToForgotPassword} >Forgot Password</Button>
 
     </div>
   );
