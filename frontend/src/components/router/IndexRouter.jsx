@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import AdminRouter from './AdminRouter';
 import AuthRouter from './AuthRouter';
+import JobTable from '../Jobs';
 
 // eslint-disable-next-line react/prop-types
 export default function IndexRouter() {
@@ -21,6 +22,7 @@ export default function IndexRouter() {
 
     return (
         <div>
+            <JobTable/> 
             {router}
         </div>
     );
