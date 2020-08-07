@@ -58,7 +58,7 @@ export default function SignUp() {
         />
       </FormGroup>
       <FormGroup controlId="lname">
-        <FormLabel>Password</FormLabel>
+        <FormLabel>Last Name</FormLabel>
         <FormControl
           value={lname}
           type="text"
