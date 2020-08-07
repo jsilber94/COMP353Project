@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
-import {
-  Button, FormControl, FormGroup, FormLabel,
-} from 'react-bootstrap';
-import { apiLogin } from '../Api';
+import { Button, FormControl, FormGroup, FormLabel } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { useHistory } from "react-router-dom";
+import { apiLogin } from '../../Api';
+import { loginRedux } from '../../store/action/auth';
 
 // eslint-disable-next-line react/prop-types
-export default function Login({ setLogin }) {
+export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const authenticate = () => {
     apiLogin(email, password)
       .then((response) => {
         if (response.data.success) {
-          setLogin(true);
+          dispatch(loginRedux(response.data.user.role, response.data.user.user_id));
+          history.push("/dashboard");
+        } else {
+          setErrorMessage(response.data.message);
         }
-        setErrorMessage(response.data.message);
       }).catch((error) => {
         setErrorMessage(error.message);
         console.log(errorMessage);

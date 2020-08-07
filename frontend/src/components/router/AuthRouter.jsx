@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from '../auth/Login';
+import Login from '../../pages/auth/Login';
+import SignUp from '../../pages/auth/SignUp';
 
 export default function AuthRouter() {
 
@@ -8,6 +9,9 @@ export default function AuthRouter() {
         <Switch>
             <Route exact path="/">
                 <Login />
+            </Route>
+            <Route exact path="/signup">
+                <SignUp />
             </Route>
         </Switch>
     );

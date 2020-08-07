@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   Button, FormControl, FormGroup, FormLabel,
 } from 'react-bootstrap';
-import { apiSignUp } from '../Api';
+import { apiSignUp } from '../../Api';
 
 // eslint-disable-next-line react/prop-types
 export default function SignUp({ setSignUp }) {
@@ -16,7 +16,7 @@ export default function SignUp({ setSignUp }) {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
-          const user =  response.data.data
+          const user = response.data.data
           setSignUp(true);
         }
         setErrorMessage(response.data.message);

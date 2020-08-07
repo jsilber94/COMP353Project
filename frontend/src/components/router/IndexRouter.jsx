@@ -8,10 +8,12 @@ export default function IndexRouter() {
 
     const isLoggedIn = useSelector(state => state.authenticationReducer.isLoggedIn);
 
+    const role = useSelector(state => state.authenticationReducer.role);
+
     let router = null;
 
     if (isLoggedIn) {
-        //TODO: Get role and select appropriate router for type of user
+        //TODO: Select appropriate router for type of user
         router = <AdminRouter></AdminRouter>;
     } else {
         router = <AuthRouter></AuthRouter>
