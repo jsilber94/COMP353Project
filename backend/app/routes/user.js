@@ -33,7 +33,7 @@ function addUser(req, res) {
 
 function updateUser(req, res) {
   const userData = req.body;
-  const { id } = req.params.id;
+  const { id } = req.params;
   userService.updateUser(id, userData).then((data) => {
     res.json(data);
   }).catch((err) => {
