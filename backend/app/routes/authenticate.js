@@ -3,11 +3,11 @@ const authenticateService = require('../services/authenticate');
 function authenticate(req, res) {
   const authenticData = req.body;
 
-  authenticateService.authenticate(authenticData).then((data) => {
-    if (data) {
+  authenticateService.authenticate(authenticData).then((user) => {
+    if (user) {
       res.json({
         success: true,
-        data,
+        user,
       });
     }
   }).catch((err) => {
