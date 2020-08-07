@@ -19,3 +19,16 @@ export function apiSignUp(email, password, fname, lname) {
     lname,
   })
 }
+
+//these are all the fields necessary for the put
+export function apiUpdateUser(user_id, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
+  return axios.patch('user/id:', {
+    user_id,
+    fname,
+    lname,
+    email,
+    balance,
+    date_last_payment,
+    withdrawal_status,
+  })
+}
