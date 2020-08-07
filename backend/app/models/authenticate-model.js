@@ -22,6 +22,12 @@ function authenticate(authenticData) {
             user2.fname = rows[0].fname;
             user2.lname = rows[0].lname;
 
+            user2.account_status = rows[0].account_status;
+            user2.balance = rows[0].balance;
+            user2.category = rows[0].category;
+            user2.date_last_payment = rows[0].date_last_payment;
+
+            user2.withdrawal_status = rows[0].withdrawal_status;
             resolve(user2);
           } else {
             // eslint-disable-next-line prefer-promise-reject-errors
