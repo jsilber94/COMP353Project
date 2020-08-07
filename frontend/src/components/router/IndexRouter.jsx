@@ -22,7 +22,6 @@ export default function IndexRouter() {
 
     return (
         <div>
-            <JobTable/> 
             {router}
         </div>
     );
