@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Button, FormControl, FormGroup, FormLabel } from 'react-bootstrap';
+import { Button, FormControl, FormGroup, FormLabel, Card } from 'react-bootstrap';
 import { isEmail } from '../../utilities/isEmail';
 import { apiForgotPassword } from '../../Api';
+import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
 export default function ForgotPassword() {
@@ -29,22 +30,25 @@ export default function ForgotPassword() {
 
     return (
         <div>
-            <div className="ForgotPassword">
-                {!email.isValid ? 'Invalid email!' : ''}
-                <FormGroup controlId="email">
-                    <FormLabel>Email</FormLabel>
-                    <FormControl
-                        autoFocus
-                        type="email"
-                        value={email.value}
-                        onChange={(e) => emailOnChange(e.target.value)}
-                    />
-                </FormGroup>
-                <Button onClick={sendEmail}>Send Reset Password Email!</Button>
-            </div>
-            <div>
-                {response}
-            </div>
+            <AuthHeader />
+            <Card style={{ width: '50%', padding: '10%', margin: 'auto', marginTop: '2%' }}>
+                <div className="ForgotPassword">
+                    {!email.isValid ? 'Invalid email!' : ''}
+                    <FormGroup controlId="email">
+                        <FormLabel>Email</FormLabel>
+                        <FormControl
+                            autoFocus
+                            type="email"
+                            value={email.value}
+                            onChange={(e) => emailOnChange(e.target.value)}
+                        />
+                    </FormGroup>
+                    <Button onClick={sendEmail}>Send Reset Password Email!</Button>
+                </div>
+                <div>
+                    {response}
+                </div>
+            </Card>
         </div>
 
     );
