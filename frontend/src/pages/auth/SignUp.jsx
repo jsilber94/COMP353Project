@@ -19,9 +19,9 @@ export default function SignUp() {
       .then((response) => {
         if (response.data.success) {
           const user = response.data.data
-          history.push("/login");
           dispatch(jesseRedux(response.data.data));
           dispatch(loginRedux(response.data.data.role, response.data.data.user_id));
+          history.push("/dashboard");
         }
         setErrorMessage(response.data.message);
       }).catch((error) => {
