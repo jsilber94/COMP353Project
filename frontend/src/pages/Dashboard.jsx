@@ -1,8 +1,11 @@
 import React from 'react';
+import Header from '../components/layout/Header'
 
 function Dashboard(props) {
     return (
-        <div>Hello Dashboard!</div>
+        <div>
+            <Header></Header>
+        </div>
     );
 }
 

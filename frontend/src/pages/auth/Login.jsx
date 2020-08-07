@@ -28,8 +28,13 @@ export default function Login() {
       });
   };
 
+  const navigateToSignUp = () => {
+    history.push("/signup")
+  }
+
   return (
     <div className="Login">
+      <Button onClick={navigateToSignUp}>Signup</Button>
 
       <FormGroup controlId="email">
         <FormLabel>Email</FormLabel>
