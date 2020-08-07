@@ -45,7 +45,7 @@ function addUser(user) {
 
 function updateUser(id, user) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${id}`, (error, rows) => {
+    db.query(`UPDATE User set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${user.id}`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
