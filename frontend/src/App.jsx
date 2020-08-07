@@ -1,31 +1,38 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import './App.css';
-import {
-  BrowserRouter as Router, Route, Switch, Redirect,
-} from 'react-router-dom';
-import {  deployedUrl } from './config/env';
-import Hello from './components/Hello';
-import Login from './components/Login';
-import JobTable from './components/Jobs'
+import IndexRouter from './components/router/IndexRouter';
+import { apiURL } from './config/env';
+import authenticationReducer from './store/reducers/auth';
+
+export const history = createBrowserHistory({ basename: '/' });
+
+
+const reducer = (history) => combineReducers({
+  authenticationReducer,
+  router: connectRouter(history),
+});
+
+const store = createStore(reducer(history), applyMiddleware(ReduxThunk, routerMiddleware(history)));
 
 function App() {
-  axios.defaults.baseURL = deployedUrl;
-  const [isLoggedIn, setLogin] = useState(false);
+  axios.defaults.baseURL = apiURL;
 
   return (
     <div className="App">
-      <JobTable />
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            {isLoggedIn ? <Redirect to="/test" /> : <Login setLogin={setLogin} />}
-          </Route>
-          <Route path="/test">
-            <Hello />
-          </Route>
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <BrowserRouter>
+            <IndexRouter />
+          </BrowserRouter>
+        </ConnectedRouter>
+      </Provider>
     </div>
   );
 }
