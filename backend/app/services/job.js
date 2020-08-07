@@ -40,6 +40,16 @@ function getAllJob() {
   });
 }
 
+function getJobsByCategory(){
+  return new Promise((resolve, reject) => {
+    jobModel.getJobsByCategory().then((data) =>{
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    })
+  })
+}
+
 function getJobById(id) {
   return new Promise((resolve, reject) => {
     jobModel.getJobById(id).then((data) => {
@@ -56,6 +66,7 @@ const jobService = {
   addJob,
   updateJob,
   deleteJob,
+  getJobsByCategory,
 };
 
 module.exports = jobService;

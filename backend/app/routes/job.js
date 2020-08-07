@@ -8,6 +8,14 @@ function getAllJobs(req, res) {
   });
 }
 
+function getJobsByCategory(req, res){
+  jobService.getJobsByCategory().then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.send(err)
+  })
+}
+
 function getJobById(req, res) {
   const jobId = req.params.id;
 
@@ -58,6 +66,8 @@ function init(router) {
     .get(getJobById)
     .delete(deleteJob)
     .put(updateJob);
+  router.route('/job/category/:category')
+    .get(getJobsByCategory)
 }
 
 module.exports.init = init;

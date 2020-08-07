@@ -15,6 +15,20 @@ function getAllJob() {
   });
 }
 
+function getJobsByCategory(){
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM Job WHERE job_category =${job_category}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 function getJobById(id) {
   return new Promise((resolve, reject) => {
     db.query(`SELECT * FROM Job WHERE job_id =${id}`, (error, rows) => {
@@ -77,6 +91,7 @@ const jobModel = {
   updateJob,
   deleteJob,
   getJobById,
+  getJobsByCategory,
 };
 
 module.exports = jobModel;
