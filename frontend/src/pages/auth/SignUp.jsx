@@ -19,7 +19,7 @@ export default function SignUp() {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
-          dispatch(loginRedux(response.data.data.role, response.data.data.user_id));
+          dispatch(loginRedux(response.data.data.category, response.data.data.user_id));
           history.push("/dashboard");
         }
         setErrorMessage(response.data.message);
