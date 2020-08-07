@@ -1,49 +1,38 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import './App.css';
-import {
-  BrowserRouter as Router, Route, Switch, Redirect,
-} from 'react-router-dom';
-
-import { NavLink } from 'react-bootstrap';
+import IndexRouter from './components/router/IndexRouter';
 import { apiURL } from './config/env';
+import authenticationReducer from './store/reducers/auth';
 
-import Login from './components/Login';
-// import JobTable from './components/Jobs';
-import SignUp from './components/SignUp';
+export const history = createBrowserHistory({ basename: '/' });
+
+
+const reducer = (history) => combineReducers({
+  authenticationReducer,
+  router: connectRouter(history),
+});
+
+const store = createStore(reducer(history), applyMiddleware(ReduxThunk, routerMiddleware(history)));
 
 function App() {
   axios.defaults.baseURL = apiURL;
-  const [isLoggedIn, setLogin] = useState(false);
-  const [isSignedUp, setSignUp] = useState(false);
 
   return (
-    <div>
-
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              {isLoggedIn ? <Redirect to="/test" /> : <Login setLogin={setLogin} />}
-
-              <span className="input-group-btn">
-                <NavLink to="/signup" href="/signup">
-                  Sign Up
-                </NavLink>
-              </span>
-            </Route>
-
-            <Route exact path="/signup">
-            {isSignedUp ? <Redirect to="/test" /> :  <SignUp setSignUp={setSignUp} />}
-            </Route>
-
-            <Route path="/test" />
-
-          </Switch>
-
-        </Router>
-      </div>
-
+    <div className="App">
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <BrowserRouter>
+            <IndexRouter />
+          </BrowserRouter>
+        </ConnectedRouter>
+      </Provider>
     </div>
   );
 }
