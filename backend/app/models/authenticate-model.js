@@ -16,7 +16,13 @@ function authenticate(authenticData) {
           if (err) {
             reject(error);
           } else if (isMatch) {
-            resolve(`Logged in user:${authenticData.email}`);
+            const user2 = {};
+            user2.user_id = rows[0].user_id;
+            user2.email = rows[0].email;
+            user2.fname = rows[0].fname;
+            user2.lname = rows[0].lname;
+
+            resolve(user2);
           } else {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'password does not match' });
@@ -48,13 +54,13 @@ function signup(user) {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'User already exists. Please try with a different email' });
           } else {
-            db.query(`INSERT INTO User(fname,lname,email,password_hash)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}')`, (error2, rows2) => {
+            db.query(`INSERT INTO User(fname,lname,email,password_hash)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}')`, (error2) => {
               if (error2) {
                 dbFunc.connectionRelease();
                 reject(error2);
               } else {
                 dbFunc.connectionRelease();
-                resolve(rows2);
+                resolve(authenticate(user));
               }
             });
           }
