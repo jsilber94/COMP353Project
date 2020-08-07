@@ -16,7 +16,13 @@ function authenticate(authenticData) {
           if (err) {
             reject(error);
           } else if (isMatch) {
-            resolve(`Logged in user:${authenticData.email}`);
+            const user2 = {};
+            user2.user_id = rows[0].user_id;
+            user2.email = rows[0].email;
+            user2.fname = rows[0].fname;
+            user2.lname = rows[0].lname;
+
+            resolve(user2);
           } else {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'password does not match' });
