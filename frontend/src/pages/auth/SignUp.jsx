@@ -2,22 +2,24 @@ import React, { useState } from 'react';
 import {
   Button, FormControl, FormGroup, FormLabel,
 } from 'react-bootstrap';
-import { apiSignUp } from '../Api';
+import { apiSignUp } from '../../Api';
+import { useHistory } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export default function SignUp({ setSignUp }) {
+export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fname, setfName] = useState('');
   const [lname, setlName] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const history = useHistory();
 
   const signup = () => {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
-          const user =  response.data.data
-          setSignUp(true);
+          const user = response.data.data
+          history.push("/login");
         }
         setErrorMessage(response.data.message);
       }).catch((error) => {
