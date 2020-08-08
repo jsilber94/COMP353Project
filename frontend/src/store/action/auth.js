@@ -11,3 +11,11 @@ export const logoutRedux = () => {
     type: 'LOGOUT',
   };
 };
+
+export const userRedux = (isAdmin,id) => {
+  return {
+    type: 'USER',
+    isAdmin,
+    id,
+  };
+};

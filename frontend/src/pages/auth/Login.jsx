@@ -3,7 +3,7 @@ import { Button, FormControl, FormGroup, FormLabel, Card } from 'react-bootstrap
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { apiLogin } from '../../Api';
-import { loginRedux } from '../../store/action/auth';
+import { loginRedux, userRedux } from '../../store/action/auth';
 import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
@@ -18,12 +18,12 @@ export default function Login() {
     apiLogin(email, password)
       .then((response) => {
         if (response.data.success) {
-          dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
-
           if (response.data.user.isAdmin == 1) {
-            history.push("/adminDashboard");
+            dispatch(userRedux(response.data.user.isAdmin, response.data.user.user_id));
+            history.push("/adminDashboard")
           }
           else if (response.data.user.isAdmin == 0) {
+            dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
             history.push("/dashboard");
           }
         } else {

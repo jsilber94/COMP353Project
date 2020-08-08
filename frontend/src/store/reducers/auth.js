@@ -12,6 +12,13 @@ const authenticationReducer = (state = initialState, action) => {
                 role: action.role,
                 id: action.id,
             };
+            case 'USER':
+            return {
+                isLoggedIn: true,
+                role: action.role,
+                id: action.id,
+                isAdmin: action.isAdmin,
+            };
         case 'LOGOUT':
             return initialState;
         default:
