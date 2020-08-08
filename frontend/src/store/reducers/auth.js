@@ -1,7 +1,8 @@
 const initialState = {
     isLoggedIn: false,
     role: null,
-    id: null
+    id: null,
+    category: null,
 };
 
 const authenticationReducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ const authenticationReducer = (state = initialState, action) => {
                 isLoggedIn: true,
                 role: action.role,
                 id: action.id,
+                category: action.category
             };
         case 'LOGOUT':
             return initialState;
