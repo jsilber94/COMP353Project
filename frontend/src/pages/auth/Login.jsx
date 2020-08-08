@@ -25,13 +25,14 @@ export default function Login() {
           else if (response.data.user.isAdmin == 0) {
             dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
             history.push("/dashboard");
+            dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
           }
         } else {
-          setErrorMessage(response.data.message);
+          setErrorMessage('Wrong credentials!');
         }
+
       }).catch((error) => {
-        setErrorMessage(error.message);
-        console.log(errorMessage);
+        setErrorMessage('Wrong credentials!');
       });
   };
 
@@ -59,6 +60,9 @@ export default function Login() {
         </FormGroup>
 
         <Button onClick={authenticate} type="Submit">Login</Button>
+        <div style={{ margin: '10%' }}>
+          {errorMessage}
+        </div>
       </Card>
     </div>
   );

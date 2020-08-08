@@ -20,13 +20,19 @@ export default function SignUp() {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
-          dispatch(loginRedux(response.data.data.category, response.data.data.user_id));
-          history.push("/dashboard");
+          if (response.data.data.isAdmin == 1) {
+            history.push("/adminDashboard");
+            dispatch(loginRedux('admin', response.data.data.user_id, response.data.data.category));
+          }
+          else if (response.data.data.isAdmin == 0) {
+            history.push("/dashboard");
+            dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
+          }
+        } else {
+          setErrorMessage('Email already taken! Please choose another one.');
         }
-        setErrorMessage(response.data.message);
       }).catch((error) => {
-        setErrorMessage(error.message);
-        console.log(errorMessage);
+        setErrorMessage('Email already taken! Please choose another one.');
       });
   };
 
@@ -70,6 +76,9 @@ export default function SignUp() {
         </FormGroup>
 
         <Button onClick={signup} type="Submit">Sign Up</Button>
+        <div>
+          {errorMessage}
+        </div>
       </Card>
 
 

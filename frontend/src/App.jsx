@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import './App.css';
-import IndexRouter from './components/router/IndexRouter';
+import IndexRouter from './route/IndexRouter';
 import { apiURL } from './config/env';
 import authenticationReducer from './store/reducers/auth';
 

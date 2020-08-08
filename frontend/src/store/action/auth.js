@@ -1,8 +1,9 @@
-export const loginRedux = (role, id) => {
+export const loginRedux = (role, id, category) => {
   return {
     type: 'LOGIN',
     role,
     id,
+    category
   };
 };
 

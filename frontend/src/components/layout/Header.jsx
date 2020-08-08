@@ -1,13 +1,32 @@
 import React from 'react';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function SignedInUser(props) {
-  if (props.name === '') {
-    return null;
+function Header() {
+
+  const history = useHistory();
+
+  const role = useSelector((state) => {
+    return state.authenticationReducer.role
+  });
+
+
+  const navigateToChangePassword = () => {
+    history.push('/change');
   }
+
+  const navigateToDashboard = () => {
+    if (role === 'admin') {
+      history.push('/adminDashboard')
+    } else if (role === 'user') {
+      history.push('/dashboard')
+    }
+  }
+
   return (
     <Navbar.Text>
       Signed in as:
@@ -22,24 +41,26 @@ function Header(props) {
   const user = useSelector((state) => {
     return state.authenticationReducer
   });
+
   if (user && user.isLoggedIn === true && user.isAdmin === 1) {
     admin = true;
   }
 
-  function generateUsersReport(){
+  function generateUsersReport() {
     console.log(1)
   }
-  function generateBalancesReport(){
+  function generateBalancesReport() {
     console.log(2)
   }
-  
+
+
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Databases 353</Navbar.Brand>
+      <Navbar.Brand onClick={navigateToDashboard}>Databases 353</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
           <Nav.Link href="#admin">Admin</Nav.Link>
           <Nav.Link href="#user">User</Nav.Link>
           {
@@ -53,9 +74,11 @@ function Header(props) {
 
         </Nav>
       </Navbar.Collapse>
-      <Navbar.Collapse className="justify-content-end">
-        <SignedInUser name={props.user} />
-      </Navbar.Collapse>
+      <DropdownButton id="dropdown-menu-align-right" title="Settings"
+        className="justify-content-end" alignRight>
+        <Dropdown.Item href="/">Logout</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
+      </DropdownButton>
     </Navbar>
   );
 }
