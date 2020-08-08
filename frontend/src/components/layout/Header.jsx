@@ -1,62 +1,47 @@
 import React from 'react';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import {useState} from 'react'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-function SignedInUser(props) {
-  const [name, setName] = useState("");
-  const [isDone, setIsDone] = useState(false);
+function Header() {
 
-  if(props.user.fname && !isDone){
-    setName(`${props.user.fname} ${props.user.lname}`)
-    setIsDone(true)
-  }
-
-  return (
-    <Navbar.Text>
-      Signed in as:
-      {' '}
-      <a href="#login">{name}</a>
-    </Navbar.Text>
-  );
-}
-
-// TODO implement user/admin info pages, to redirect to
-
-function Header(props) {
   const history = useHistory();
 
-  function getPath(isAdmin){
-    if(isAdmin){
-      return "/adminDashboard";
+  const role = useSelector((state) => {
+    return state.authenticationReducer.role
+  });
+
+
+  const navigateToChangePassword = () => {
+    history.push('/change');
+  }
+
+  const navigateToDashboard = () => {
+    if (role === 'admin') {
+      history.push('/adminDashboard')
+    } else if (role === 'user') {
+      history.push('/dashboard')
     }
-    return "/dashboard"
   }
-
-  const navClickHome = () => {
-    history.push({
-      pathname: getPath(props.user.isAdmin),
-      user: props.user
-    })
-  }
-
 
   return (
     <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">Databases 353</Navbar.Brand>
+      <Navbar.Brand onClick={navigateToDashboard}>Databases 353</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link onClick={navClickHome}>Home</Nav.Link>
-          <Nav.Link onClick={navClickHome}>
-            {props.user.isAdmin ? <span>Admin</span> : <span>User</span>} Profile
-          </Nav.Link>
+          <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
+          <Nav.Link href="#admin">Admin</Nav.Link>
+          <Nav.Link href="#user">User</Nav.Link>
         </Nav>
       </Navbar.Collapse>
-      <Navbar.Collapse className="justify-content-end">
-        <SignedInUser user={props.user} />
-      </Navbar.Collapse>
+      <DropdownButton id="dropdown-menu-align-right" title="Settings"
+        className="justify-content-end" alignRight>
+        <Dropdown.Item href="/">Logout</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
+      </DropdownButton>
     </Navbar>
   );
 }

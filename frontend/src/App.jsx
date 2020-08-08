@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import './App.css';
-import IndexRouter from './components/router/IndexRouter';
+import IndexRouter from './route/IndexRouter';
 import { apiURL } from './config/env';
 import authenticationReducer from './store/reducers/auth';
 import ProfilePage from './pages/ProfilePage'
@@ -39,15 +39,15 @@ function App() {
 
   return (
     <ProfilePage user={user} />
-    // <div className="App">
-    //   <Provider store={store}>
-    //     <ConnectedRouter history={history}>
-    //       <BrowserRouter>
-    //         <IndexRouter />
-    //       </BrowserRouter>
-    //     </ConnectedRouter>
-    //   </Provider>
-    // </div>
+    <div className="App">
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <BrowserRouter>
+            <IndexRouter />
+          </BrowserRouter>
+        </ConnectedRouter>
+      </Provider>
+    </div>
   );
 }
 
