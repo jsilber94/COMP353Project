@@ -60,6 +60,9 @@ export default function Login() {
         </FormGroup>
 
         <Button onClick={authenticate} type="Submit">Login</Button>
+        <div style={{ margin: '10%' }}>
+          {errorMessage}
+        </div>
       </Card>
     </div>
   );

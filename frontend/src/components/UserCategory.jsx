@@ -30,6 +30,7 @@ export default function UserCategory() {
                 console.log(errorMessage);
             });
     };
+    
     return (
         <div>
             <Button style={{ margin: '1%' }} onClick={() => changeCategory('Basic')} disabled={category == 'Basic'}>Basic</Button>
