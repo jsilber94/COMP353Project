@@ -3,6 +3,7 @@ export const loginRedux = (role, id, category) => {
     type: 'LOGIN',
     role,
     id,
+    category
   };
 };
 

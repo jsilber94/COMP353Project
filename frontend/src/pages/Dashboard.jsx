@@ -1,25 +1,14 @@
-import React from 'react';
-import Header from '../components/layout/Header'
-import JobTable from '../components/Jobs';
-import { useHistory } from 'react-router-dom'
+import React, { useState } from 'react';
+import Header from '../components/layout/Header';
+import UserCategory from '../components/UserCategory';
 
-function Dashboard(props) {
-    const history = useHistory();
-    const user = history.location.user
-
-    if(history.location.user){
-         return (
-        <div>
-            <Header user={user}></Header>
-        </div>
-    );
-    }else{
-        return(
-            <Header></Header>
-        )
-    }
-
-   
+function Dashboard() {
+  return (
+    <div>
+      <Header></Header>
+      <UserCategory />
+    </div>
+  );
 }
 
 export default Dashboard;
