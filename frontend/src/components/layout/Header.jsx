@@ -2,18 +2,20 @@ import React from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-function Header() {
 
+
+function Header(props) {
   const history = useHistory();
 
+
   const role = useSelector((state) => {
+    console.log(state)
     return state.authenticationReducer.role
   });
-
+  debugger
 
   const navigateToChangePassword = () => {
     history.push('/change');
@@ -25,25 +27,6 @@ function Header() {
     } else if (role === 'user') {
       history.push('/dashboard')
     }
-  }
-
-  return (
-    <Navbar.Text>
-      Signed in as:
-      {' '}
-      <a href="#login">{props.name}</a>
-    </Navbar.Text>
-  );
-}
-function Header(props) {
-  let admin = false;
-
-  const user = useSelector((state) => {
-    return state.authenticationReducer
-  });
-
-  if (user && user.isLoggedIn === true && user.isAdmin === 1) {
-    admin = true;
   }
 
   function generateUsersReport() {
@@ -64,11 +47,11 @@ function Header(props) {
           <Nav.Link href="#admin">Admin</Nav.Link>
           <Nav.Link href="#user">User</Nav.Link>
           {
-            admin ?
+            role == 'admin' ?
               <Nav.Link onClick={generateUsersReport}>Report of All Users</Nav.Link> : ""
           }
           {
-            admin ?
+            role == 'admin' ?
               <Nav.Link onClick={generateBalancesReport}>Report outstanding balances</Nav.Link> : ""
           }
 

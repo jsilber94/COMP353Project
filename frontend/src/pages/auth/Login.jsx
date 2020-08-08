@@ -3,7 +3,7 @@ import { Button, FormControl, FormGroup, FormLabel, Card } from 'react-bootstrap
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { apiLogin } from '../../Api';
-import { loginRedux, userRedux } from '../../store/action/auth';
+import { loginRedux } from '../../store/action/auth';
 import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
@@ -18,19 +18,14 @@ export default function Login() {
     apiLogin(email, password)
       .then((response) => {
         if (response.data.success) {
-          if (response.data.user.isAdmin == 1) {
-            dispatch(userRedux(response.data.user.isAdmin, response.data.user.user_id));
+          dispatch(loginRedux(response.data.user.role, response.data.user.user_id, response.data.user.category));
+          debugger
+          if (response.data.user.role == 'admin') {
             history.push("/adminDashboard")
-          }
-          else if (response.data.user.isAdmin == 0) {
-            dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
-            history.push("/dashboard");
-            dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
-          }
+          } else history.push("/dashboard");
         } else {
           setErrorMessage('Wrong credentials!');
         }
-
       }).catch((error) => {
         setErrorMessage('Wrong credentials!');
       });
