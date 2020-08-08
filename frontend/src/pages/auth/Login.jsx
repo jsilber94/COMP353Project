@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import { apiLogin } from '../../Api';
 import { loginRedux } from '../../store/action/auth';
-import { jesseRedux } from '../../store/action/jesse';
 import AuthHeader from '../../components/layout/AuthHeader'
 
 // eslint-disable-next-line react/prop-types
@@ -25,7 +24,6 @@ export default function Login() {
             dispatch(loginRedux('admin', response.data.user.user_id, response.data.user.category));
           }
           else if (response.data.user.isAdmin == 0) {
-            dispatch(jesseRedux(response.data));
             history.push("/dashboard");
             dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
           }

@@ -5,7 +5,6 @@ import { apiSignUp } from '../../Api';
 import { loginRedux } from '../../store/action/auth';
 import { useDispatch } from 'react-redux';
 import AuthHeader from '../../components/layout/AuthHeader'
-import { jesseRedux } from '../../store/action/jesse';
 
 // eslint-disable-next-line react/prop-types
 export default function SignUp() {
@@ -24,12 +23,10 @@ export default function SignUp() {
           if (response.data.data.isAdmin == 1) {
             history.push("/adminDashboard");
             dispatch(loginRedux('admin', response.data.data.user_id, response.data.data.category));
-            dispatch(jesseRedux(response.data.data));
           }
           else if (response.data.data.isAdmin == 0) {
             history.push("/dashboard");
             dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
-            dispatch(jesseRedux(response.data.data));
           }
         } else {
           setErrorMessage('already in use!');
