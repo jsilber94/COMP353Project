@@ -80,6 +80,16 @@ function withdrawApplication(userId, applicationId) {
   });
 }
 
+function updateCategory(userId, category) {
+  return new Promise((resolve, reject) => {
+    userModel.updateCategory(userId, category).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const userService = {
   getAllUser,
   getUserById,
@@ -89,6 +99,7 @@ const userService = {
   respondToApplication,
   makeManualPayment,
   withdrawApplication,
+  updateCategory,
 };
 
 module.exports = userService;

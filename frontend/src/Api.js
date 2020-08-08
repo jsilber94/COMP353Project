@@ -11,6 +11,16 @@ export function apiGetAllJobs() {
   return axios.get('job')
 }
 
+export function apiGetAllUsers() {
+  return axios.get('user')
+}
+
+export function apiUpdateCategory(userId, category) {
+  return axios.put(`/user/${userId}/category`, {
+    category: category
+  })
+}
+
 export function apiSignUp(email, password, fname, lname) {
   return axios.post('signup', {
     email,

@@ -98,6 +98,7 @@ function makeManualPayment(id, customAmount) {
     });
   });
 }
+
 function withdrawApplication(userId, applicationId) {
   return new Promise((resolve, reject) => {
     db.query(`UPDATE application set status='withdrawed' WHERE user_id_fk=${userId} and application_id=${applicationId}`, (error, rows) => {
@@ -111,6 +112,21 @@ function withdrawApplication(userId, applicationId) {
     });
   });
 }
+
+function updateCategory(userId, category) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE User set category='${category}' WHERE user_id=${userId}`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(getAllUser());
+      }
+    });
+  });
+}
+
 const userModel = {
   getAllUser,
   addUser,
@@ -120,6 +136,7 @@ const userModel = {
   respondToApplication,
   makeManualPayment,
   withdrawApplication,
+  updateCategory,
 };
 
 module.exports = userModel;

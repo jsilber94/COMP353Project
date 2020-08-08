@@ -19,7 +19,13 @@ export default function Login() {
       .then((response) => {
         if (response.data.success) {
           dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
-          history.push("/dashboard");
+
+          if (response.data.user.isAdmin == 1) {
+            history.push("/adminDashboard");
+          }
+          else if (response.data.user.isAdmin == 0) {
+            history.push("/dashboard");
+          }
         } else {
           setErrorMessage(response.data.message);
         }
