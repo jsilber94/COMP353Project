@@ -15,10 +15,18 @@ export function apiGetAllUsers() {
   return axios.get('user')
 }
 
+export function apiGetUser(userId){
+  return axios.get(`/user/${userId}`)
+}
+
 export function apiUpdateCategory(userId, category) {
   return axios.put(`/user/${userId}/category`, {
     category: category
   })
+}
+
+export function apiUpdateUser(userId, user){
+  return axios.put(`/user/${userId}`, user)
 }
 
 export function apiSignUp(email, password, fname, lname) {

@@ -10,6 +10,7 @@ import './App.css';
 import IndexRouter from './route/IndexRouter';
 import { apiURL } from './config/env';
 import authenticationReducer from './store/reducers/auth';
+import ProfilePage from './pages/ProfilePage'
 
 export const history = createBrowserHistory({ basename: '/' });
 

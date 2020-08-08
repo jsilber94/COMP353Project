@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DropdownButton, Dropdown } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -6,13 +6,15 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function Header() {
-
   const history = useHistory();
+
+  const id = useSelector((state) => {
+    return state.authenticationReducer.id
+  })
 
   const role = useSelector((state) => {
     return state.authenticationReducer.role
   });
-
 
   const navigateToChangePassword = () => {
     history.push('/change');
@@ -25,6 +27,11 @@ function Header() {
       history.push('/dashboard')
     }
   }
+
+  const fetchUser = () => {
+    history.push('/profile')
+  }
+
 
   return (
     <Navbar bg="light" expand="lg">
@@ -41,6 +48,7 @@ function Header() {
         className="justify-content-end" alignRight>
         <Dropdown.Item href="/">Logout</Dropdown.Item>
         <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
+        <Dropdown.Item onClick={fetchUser}>Profile</Dropdown.Item>
       </DropdownButton>
     </Navbar>
   );
