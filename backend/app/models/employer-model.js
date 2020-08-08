@@ -3,7 +3,7 @@ const dbFunc = require('../../config/db-function');
 
 function getAllEmployer() {
   return new Promise((resolve, reject) => {
-    db.query('select * from employer', (error, rows) => {
+    db.query('select * from Employer', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);

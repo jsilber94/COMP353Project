@@ -26,7 +26,7 @@ function authenticate(authenticData) {
             user2.balance = rows[0].balance;
             user2.category = rows[0].category;
             user2.date_last_payment = rows[0].date_last_payment;
-
+            user2.isAdmin = rows[0].isAdmin;
             user2.withdrawal_status = rows[0].withdrawal_status;
             resolve(user2);
           } else {

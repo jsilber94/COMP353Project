@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/layout/Header'
 import Button from 'react-bootstrap/Button';
-import { apiUpdateCategory, apiUpdateUser } from '../Api';
+import { apiUpdateUser as apiUpdateCategory } from '../Api';
 import { useSelector } from 'react-redux';
 
 function Dashboard() {
@@ -10,7 +10,7 @@ function Dashboard() {
   const user = useSelector(state => state.jesseReducer.user.user);
 
   const changeCategory = (new_category) => {
-    apiUpdateUser(user.user_id, user.fname, user.lname, new_category, user.email, user.balance, user.date_last_payment.substring(0, 10), user.withdrawal_status)
+    apiUpdateCategory(user.user_id, user.fname, user.lname, new_category, user.email, user.balance, user.date_last_payment.substring(0, 10), user.withdrawal_status)
       .then((response) => {
         console.log(response);
         if (response.statusText == "OK") {

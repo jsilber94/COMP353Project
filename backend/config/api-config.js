@@ -7,7 +7,6 @@ const path = require('path');
 const dbfunc = require('./db-function');
 
 const UserRoute = require('../app/routes/user');
-const AdminRoute = require('../app/routes/admin');
 const AuthenticRoute = require('../app/routes/authenticate');
 const JobRoute = require('../app/routes/job');
 const EmployerRoute = require('../app/routes/employer');
@@ -60,7 +59,6 @@ const ApiConfig = {
 
 AuthenticRoute.init(router);
 UserRoute.init(router);
-AdminRoute.init(router);
 JobRoute.init(router);
 EmployerRoute.init(router);
 ApplicationRoute.init(router);

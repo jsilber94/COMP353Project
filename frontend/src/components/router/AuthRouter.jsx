@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../../pages/auth/Login';
 import SignUp from '../../pages/auth/SignUp';
+import ForgotPassword from '../../pages/auth/ForgotPassword';
+import NotFound from '../../pages/NotFound';
 
 export default function AuthRouter() {
 
@@ -12,6 +14,12 @@ export default function AuthRouter() {
             </Route>
             <Route exact path="/signup">
                 <SignUp />
+            </Route>
+            <Route exact path="/forgot">
+                <ForgotPassword />
+            </Route>
+            <Route>
+                <NotFound />
             </Route>
         </Switch>
     );

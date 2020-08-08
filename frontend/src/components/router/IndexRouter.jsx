@@ -6,9 +6,13 @@ import AuthRouter from './AuthRouter';
 // eslint-disable-next-line react/prop-types
 export default function IndexRouter() {
 
-    const isLoggedIn = useSelector(state => state.authenticationReducer.isLoggedIn);
+    const isLoggedIn = useSelector((state) => {
+        return state.authenticationReducer.isLoggedIn
+    });
 
-    const role = useSelector(state => state.authenticationReducer.role);
+    const role = useSelector((state) => {
+        return state.authenticationReducer.role
+    });
 
     let router = null;
 
