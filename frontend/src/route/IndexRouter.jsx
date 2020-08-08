@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import AdminRouter from './AdminRouter';
 import AuthRouter from './AuthRouter';
+import UserRouter from './UserRouter'
 
 // eslint-disable-next-line react/prop-types
 export default function IndexRouter() {
@@ -18,7 +19,12 @@ export default function IndexRouter() {
 
     if (isLoggedIn) {
         //TODO: Select appropriate router for type of user
-        router = <AdminRouter></AdminRouter>;
+        if (role === 'admin') {
+            router = <AdminRouter></AdminRouter>;
+
+        } else if (role === 'user') {
+            router = <UserRouter></UserRouter>
+        }
     } else {
         router = <AuthRouter></AuthRouter>
     }

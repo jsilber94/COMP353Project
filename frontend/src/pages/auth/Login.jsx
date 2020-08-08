@@ -18,17 +18,19 @@ export default function Login() {
     apiLogin(email, password)
       .then((response) => {
         if (response.data.success) {
-          dispatch(loginRedux(response.data.user.category, response.data.user.user_id));
 
           if (response.data.user.isAdmin == 1) {
             history.push("/adminDashboard");
+            dispatch(loginRedux('admin', response.data.user.user_id, response.data.user.category));
           }
           else if (response.data.user.isAdmin == 0) {
             history.push("/dashboard");
+            dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
           }
         } else {
           setErrorMessage(response.data.message);
         }
+
       }).catch((error) => {
         setErrorMessage(error.message);
         console.log(errorMessage);

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Dashboard from '../../pages/Dashboard';
-import AdminDashboard from '../../pages/AdminDashboard';
-import NotFound from '../../pages/NotFound';
+import Dashboard from '../pages/Dashboard';
+import NotFound from '../pages/NotFound';
 
 export default function AdminRouter() {
 
@@ -10,9 +9,6 @@ export default function AdminRouter() {
         <Switch>
             <Route path="/dashboard">
                 <Dashboard />
-            </Route>
-            <Route path="/adminDashboard">
-                <AdminDashboard />
             </Route>
             <Route>
                 <NotFound />
