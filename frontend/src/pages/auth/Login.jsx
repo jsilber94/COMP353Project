@@ -24,7 +24,10 @@ export default function Login() {
             history.push("/adminDashboard");
           }
           else if (response.data.user.isAdmin == 0) {
-            history.push("/dashboard");
+            const user = response.data.user;
+            history.push({pathname: "/dashboard",
+                          user: user    
+                        });
           }
         } else {
           setErrorMessage(response.data.message);

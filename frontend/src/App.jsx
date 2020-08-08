@@ -10,6 +10,7 @@ import './App.css';
 import IndexRouter from './components/router/IndexRouter';
 import { apiURL } from './config/env';
 import authenticationReducer from './store/reducers/auth';
+import ProfilePage from './pages/ProfilePage'
 
 export const history = createBrowserHistory({ basename: '/' });
 
@@ -23,17 +24,30 @@ const store = createStore(reducer(history), applyMiddleware(ReduxThunk, routerMi
 
 function App() {
   axios.defaults.baseURL = apiURL;
+  const user = {
+    "user_id": 11,
+    "fname": "Tom",
+    "lname": "Fox",
+    "category": null,
+    "email": "test@gmail.com",
+    "password_hash": "2AZV9VIWv",
+    "balance": null,
+    "date_last_payment": null,
+    "withdrawal_status": 0,
+    "isAdmin": 1
+}
 
   return (
-    <div className="App">
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <BrowserRouter>
-            <IndexRouter />
-          </BrowserRouter>
-        </ConnectedRouter>
-      </Provider>
-    </div>
+    <ProfilePage user={user} />
+    // <div className="App">
+    //   <Provider store={store}>
+    //     <ConnectedRouter history={history}>
+    //       <BrowserRouter>
+    //         <IndexRouter />
+    //       </BrowserRouter>
+    //     </ConnectedRouter>
+    //   </Provider>
+    // </div>
   );
 }
 
