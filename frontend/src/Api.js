@@ -30,18 +30,6 @@ export function apiSignUp(email, password, fname, lname) {
   })
 }
 
-export function apiUpdateUser(userId, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
-  return axios.put(`user/${userId}`, {
-    fname,
-    lname,
-    category,
-    email,
-    balance,
-    date_last_payment,
-    withdrawal_status,
-  })
-}
-
 export function apiForgotPassword(email) {
   return axios.get('/password/user/reset/' + email);
 }
