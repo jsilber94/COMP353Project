@@ -12,6 +12,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
 
 
 function UserTable() {
@@ -44,6 +45,11 @@ function UserTable() {
 
 
     function UserEntry(props) {
+
+        const id = useSelector((state) => {
+            return state.authenticationReducer.id
+        });
+
         const updateCategory = () => {
             console.log(props)
             let category = props.category
@@ -63,15 +69,20 @@ function UserTable() {
         };
 
         return (
-            <TableRow key={props.user_id}>
-                <TableCell component="th" scope="props"> {props.user_id}</TableCell>
-                <TableCell align="center">{props.email}</TableCell>
-                <TableCell align="center">{props.category ? props.category : 'N/A'}</TableCell>
-                <TableCell align="center">${props.balance}</TableCell>
-                <TableCell align="center">
-                    <Button variant="contained" onClick={updateCategory}>{props.category ? "Deactivate" : "Activate"}</Button>
-                </TableCell>
-            </TableRow>
+            <TableBody>
+                {
+                    props.user_id !== id && (<TableRow key={props.user_id}>
+                        <TableCell component="th" scope="props"> {props.user_id}</TableCell>
+                        <TableCell align="center">{props.email}</TableCell>
+                        <TableCell align="center">{props.category ? props.category : 'N/A'}</TableCell>
+                        <TableCell align="center">${props.balance}</TableCell>
+                        <TableCell align="center">
+                            <Button variant="contained" onClick={updateCategory}>
+                                {props.category && props.category !== 'null' ? "Deactivate" : "Activate"}</Button>
+                        </TableCell>
+                    </TableRow>)
+                }
+            </TableBody>
         );
     }
 
@@ -89,16 +100,14 @@ function UserTable() {
                             <TableCell align="center">Account Status</TableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
-                        {users.map(retrievedUser =>
-                            <UserEntry
-                                key={retrievedUser.user_id}
-                                email={retrievedUser.email}
-                                balance={retrievedUser.balance}
-                                category={retrievedUser.category}
-                                user_id={retrievedUser.user_id} />
-                        )}
-                    </TableBody>
+                    {users.map(retrievedUser =>
+                        <UserEntry
+                            key={retrievedUser.user_id}
+                            email={retrievedUser.email}
+                            balance={retrievedUser.balance}
+                            category={retrievedUser.category}
+                            user_id={retrievedUser.user_id} />
+                    )}
                 </Table>
             </TableContainer>
         </div>
