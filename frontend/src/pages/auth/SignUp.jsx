@@ -29,10 +29,10 @@ export default function SignUp() {
             dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
           }
         } else {
-          setErrorMessage('already in use!');
+          setErrorMessage('Email already taken! Please choose another one.');
         }
       }).catch((error) => {
-        setErrorMessage('already in use!');
+        setErrorMessage('Email already taken! Please choose another one.');
       });
   };
 
@@ -76,6 +76,9 @@ export default function SignUp() {
         </FormGroup>
 
         <Button onClick={signup} type="Submit">Sign Up</Button>
+        <div>
+          {errorMessage}
+        </div>
       </Card>
 
 
