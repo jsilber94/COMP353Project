@@ -59,6 +59,7 @@ function JobTable() {
 
     const styles = {
         width: 500,
+        margin: 'auto'
     };
 
     const createJobList = () => {
@@ -70,7 +71,7 @@ function JobTable() {
     const displayJobs = () => {
         let values = [];
         jobs.map(job => {
-            if(job.category == currentCategory){
+            if (job.category == currentCategory) {
                 values.push(<JobEntry title={job.title} description={job.description} key={job.job_id} />);
             }
         });
