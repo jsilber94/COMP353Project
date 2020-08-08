@@ -20,13 +20,16 @@ export default function SignUp() {
     apiSignUp(email, password, fname, lname)
       .then((response) => {
         if (response.data.success) {
-          if (response.data.data.isAdmin == 1) {
-            history.push("/adminDashboard");
+          if (response.data.data.role === 'admin') {
             dispatch(loginRedux('admin', response.data.data.user_id, response.data.data.category));
+            history.push("/adminDashboard");
           }
-          else if (response.data.data.isAdmin == 0) {
-            history.push("/dashboard");
+          else if (response.data.data.role == 'employer') {
+            dispatch(loginRedux('employer', response.data.data.user_id, response.data.data.category));
+            history.push("/employerDashboard");
+          } else {
             dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
+            history.push("/dashboard");
           }
         } else {
           setErrorMessage('Email already taken! Please choose another one.');
