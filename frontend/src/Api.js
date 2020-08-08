@@ -21,6 +21,12 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
+export function apiApply(userId) {
+  return axios.post('apply', {
+   userId,
+  })
+}
+
 export function apiSignUp(email, password, fname, lname) {
   return axios.post('signup', {
     email,
