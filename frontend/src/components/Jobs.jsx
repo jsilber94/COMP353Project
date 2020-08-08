@@ -8,9 +8,8 @@ import { apiApply } from '../Api';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 
-function JobTable(){
-    const [users, setUsers] = useState([])
-    const [jobs, setJobs] = useState([]) 
+function JobTable() {
+    const [jobs, setJobs] = useState([])
     const [isMade, setIsMade] = useState(false)
 
     const retrieveJobs = () => {
@@ -24,20 +23,8 @@ function JobTable(){
         })
     };
 
-    const retrieveUsers = () => {
-        apiGetAllUsers()
-            .then((response) => {
-                if (response.status === 200) {
-                    setUsers(response.data)
-                }
-            }).catch((error) => {
-                console.log(error);
-            })
-    };
-
     if(!isMade){
         retrieveJobs();
-        retrieveUsers();
         setIsMade(true);
     }
 
@@ -50,7 +37,7 @@ function JobTable(){
         <div style={styles}>
             {
                 jobs.map(
-                    retrievedJob => <JobEntry title={retrievedJob.title}  description={retrievedJob.description} key={retrievedJob.job_id}/>
+                    retrievedJob => <JobEntry title={retrievedJob.title}  description={retrievedJob.description} key={retrievedJob.job_id} employer_id={retrievedJob.Employer_id_fk} job_id={retrievedJob.Job_id} />
             )}
         </div>
     )
@@ -65,18 +52,17 @@ function JobEntry(props){
             return state.authenticationReducer.id
         });
 
-        //const job_id = useSelector((state) => {
-        //    return state.authenticationReducer.id
-        //}); ???? use models?
-  
     
+    
+        
         const [errorMessage, setErrorMessage] = useState('');
     
         const apply = () => {
-            apiApply(id)
+            
+            apiApply('submitted', user_id, employer_id, job_id)
                 .then((response) => {
                     if (response.statusText == "OK") {
-                     
+                        console.log("success!");
                     } else {
                         setErrorMessage('Application unsuccessful.');
                     }
@@ -105,8 +91,8 @@ function JobEntry(props){
                 </Media.Body>
             </Media>
         </div>
-        )
-    }
+    )
+}
 
 }
         

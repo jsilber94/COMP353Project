@@ -21,11 +21,13 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
-export function apiApply(userId) {
-  return axios.post('apply', {
-   userId,
-  })
-}
+export function apiApply(application_status, user_id, employer_id, job_id) {
+  return axios.post('application'), {
+  status: application_status,
+  user_id_fk: user_id,
+  employer_id_fk: employer_id,
+  job_id_fk: job_id,
+}}
 
 export function apiSignUp(email, password, fname, lname) {
   return axios.post('signup', {

@@ -8,7 +8,7 @@ function Dashboard() {
     <div>
       <Header></Header>
       <UserCategory />
-      return <Jobs />
+      <Jobs />
     </div>
   );
 }
