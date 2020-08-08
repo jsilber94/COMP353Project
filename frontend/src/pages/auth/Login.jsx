@@ -18,7 +18,7 @@ export default function Login() {
     apiLogin(email, password)
       .then((response) => {
         if (response.data.success) {
-          dispatch(jesseRedux(response.data.data));
+          dispatch(jesseRedux(response.data));
           dispatch(loginRedux(response.data.user.role, response.data.user.user_id));
           history.push("/dashboard");
         } else {

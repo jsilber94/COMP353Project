@@ -4,6 +4,10 @@ import {
 } from 'react-bootstrap';
 import { apiSignUp } from '../../Api';
 import { useHistory } from "react-router-dom";
+import { loginRedux } from '../../store/action/auth';
+import { useDispatch } from 'react-redux';
+import { jesseRedux } from '../../store/action/jesse';
+
 
 // eslint-disable-next-line react/prop-types
 export default function SignUp() {
@@ -12,6 +16,7 @@ export default function SignUp() {
   const [fname, setfName] = useState('');
   const [lname, setlName] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const signup = () => {
@@ -19,6 +24,12 @@ export default function SignUp() {
       .then((response) => {
         if (response.data.success) {
           const user = response.data.data
+          
+          history.push({
+            pathname: '/dashboard',
+            user: user
+          });
+
           dispatch(jesseRedux(response.data.data));
           dispatch(loginRedux(response.data.data.role, response.data.data.user_id));
           history.push("/dashboard");

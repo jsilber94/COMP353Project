@@ -31,7 +31,7 @@ function App() {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <BrowserRouter>
-            <IndexRouter />
+            <IndexRouter/>
           </BrowserRouter>
         </ConnectedRouter>
       </Provider>

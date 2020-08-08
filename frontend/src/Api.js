@@ -20,22 +20,18 @@ export function apiSignUp(email, password, fname, lname) {
   })
 }
 
-//these are all the fields necessary for the put
-export function apiUpdateUser(user_id, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
-  return axios.patch('user/id:', {
-    user_id,
-    fname,
-    lname,
-    email,
-    balance,
-    date_last_payment,
-    withdrawal_status,
-  })
-}
+export function apiUpdateUser(id, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
+  console.log(typeof id);
+  console.log(typeof fname);
+  console.log(typeof lname);
+  console.log(typeof category);
+  console.log(typeof email);
+  console.log(typeof balance);
+  console.log(typeof date_last_payment);
+  console.log(typeof withdrawal_status);
 
-export function apiUpdateUser(user_id, fname, lname, category, email, balance, date_last_payment, withdrawal_status) {
-  return axios.put('user/id:', {
-    user_id,
+  return axios.put('user/:id', {
+    id,
     fname,
     lname,
     category,
