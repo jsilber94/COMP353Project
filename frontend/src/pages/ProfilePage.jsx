@@ -4,15 +4,30 @@ import { Button, FormControl, FormGroup, FormLabel, Card, ListGroup, ListGroupIt
 import Header from '../components/layout/Header';
 import NotFound from '../pages/NotFound';
 import { useSelector } from 'react-redux';
-import { apiGetUser } from '../Api'
+import { apiGetUser, apiUpdateUser } from '../Api'
 
 function ChangeCard(props){
-  const [email, setEmail] = useState("");
-  const [fname, setFName] = useState("");
-  const [lname, setLName] = useState("");
+  const [email, setEmail] = useState(props.user.email);
+  const [fname, setFName] = useState(props.user.fname);
+  const [lname, setLName] = useState(props.user.lname);
+  const [user, setUser] = useState(props.user)
 
   const updateUserInfo = () => {
 
+    let tempUser = user;
+    tempUser.email = email;
+    tempUser.fname = fname;
+    tempUser.lname = lname;
+
+    console.log(tempUser)
+
+    apiUpdateUser(props.user.user_id, tempUser).then((response) =>{
+      if(response.status === 200){
+        props.func()
+      }
+    }).catch((error) =>{
+      console.log(error)
+    })
   }
 
   return (
@@ -20,7 +35,7 @@ function ChangeCard(props){
           <FormGroup controlId="email">
             <FormLabel>Email</FormLabel>
             <FormControl 
-              value={props.user.email}
+              value={email}
               type="email"
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -28,7 +43,7 @@ function ChangeCard(props){
           <FormGroup>
             <FormLabel>First Name</FormLabel>
             <FormControl
-              value={props.user.fname}
+              value={fname}
               type="fname"
               onChange={(e) => setFName(e.target.value)}
             />
@@ -36,12 +51,12 @@ function ChangeCard(props){
           <FormGroup>
           <FormLabel>Last Name</FormLabel>
             <FormControl
-              value={props.user.lname}
+              value={lname}
               type="lname"
               onChange={(e) => setLName(e.target.value)}
             />
           </FormGroup>
-          <Button type="submit">Save</Button>
+          <Button type="submit" onClick={updateUserInfo}>Save</Button>
       </Card>
   )
 }
@@ -60,12 +75,16 @@ function ProfilePage(){
       setChangeInfoCard(<ChangeCard user={user} />)
     }
 
+    const deleteAccount = () => {
+      
+    }
 
     const fetchUser = () => {
       apiGetUser(id)
       .then((response)=> {
         if(response.status === 200){
           setUser(response.data[0])
+          setChangeInfoCard(null)
         }
       })
     }
@@ -88,7 +107,7 @@ function ProfilePage(){
                 <Button style={{ marginTop: '20px' }} onClick={genChangeCard} >Change Information</Button>
                 <Button variant="danger" style={{ marginTop: '20px' }}>Delete Account</Button>
               </Card>
-              {changeInfoCard}
+              {changeInfoCard ? <ChangeCard func={fetchUser} user={user}/> : null}
         </div>)
   }
 

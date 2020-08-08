@@ -25,6 +25,10 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
+export function apiUpdateUser(userId, user){
+  return axios.put(`/user/${userId}`, user)
+}
+
 export function apiSignUp(email, password, fname, lname) {
   return axios.post('signup', {
     email,
