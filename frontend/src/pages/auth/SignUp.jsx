@@ -29,11 +29,10 @@ export default function SignUp() {
             dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
           }
         } else {
-          setErrorMessage(response.data.message);
+          setErrorMessage('already in use!');
         }
       }).catch((error) => {
-        setErrorMessage(error.message);
-        console.log(errorMessage);
+        setErrorMessage('already in use!');
       });
   };
 

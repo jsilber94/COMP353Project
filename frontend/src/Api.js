@@ -33,3 +33,10 @@ export function apiSignUp(email, password, fname, lname) {
 export function apiForgotPassword(email) {
   return axios.get('/password/user/reset/' + email);
 }
+
+export function apiChangePassword(oldPassword, newPassword, id) {
+  return axios.post('/password/user/change/' + id, {
+    oldPassword,
+    newPassword
+  })
+}

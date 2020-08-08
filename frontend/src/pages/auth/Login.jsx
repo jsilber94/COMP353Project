@@ -28,12 +28,11 @@ export default function Login() {
             dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
           }
         } else {
-          setErrorMessage(response.data.message);
+          setErrorMessage('Wrong credentials!');
         }
 
       }).catch((error) => {
-        setErrorMessage(error.message);
-        console.log(errorMessage);
+        setErrorMessage('Wrong credentials!');
       });
   };
 
