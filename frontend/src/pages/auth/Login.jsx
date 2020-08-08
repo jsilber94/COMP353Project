@@ -24,15 +24,8 @@ export default function Login() {
             dispatch(loginRedux('admin', response.data.user.user_id, response.data.user.category));
           }
           else if (response.data.user.isAdmin == 0) {
-<<<<<<< HEAD
-            const user = response.data.user;
-            history.push({pathname: "/dashboard",
-                          user: user    
-                        });
-=======
             history.push("/dashboard");
             dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
->>>>>>> 3acd836a799d18bc011cc4590c8cea44d1d92c12
           }
         } else {
           setErrorMessage('Wrong credentials!');

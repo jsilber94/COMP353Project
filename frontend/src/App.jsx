@@ -24,21 +24,8 @@ const store = createStore(reducer(history), applyMiddleware(ReduxThunk, routerMi
 
 function App() {
   axios.defaults.baseURL = apiURL;
-  const user = {
-    "user_id": 11,
-    "fname": "Tom",
-    "lname": "Fox",
-    "category": null,
-    "email": "test@gmail.com",
-    "password_hash": "2AZV9VIWv",
-    "balance": null,
-    "date_last_payment": null,
-    "withdrawal_status": 0,
-    "isAdmin": 1
-}
 
   return (
-    <ProfilePage user={user} />
     <div className="App">
       <Provider store={store}>
         <ConnectedRouter history={history}>
