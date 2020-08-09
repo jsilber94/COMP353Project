@@ -72,7 +72,7 @@ function deleteJob(id) {
 }
 
 function getAllJobsByUserId(userId){
-  const query = `SELECT DISTINCT Job.title, Job.description, Job.category from Application, Job, User where Application.user_id_fk='${userId}' AND Job.job_id=Application.job_id_fk`
+  const query = `SELECT DISTINCT Job.title, Job.description, Job.category, Application.status from Application, Job, User where Application.user_id_fk='${userId}' AND Job.job_id=Application.job_id_fk`
   console.log(query)
   return new Promise((resolve, reject) =>{
     db.query(query, (error, rows) =>{
