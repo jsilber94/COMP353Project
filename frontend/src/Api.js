@@ -33,6 +33,10 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
+export function apiUpdateUser(userId, toUpdate){
+  return axios.put(`/user/${userId}`, toUpdate)
+}
+
 export function apiApply(application_status, user_id, employer_id, job_id) {
   return axios.post('application', {
    status: application_status,
@@ -43,10 +47,6 @@ export function apiApply(application_status, user_id, employer_id, job_id) {
   })
 }
 
-export function apiUpdateUser(userId, user){
-  return axios.put(`/user/${userId}`, user)
-}
-
 export function apiSignUp(email, password, fname, lname) {
   return axios.post('signup', {
     email,
@@ -54,6 +54,10 @@ export function apiSignUp(email, password, fname, lname) {
     fname,
     lname,
   })
+}
+
+export function apiDeleteUser(userId){
+  return axios.delete(`/user/${userId}`)
 }
 
 export function apiForgotPassword(email) {
