@@ -39,10 +39,11 @@ export default function UserCategory() {
                 console.log(errorMessage);
             });
     };
-    
+
     return (
         <div>
-            <Button style={{ margin: '1%' }} onClick={() => changeCategory('Basic')} disabled={category == 'Basic'}>Basic</Button>
+            {userRole === 'user' &&
+                (<Button style={{ margin: '1%' }} onClick={() => changeCategory('Basic')} disabled={category == 'Basic'}>Basic</Button>)}
             <Button style={{ margin: '1%' }} onClick={() => changeCategory('Prime')} disabled={category == 'Prime'}>Prime</Button>
             <Button style={{ margin: '1%' }} onClick={() => changeCategory('Gold')} disabled={category == 'Gold'}>Gold</Button>
         </div>
