@@ -119,3 +119,7 @@ export function apiPostJob(title, description, category, employer_id_fk) {
 export function apiGetLogs() {
   return axios.get(`logs`);
 }
+
+export function apiGetEmployerById(employer_id){
+  return axios.get(`/employer/${employer_id}`);
+}
