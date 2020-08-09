@@ -4,6 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { apiGetOutstandingBalanceReport, apiGetUsersForEmployerReport } from '../../Api'
+
+
 
 function Header() {
   const history = useHistory();
@@ -13,6 +16,7 @@ function Header() {
   })
 
   const role = useSelector((state) => {
+    console.log(state)
     return state.authenticationReducer.role
   });
 
@@ -27,6 +31,14 @@ function Header() {
       history.push('/dashboard')
     }
   }
+
+  function generateUsersReport() {
+    history.push('/reportUser')
+  };
+
+  function generateBalancesReport() {
+    history.push('/reportBalance')
+  };
 
   const fetchUser = () => {
     history.push('/profile')
@@ -46,6 +58,15 @@ function Header() {
           <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
           <Nav.Link href="#admin">Admin</Nav.Link>
           <Nav.Link href="#user">User</Nav.Link>
+          {
+            role == 'admin' ?
+              <Nav.Link onClick={generateUsersReport}>Report of All Users</Nav.Link> : ""
+          }
+          {
+            role == 'admin' ?
+              <Nav.Link onClick={generateBalancesReport}>Report outstanding balances</Nav.Link> : ""
+          }
+
         </Nav>
       </Navbar.Collapse>
       <DropdownButton id="dropdown-menu-align-right" title="Settings"

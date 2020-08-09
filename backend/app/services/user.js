@@ -120,6 +120,26 @@ function updateCategory(userId, category) {
   });
 }
 
+function getOutstandingBalanceReport() {
+  return new Promise((resolve, reject) => {
+    userModel.getOutstandingBalanceReport().then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
+function getUsersForEmployerReport(id) {
+  return new Promise((resolve, reject) => {
+    userModel.getUsersForEmployerReport(id).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const userService = {
   getAllUser,
   getUserById,
@@ -130,6 +150,8 @@ const userService = {
   makeManualPayment,
   withdrawApplication,
   updateCategory,
+  getOutstandingBalanceReport,
+  getUsersForEmployerReport,
 };
 
 module.exports = userService;

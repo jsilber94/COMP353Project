@@ -50,7 +50,7 @@ function UserTable() {
 
 
     function UserEntry(props) {
-
+        console.log(props)
         const id = useSelector((state) => {
             return state.authenticationReducer.id
         });
