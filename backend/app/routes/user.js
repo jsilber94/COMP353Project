@@ -42,16 +42,17 @@ function updateUser(req, res) {
   });
 }
 
-function updateCategory(req, res) {
-  const { category } = req.body;
-  const { userId } = req.params;
 
-  userService.updateCategory(userId, category).then((data) => {
-    res.json(data);
-  }).catch((err) => {
-    res.status(400);
-    res.send(err.message);
-  });
+function updateCategory(req, res) {	
+  const { category } = req.body;	
+  const { userId } = req.params;	
+
+  userService.updateCategory(userId, category).then((data) => {	
+    res.json(data);	
+  }).catch((err) => {	
+    res.status(400);	
+    res.send(err.message);	
+  });	
 }
 
 function deleteUser(req, res) {
@@ -121,8 +122,6 @@ function init(router) {
     .get(withdrawApplication);
   router.route('/user/payment/:userId')
     .patch(makeManualPayment);
-  router.route('/user/:userId/category')
-    .put(updateCategory);
 }
 
 module.exports.init = init;
