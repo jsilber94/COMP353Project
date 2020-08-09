@@ -28,12 +28,16 @@ function Header() {
     }
   }
 
-  const fetchUser = () => {
+  const navigateToUser = () => {
     history.push('/profile')
   }
 
   const navigateToApplications = () => {
     history.push('/applications');
+  }
+
+  const navigateToPaymentsMethods = () => {
+    history.push('/payments');
   }
 
 
@@ -52,8 +56,9 @@ function Header() {
         className="justify-content-end" alignRight>
         <Dropdown.Item href="/">Logout</Dropdown.Item>
         <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
-        <Dropdown.Item onClick={fetchUser}>Profile</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToUser}>Profile</Dropdown.Item>
         <Dropdown.Item onClick={navigateToApplications}>Applications</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToPaymentsMethods}>Payment Options</Dropdown.Item>
       </DropdownButton>
     </Navbar>
   );
