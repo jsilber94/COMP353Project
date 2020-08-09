@@ -31,7 +31,7 @@ function addJob(req, res) {
 
 function updateJob(req, res) {
   const jobData = req.body;
-  const { id } = req.params.id;
+  const { id } = req.params;
   jobService.updateJob(id, jobData).then((data) => {
     res.json(data);
   }).catch((err) => {
@@ -50,7 +50,7 @@ function deleteJob(req, res) {
   });
 }
 
-function getAllJobsByUserId(req, res){
+function getAllJobsByUserId(req, res) {
   const userId = req.params.id;
   jobService.getAllJobsByUserId(userId).then((data) => {
     res.json(data);

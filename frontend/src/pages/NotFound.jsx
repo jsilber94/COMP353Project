@@ -12,7 +12,7 @@ function NotFound(props) {
     const history = useHistory();
 
     const returnToHome = () => {
-        isLoggedIn ? history.push("/dashboard") : history.push("/");
+        history.push("/");
     }
 
     return (
@@ -20,7 +20,7 @@ function NotFound(props) {
             <div>
                 404 - This page doesn't exist!
             <br />
-                <Button style={{ marginTop: '2%' }} onClick={returnToHome}>Return to home!</Button>
+                <Button style={{ marginTop: '2%' }} onClick={returnToHome}>Return to login!</Button>
             </div>
         </Card>
     );

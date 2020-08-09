@@ -52,7 +52,7 @@ function addJob(job) {
 
 function updateJob(id, job) {
   return new Promise((resolve, reject) => {
-    const query = `UPDATE Job set title='${job.title}',description='${job.description}' WHERE job_id='${id}'`;
+    const query = `UPDATE Job SET title='${job.title}',description='${job.description}',category='${job.category}' WHERE job_id=${id}`;
     db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();

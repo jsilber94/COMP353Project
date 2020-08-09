@@ -3,8 +3,9 @@ const dbFunc = require('../config/db-function');
 
 function insertNewLog(query, tableName) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO logs(query,table_name)VALUES('${query}','${tableName}')`, (error, rows) => {
+    db.query(`INSERT INTO Logs(query,table_name)VALUES('${query}','${tableName}')`, (error, rows) => {
       if (error) {
+        console.log(error);
         dbFunc.connectionRelease();
         reject(error);
       } else {
@@ -17,7 +18,7 @@ function insertNewLog(query, tableName) {
 
 function getAllLogs() {
   return new Promise((resolve, reject) => {
-    db.query('Select * from logs', (error, rows) => {
+    db.query('Select * from Logs', (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
