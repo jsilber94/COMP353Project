@@ -4,6 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { apiGetOutstandingBalanceReport, apiGetUsersForEmployerReport } from '../../Api'
+
+
 
 function Header() {
   const history = useHistory();
@@ -28,7 +31,15 @@ function Header() {
     }
   }
 
-  const navigateToUser = () => {
+  function generateUsersReport() {
+    history.push('/reportUser')
+  };
+
+  function generateBalancesReport() {
+    history.push('/reportBalance')
+  };
+
+  const navigateToProfile = () => {
     history.push('/profile')
   }
 
@@ -50,13 +61,22 @@ function Header() {
           <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
           <Nav.Link href="#admin">Admin</Nav.Link>
           <Nav.Link href="#user">User</Nav.Link>
+          {
+            role == 'admin' ?
+              <Nav.Link onClick={generateUsersReport}>Report of All Users</Nav.Link> : ""
+          }
+          {
+            role == 'admin' ?
+              <Nav.Link onClick={generateBalancesReport}>Report outstanding balances</Nav.Link> : ""
+          }
+
         </Nav>
       </Navbar.Collapse>
       <DropdownButton id="dropdown-menu-align-right" title="Settings"
         className="justify-content-end" alignRight>
         <Dropdown.Item href="/">Logout</Dropdown.Item>
         <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
-        <Dropdown.Item onClick={navigateToUser}>Profile</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToProfile}>Profile</Dropdown.Item>
         <Dropdown.Item onClick={navigateToApplications}>Applications</Dropdown.Item>
         <Dropdown.Item onClick={navigateToPaymentsMethods}>Payment Options</Dropdown.Item>
       </DropdownButton>
