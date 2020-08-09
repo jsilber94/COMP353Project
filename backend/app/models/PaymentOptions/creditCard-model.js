@@ -1,6 +1,6 @@
 const db = require('../../../config/database');
 const dbFunc = require('../../../config/db-function');
-const insertNewLog = require('../../../common/logger');
+const loggerModel = require('../../../common/logger');
 
 function getCreditCardById(id) {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function getCreditCardById(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CreditCard');
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -27,7 +27,7 @@ function getCreditCardByUserId(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CreditCard');
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -43,7 +43,7 @@ function addCreditCard(creditCard) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CreditCard');
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -59,7 +59,7 @@ function updateCreditCard(id, creditCard) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CreditCard');
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -75,7 +75,7 @@ function deleteCreditCard(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CreditCard');
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });

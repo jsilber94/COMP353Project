@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const insertNewLog = require('../../common/logger');
+const loggerModel = require('../../common/logger');
 
 const mailer = require('../../common/mailer');
 
@@ -29,7 +29,7 @@ function authenticate(authenticData) {
             user2.date_last_payment = rows[0].date_last_payment;
             user2.role = rows[0].role;
             user2.withdrawal_status = rows[0].withdrawal_status;
-            insertNewLog(query, 'Auth');
+            loggerModel.insertNewLog(query, 'Auth');
             resolve(user2);
           } else {
             // eslint-disable-next-line prefer-promise-reject-errors
@@ -60,7 +60,7 @@ function signup(user) {
             reject(error);
           } else if (rows.length > 0) {
             dbFunc.connectionRelease();
-            insertNewLog(query, 'Auth');
+            loggerModel.insertNewLog(query, 'Auth');
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'User already exists. Please try with a different email' });
           } else {
@@ -71,7 +71,7 @@ function signup(user) {
                 reject(error2);
               } else {
                 dbFunc.connectionRelease();
-                insertNewLog(query, 'Auth');
+                loggerModel.insertNewLog(query, 'Auth');
                 resolve(authenticate(user));
               }
             });
@@ -111,7 +111,7 @@ function changePassword(userId, oldPassword, newPassword) {
                   return reject(error4);
                 }
                 dbFunc.connectionRelease();
-                insertNewLog(query, 'Auth');
+                loggerModel.insertNewLog(query, 'Auth');
                 return resolve('Password has been changed');
               });
             });
@@ -128,7 +128,7 @@ function resetPassword(email) {
     const query = `SELECT * FROM User WHERE email='${email}'`;
     db.query(query, (error, rows) => {
       if (rows.length > 0 && rows[0]) {
-        insertNewLog(query, 'Auth');
+        loggerModel.insertNewLog(query, 'Auth');
         mailer.mail('Reset your email here: ', email, 'Password reset');
         resolve('Reset email sent!');
       }

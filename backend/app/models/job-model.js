@@ -1,6 +1,6 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const insertNewLog = require('../../common/logger');
+const loggerModel = require('../../common/logger');
 
 function getAllJob() {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ function getAllJob() {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });
@@ -26,7 +26,7 @@ function getJobById(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });
@@ -42,7 +42,7 @@ function addJob(job) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });
@@ -58,7 +58,7 @@ function updateJob(id, job) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });
@@ -74,7 +74,7 @@ function deleteJob(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });
@@ -90,7 +90,7 @@ function getAllJobsByUserId(userId) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Job');
+        loggerModel.insertNewLog(query, 'Job');
         resolve(rows);
       }
     });

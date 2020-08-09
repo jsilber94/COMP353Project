@@ -1,6 +1,6 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const insertNewLog = require('../../common/logger');
+const loggerModel = require('../../common/logger');
 
 function getAllEmployer() {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function getAllEmployer() {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         resolve(rows);
       }
     });
@@ -26,7 +26,7 @@ function getEmployerById(id) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -42,7 +42,7 @@ function addEmployer(employer) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -58,7 +58,7 @@ function updateEmployer(id, employer) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -74,7 +74,7 @@ function deleteEmployer(id) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -95,7 +95,7 @@ function getAppliedJobsReport(id, dates) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -115,7 +115,7 @@ function getJobReport(id) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }
@@ -131,7 +131,7 @@ function dealWithApplication(userId, applicationId, status) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
-        insertNewLog(query, 'Employer');
+        loggerModel.insertNewLog(query, 'Employer');
         dbFunc.connectionRelease();
         resolve(rows);
       }

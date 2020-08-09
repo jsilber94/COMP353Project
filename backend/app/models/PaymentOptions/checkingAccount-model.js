@@ -1,6 +1,6 @@
 const db = require('../../../config/database');
 const dbFunc = require('../../../config/db-function');
-const insertNewLog = require('../../../common/logger');
+const loggerModel = require('../../../common/logger');
 
 function getCheckingAccountById(id) {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function getCheckingAccountById(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CheckingAccount');
+        loggerModel.insertNewLog(query, 'CheckingAccount');
         resolve(rows);
       }
     });
@@ -27,7 +27,7 @@ function getCheckingAccountByUserId(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CheckingAccount');
+        loggerModel.insertNewLog(query, 'CheckingAccount');
         resolve(rows);
       }
     });
@@ -43,7 +43,7 @@ function addCheckingAccount(checkingAccount) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CheckingAccount');
+        loggerModel.insertNewLog(query, 'CheckingAccount');
         resolve(rows);
       }
     });
@@ -59,7 +59,7 @@ function updateCheckingAccount(id, checkingAccount) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CheckingAccount');
+        loggerModel.insertNewLog(query, 'CheckingAccount');
         resolve(rows);
       }
     });
@@ -75,7 +75,7 @@ function deleteCheckingAccount(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'CheckingAccount');
+        loggerModel.insertNewLog(query, 'CheckingAccount');
         resolve(rows);
       }
     });

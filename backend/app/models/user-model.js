@@ -1,6 +1,6 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const insertNewLog = require('../../common/logger');
+const loggerModel = require('../../common/logger');
 
 const keys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'role'];
 
@@ -13,7 +13,7 @@ function getAllUser() {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -29,7 +29,7 @@ function getUserById(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -45,7 +45,7 @@ function addUser(user) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -61,7 +61,7 @@ function updateUserFName(id, fname) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -77,7 +77,7 @@ function updateUserLName(id, lname) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -93,7 +93,7 @@ function updateUserEmail(id, email) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -127,7 +127,7 @@ function updateUser(id, user) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -143,7 +143,7 @@ function deleteUser(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -159,7 +159,7 @@ function respondToApplication(id, response) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -175,7 +175,7 @@ function makeManualPayment(id, customAmount) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -191,7 +191,7 @@ function withdrawApplication(userId, applicationId) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -207,7 +207,7 @@ function updateCategory(userId, category) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(getAllUser());
       }
     });
@@ -228,7 +228,7 @@ function getOutstandingBalanceReport() {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -249,7 +249,7 @@ function getUsersForEmployerReport(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'User');
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });

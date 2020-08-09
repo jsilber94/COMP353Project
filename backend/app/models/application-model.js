@@ -1,6 +1,6 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const insertNewLog = require('../../common/logger');
+const loggerModel = require('../../common/logger');
 
 function getAllApplication() {
   return new Promise((resolve, reject) => {
@@ -11,7 +11,7 @@ function getAllApplication() {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Application');
+        loggerModel.insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -27,7 +27,7 @@ function getApplicationById(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Application');
+        loggerModel.insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -43,7 +43,7 @@ function addApplication(application) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Application');
+        loggerModel.insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -59,7 +59,7 @@ function updateApplication(id, application) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Application');
+        loggerModel.insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -75,7 +75,7 @@ function deleteApplication(id) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
-        insertNewLog(query, 'Application');
+        loggerModel.insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
