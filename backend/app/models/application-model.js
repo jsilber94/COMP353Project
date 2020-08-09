@@ -1,14 +1,17 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
+const insertNewLog = require('../../common/logger');
 
 function getAllApplication() {
   return new Promise((resolve, reject) => {
-    db.query('select * from Application', (error, rows) => {
+    const query = 'select * from Application';
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -17,12 +20,14 @@ function getAllApplication() {
 
 function getApplicationById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM Application WHERE application_id =${id}`, (error, rows) => {
+    const query = `SELECT * FROM Application WHERE application_id =${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -31,12 +36,14 @@ function getApplicationById(id) {
 
 function addApplication(application) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO Application(status,date_applied,user_id_fk,employer_id_fk,job_id_fk)VALUES('${application.status}',NOW(),'${application.user_id_fk}','${application.employer_id_fk}','${application.job_id_fk}')`, (error, rows) => {
+    const query = `INSERT INTO Application(status,date_applied,user_id_fk,employer_id_fk,job_id_fk)VALUES('${application.status}',NOW(),'${application.user_id_fk}','${application.employer_id_fk}','${application.job_id_fk}')`
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -45,12 +52,14 @@ function addApplication(application) {
 
 function updateApplication(id, application) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE Application set status='${application.status}' WHERE application_id='${id}'`, (error, rows) => {
+    const query = `UPDATE Application set status='${application.status}' WHERE application_id='${id}'`
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
@@ -59,12 +68,14 @@ function updateApplication(id, application) {
 
 function deleteApplication(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM Application WHERE application_id='${id}'`, (error, rows) => {
+    const query = `DELETE FROM Application WHERE application_id='${id}'`
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        insertNewLog(query, 'Application');
         resolve(rows);
       }
     });
