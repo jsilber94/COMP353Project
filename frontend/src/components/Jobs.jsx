@@ -9,7 +9,6 @@ import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 
 function JobTable() {
-    const [users, setUsers] = useState([])
     const [jobs, setJobs] = useState([])
     const [isMade, setIsMade] = useState(false)
 
@@ -24,20 +23,8 @@ function JobTable() {
             })
     };
 
-    const retrieveUsers = () => {
-        apiGetAllUsers()
-            .then((response) => {
-                if (response.status === 200) {
-                    setUsers(response.data)
-                }
-            }).catch((error) => {
-                console.log(error);
-            })
-    };
-
     if (!isMade) {
         retrieveJobs();
-        retrieveUsers();
         setIsMade(true);
     }
 
@@ -100,8 +87,8 @@ function JobTable() {
                 </Media.Body>
             </Media>
         </div>
-        )
-    }
+    )
+}
 
 }
 
