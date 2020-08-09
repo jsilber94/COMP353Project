@@ -41,12 +41,13 @@ export function apiUpdateUser(userId, toUpdate){
   return axios.put(`/user/${userId}`, toUpdate)
 }
 
-export function apiSignUp(email, password, fname, lname) {
+export function apiSignUp(email, password, fname, lname, role) {
   return axios.post('signup', {
     email,
     password,
     fname,
     lname,
+    role,
   })
 }
 
