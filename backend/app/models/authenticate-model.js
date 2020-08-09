@@ -21,7 +21,6 @@ function authenticate(authenticData) {
             user2.email = rows[0].email;
             user2.fname = rows[0].fname;
             user2.lname = rows[0].lname;
-
             user2.account_status = rows[0].account_status;
             user2.balance = rows[0].balance;
             user2.category = rows[0].category;

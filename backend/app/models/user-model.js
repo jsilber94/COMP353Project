@@ -2,7 +2,7 @@ const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
 const dbFunction = require('../../config/db-function');
 
-const keys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'role']
+const keys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'role'];
 
 function getAllUser() {
   return new Promise((resolve, reject) => {
@@ -46,75 +46,73 @@ function addUser(user) {
   });
 }
 
-function updateUserFName(id, fname){
-  return new Promise((resolve, reject) =>{
-    db.query(`UPDATE User set fname='${fname}' Where user_id=${id}`, (error, rows) =>{
-      if(error){
+function updateUserFName(id, fname) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE User set fname='${fname}' Where user_id=${id}`, (error, rows) => {
+      if (error) {
         dbFunction.connectionRelease();
         reject(error);
-      }else{
+      } else {
         dbFunc.connectionRelease();
-        resolver(rows);
+        resolve(rows);
       }
-    })
-  })
+    });
+  });
 }
 
-function updateUserLName(id, lname){
-  return new Promise((resolve, reject) =>{
-    db.query(`UPDATE User set lname='${lname}' Where user_id=${id}`, (error, rows) =>{
-      if(error){
+function updateUserLName(id, lname) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE User set lname='${lname}' Where user_id=${id}`, (error, rows) => {
+      if (error) {
         dbFunction.connectionRelease();
         reject(error);
-      }else{
+      } else {
         dbFunc.connectionRelease();
-        resolver(rows);
+        resolve(rows);
       }
-    })
-  })
+    });
+  });
 }
 
-function updateUserEmail(id, email){
-  return new Promise((resolve, reject) =>{
-    db.query(`UPDATE User set email='${email}' Where user_id=${id}`, (error, rows) =>{
-      if(error){
+function updateUserEmail(id, email) {
+  return new Promise((resolve, reject) => {
+    db.query(`UPDATE User set email='${email}' Where user_id=${id}`, (error, rows) => {
+      if (error) {
         dbFunction.connectionRelease();
         reject(error);
-      }else{
+      } else {
         dbFunc.connectionRelease();
-        resolver(rows);
+        resolve(rows);
       }
-    })
-  })
+    });
+  });
 }
-
-
 
 function updateUser(id, user) {
-  let query = 'UPDATE User set '
+  let query = 'UPDATE User set ';
   let counter = keys.length;
 
-  for (let entry of keys){
-    if(user[entry] != null && user[entry] != undefined){
-      query = query + `${entry}='${user[entry]}'`
-      if(!--counter){
-        query = query + ` where user_id=${id}`
-      }else{
-        query = query + ","
+  for (const entry of keys) {
+    if (user[entry] !== null && user[entry] !== undefined) {
+      query += `${entry}='${user[entry]}'`;
+      if (!--counter) {
+        query += ` where user_id=${id}`;
+      } else {
+        query += ',';
       }
-    }else{
-      counter--;
+    } else {
+      counter -= 1;
     }
-    counter--;
+    counter -= 1;
   }
 
-  console.log(query)
-  
+  console.log(query);
+
   return new Promise((resolve, reject) => {
     db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
-        console.log(error)
+        console.log(error);
         reject(error);
       } else {
         dbFunc.connectionRelease();
@@ -194,6 +192,44 @@ function updateCategory(userId, category) {
   });
 }
 
+function getOutstandingBalanceReport() {
+  return new Promise((resolve, reject) => {
+    db.query(`(select      fname, lname, email, balance, date_last_payment as 'owing since'      from user      where (user.balance != 0 and user.role not like 'Admin'))
+   union
+   (select
+      fname, lname, email, balance, date_last_payment as 'owing since'
+      from employer
+      where (employer.balance != 0))`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
+function getUsersForEmployerReport(id) {
+  return new Promise((resolve, reject) => {
+    db.query(`select user.fname, user.lname, user.category, user.email, user.balance 
+    from User, employer, application 
+    where Employer_id = ${id} 
+    and Employer_id = application.employer_id_fk 
+    and user_id = application.user_id_fk 
+    and role like 'Employee';`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const userModel = {
   getAllUser,
   addUser,
@@ -204,6 +240,8 @@ const userModel = {
   makeManualPayment,
   withdrawApplication,
   updateCategory,
+  getOutstandingBalanceReport,
+  getUsersForEmployerReport,
   updateUserEmail,
   updateUserFName,
   updateUserLName,
