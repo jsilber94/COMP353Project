@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { apiApply, apiGetAllJobs, apiGetAllApplications } from '../Api';
 import { useSelector } from 'react-redux';
 import React from 'react';
@@ -17,15 +17,6 @@ function JobEntry(props) {
         return state.authenticationReducer.id
     });
 
-    const getAllApplications = () => {
-        apiGetAllApplications(user_id)
-        .then((response) => {
-            if(response.status === 200){
-                setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
-            }
-        })
-    }
-
     const apply = () => {
         apiApply("submitted", user_id, props.employer_id, props.job_id)
             .then((response) => {
@@ -42,8 +33,16 @@ function JobEntry(props) {
     const alreadyApplied = () => {
         return userApplications.some(application => application.job_id_fk == props.job_id);
     }
-    
-    getAllApplications();
+
+    //this will run on every render (fixes cases where buttons disables are delayed)
+    useEffect(() => {
+        apiGetAllApplications(user_id)
+            .then((response) => {
+                if (response.status === 200) {
+                    setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
+                }
+            })
+    })
 
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
         style={style}
@@ -60,7 +59,7 @@ function JobEntry(props) {
                 <h5>{props.title}</h5>
                 <p>
                     {props.description}
-                    <Button style={{ margin: '1%' }} onClick={() => apply()}  disabled={alreadyApplied()}>Apply</Button>
+                    <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={alreadyApplied()}>Apply</Button>
                     {errorMessage}
                 </p>
             </Media.Body>
