@@ -76,6 +76,7 @@ export function apiGetOutstandingBalanceReport() {
 export function apiGetUsersForEmployerReport(employerId) {
   return axios.get(`/admin/report/employer/${employerId}`);
 }
+
 export function apiDeleteApplication(application_id) {
   return axios.delete(`/application/${application_id}`);
 }
@@ -113,4 +114,8 @@ export function apiPostJob(title, description, category, employer_id_fk) {
     category,
     employer_id_fk
   });
+}
+
+export function apiGetLogs() {
+  return axios.get(`logs`);
 }
