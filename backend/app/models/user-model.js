@@ -1,5 +1,8 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
+const dbFunction = require('../../config/db-function');
+
+const keys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'role']
 
 function getAllUser() {
   return new Promise((resolve, reject) => {
@@ -43,11 +46,75 @@ function addUser(user) {
   });
 }
 
+function updateUserFName(id, fname){
+  return new Promise((resolve, reject) =>{
+    db.query(`UPDATE User set fname='${fname}' Where user_id=${id}`, (error, rows) =>{
+      if(error){
+        dbFunction.connectionRelease();
+        reject(error);
+      }else{
+        dbFunc.connectionRelease();
+        resolver(rows);
+      }
+    })
+  })
+}
+
+function updateUserLName(id, lname){
+  return new Promise((resolve, reject) =>{
+    db.query(`UPDATE User set lname='${lname}' Where user_id=${id}`, (error, rows) =>{
+      if(error){
+        dbFunction.connectionRelease();
+        reject(error);
+      }else{
+        dbFunc.connectionRelease();
+        resolver(rows);
+      }
+    })
+  })
+}
+
+function updateUserEmail(id, email){
+  return new Promise((resolve, reject) =>{
+    db.query(`UPDATE User set email='${email}' Where user_id=${id}`, (error, rows) =>{
+      if(error){
+        dbFunction.connectionRelease();
+        reject(error);
+      }else{
+        dbFunc.connectionRelease();
+        resolver(rows);
+      }
+    })
+  })
+}
+
+
+
 function updateUser(id, user) {
+  let query = 'UPDATE User set '
+  let counter = keys.length;
+
+  for (let entry of keys){
+    if(user[entry] != null && user[entry] != undefined){
+      query = query + `${entry}='${user[entry]}'`
+      if(!--counter){
+        query = query + ` where user_id=${id}`
+      }else{
+        query = query + ","
+      }
+    }else{
+      counter--;
+    }
+    counter--;
+  }
+
+  console.log(query)
+  
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set fname='${user.fname}',lname='${user.lname}',category='${user.category}',email='${user.email}',balance=${user.balance},date_last_payment='${user.date_last_payment}',withdrawal_status='${user.withdrawal_status}' WHERE user_id=${id}`, (error, rows) => {
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
+        console.log(error)
         reject(error);
       } else {
         dbFunc.connectionRelease();
@@ -137,6 +204,9 @@ const userModel = {
   makeManualPayment,
   withdrawApplication,
   updateCategory,
+  updateUserEmail,
+  updateUserFName,
+  updateUserLName,
 };
 
 module.exports = userModel;

@@ -21,9 +21,6 @@ module.exports = mysql.createPool({
   port: 3306,
   host: 'localhost',
   user: 'root',
-  password: 'Supersql321!',
-  database: 'CareerPortal',
-  connectTimeout: 60 * 60 * 1000,
-  acquireTimeout: 60 * 60 * 1000,
-  timeout: 60 * 60 * 1000,
+  password: 'root',
+  database: 'careerportal',
 });
