@@ -32,6 +32,10 @@ function Header() {
     history.push('/profile')
   }
 
+  const navigateToApplications = () => {
+    history.push('/applications');
+  }
+
 
   return (
     <Navbar bg="light" expand="lg">
@@ -49,6 +53,7 @@ function Header() {
         <Dropdown.Item href="/">Logout</Dropdown.Item>
         <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
         <Dropdown.Item onClick={fetchUser}>Profile</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToApplications}>Applications</Dropdown.Item>
       </DropdownButton>
     </Navbar>
   );

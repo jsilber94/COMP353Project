@@ -42,6 +42,7 @@ function updateUser(req, res) {
   });
 }
 
+
 function updateCategory(req, res) {	
   const { category } = req.body;	
   const { userId } = req.params;	

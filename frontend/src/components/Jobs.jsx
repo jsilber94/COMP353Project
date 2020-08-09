@@ -1,14 +1,63 @@
-import { useState } from 'react';
-import { apiGetAllJobs } from '../Api';
+import { useState, useEffect } from 'react';
+import { apiApply, apiGetAllJobs, apiGetAllApplications } from '../Api';
+import { useSelector } from 'react-redux';
 import React from 'react';
 import Media from 'react-bootstrap/Media';
 import logo from './assets/job_logo.png';
-import DropdownButton from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 function JobEntry(props) {
-
+    const [userApplications, setUserApplications] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
     const style = {
         margin: 20,
+    }
+
+    const user_id = useSelector((state) => {
+        return state.authenticationReducer.id
+    });
+
+    const user_category = useSelector((state) => {
+        return state.authenticationReducer.category
+    });
+
+    const apply = () => {
+        apiApply("submitted", user_id, props.employer_id, props.job_id)
+            .then((response) => {
+                if (response.statusText == "OK") {
+                    console.log("application successful");
+                } else {
+                    setErrorMessage('Application unsuccessful.');
+                }
+            }).catch((error) => {
+                setErrorMessage('Application unsuccessful.');
+            });
+    };
+
+    //this will run on every render (fixes cases where buttons disables are delayed)
+    useEffect(() => {
+        apiGetAllApplications(user_id)
+            .then((response) => {
+                if (response.status === 200) {
+                    setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
+                }
+            })
+    })
+
+    const isUserRestricted = () => {
+        switch(user_category){
+            case 'Basic':
+                return true;
+            case 'Prime':
+                return userApplications.length >= 5;
+                break;
+            case 'Gold':
+                return false;
+        }
+    }
+
+    const cannotApply = () => {
+        return (userApplications.some(application => application.job_id_fk == props.job_id) || isUserRestricted());
     }
 
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
@@ -26,6 +75,8 @@ function JobEntry(props) {
                 <h5>{props.title}</h5>
                 <p>
                     {props.description}
+                    <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={cannotApply()}>Apply</Button>
+                    {errorMessage}
                 </p>
             </Media.Body>
         </Media>
@@ -34,8 +85,8 @@ function JobEntry(props) {
 }
 
 function JobTable() {
-    const [jobs, setJobs] = useState([])
-    const [isMade, setIsMade] = useState(false)
+    const [jobs, setJobs] = useState([]);
+    const [isMade, setIsMade] = useState(false);
     const [categories, setCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
 
@@ -72,7 +123,7 @@ function JobTable() {
         let values = [];
         jobs.map(job => {
             if (job.category == currentCategory) {
-                values.push(<JobEntry title={job.title} description={job.description} key={job.job_id} />);
+                values.push(<JobEntry title={job.title} description={job.description} key={job.job_id} employer_id={job.Employer_id_fk} job_id={job.job_id} />);
             }
         });
         return values;
