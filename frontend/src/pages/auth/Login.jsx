@@ -19,7 +19,7 @@ export default function Login() {
       .then((response) => {
         if (response.data.success) {
           dispatch(loginRedux(response.data.user.role, response.data.user.user_id, response.data.user.category));
-          debugger
+
           if (response.data.user.role == 'admin') {
             history.push("/adminDashboard")
           } else history.push("/dashboard");

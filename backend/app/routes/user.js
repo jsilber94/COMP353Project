@@ -108,6 +108,25 @@ function updateCategory(req, res) {
   });
 }
 
+function getOutstandingBalanceReport(req, res) {
+  userService.getOutstandingBalanceReport().then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.status(400);
+    res.send(err.message);
+  });
+}
+
+function getUsersForEmployerReport(req, res) {
+  const { employerId } = req.params;
+  userService.getUsersForEmployerReport(employerId).then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.status(400);
+    res.send(err.message);
+  });
+}
+
 function init(router) {
   router.route('/user')
     .get(getAllUsers)
@@ -123,6 +142,10 @@ function init(router) {
     .patch(makeManualPayment);
   router.route('/user/:userId/category')
     .put(updateCategory);
+  router.route('/admin/report/balance')
+    .get(getOutstandingBalanceReport);
+  router.route('/admin/report/employer/:employerId')
+    .get(getUsersForEmployerReport);
 }
 
 module.exports.init = init;

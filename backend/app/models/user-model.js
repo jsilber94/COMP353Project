@@ -127,6 +127,44 @@ function updateCategory(userId, category) {
   });
 }
 
+function getOutstandingBalanceReport() {
+  return new Promise((resolve, reject) => {
+    db.query(`(select      fname, lname, email, balance, date_last_payment as 'owing since'      from user      where (user.balance != 0 and user.role not like 'Admin'))
+   union
+   (select
+      fname, lname, email, balance, date_last_payment as 'owing since'
+      from employer
+      where (employer.balance != 0))`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
+function getUsersForEmployerReport(id) {
+  return new Promise((resolve, reject) => {
+    db.query(`select user.fname, user.lname, user.category, user.email, user.balance 
+    from User, employer, application 
+    where Employer_id = ${id} 
+    and Employer_id = application.employer_id_fk 
+    and user_id = application.user_id_fk 
+    and role like 'Employee';`, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 const userModel = {
   getAllUser,
   addUser,
@@ -137,6 +175,8 @@ const userModel = {
   makeManualPayment,
   withdrawApplication,
   updateCategory,
+  getOutstandingBalanceReport,
+  getUsersForEmployerReport,
 };
 
 module.exports = userModel;

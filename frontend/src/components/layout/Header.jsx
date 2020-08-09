@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import { apiGetOutstandingBalanceReport, apiGetUsersForEmployerReport } from '../../Api'
 
 
 function Header(props) {
@@ -15,7 +15,7 @@ function Header(props) {
     console.log(state)
     return state.authenticationReducer.role
   });
-  debugger
+
 
   const navigateToChangePassword = () => {
     history.push('/change');
@@ -30,11 +30,12 @@ function Header(props) {
   }
 
   function generateUsersReport() {
-    console.log(1)
-  }
+    history.push('/reportUser')
+  };
+
   function generateBalancesReport() {
-    console.log(2)
-  }
+    history.push('/reportBalance')
+  };
 
 
   return (

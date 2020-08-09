@@ -24,7 +24,6 @@ function UserTable() {
             width: 1000,
         },
     });
-
     const retrieveUsers = () => {
         apiGetAllUsers()
             .then((response) => {
@@ -45,7 +44,7 @@ function UserTable() {
 
 
     function UserEntry(props) {
-
+        console.log(props)
         const id = useSelector((state) => {
             return state.authenticationReducer.id
         });
@@ -93,7 +92,7 @@ function UserTable() {
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>User Id</TableCell>
+                            <TableCell align="center">User Id</TableCell>
                             <TableCell align="center">Email</TableCell>
                             <TableCell align="center">Category</TableCell>
                             <TableCell align="center">Balance</TableCell>

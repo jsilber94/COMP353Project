@@ -15,6 +15,10 @@ export function apiGetAllUsers() {
   return axios.get('user')
 }
 
+export function apiGetAllEmployers() {
+  return axios.get('employer')
+}
+
 export function apiUpdateCategory(userId, category) {
   return axios.put(`/user/${userId}/category`, {
     category: category
@@ -31,12 +35,20 @@ export function apiSignUp(email, password, fname, lname) {
 }
 
 export function apiForgotPassword(email) {
-  return axios.get('/password/user/reset/' + email);
+  return axios.get(`/password/user/reset/${email}`);
 }
 
 export function apiChangePassword(oldPassword, newPassword, id) {
-  return axios.post('/password/user/change/' + id, {
+  return axios.post(`/password/user/change/${id}`, {
     oldPassword,
     newPassword
   })
+}
+
+export function apiGetOutstandingBalanceReport() {
+  return axios.get('/admin/report/balance');
+}
+
+export function apiGetUsersForEmployerReport(employerId) {
+  return axios.get(`/admin/report/employer/${employerId}`);
 }
