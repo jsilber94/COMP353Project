@@ -91,7 +91,15 @@ export function apiApply(application_status, user_id, employer_id, job_id) {
   })
 }
 
-export function apigetCreditCardByUserId(user_id) {
+export function apiAddCreditCard(creditCard){
+  return axios.post('/creditcard', creditCard)
+}
+
+export function apiAddCheckingAccount(checkingAccount){
+  return axios.post('/checkingAccount', checkingAccount)
+}
+
+export function apigetCreditCardByUserId(user_id){
   return axios.get(`/creditCard/user/${user_id}`);
 }
 
