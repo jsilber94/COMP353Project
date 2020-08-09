@@ -1,9 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import EmployerDashboard from '../pages/EmployerDashboard';
 import ChangePassword from '../pages/auth/ChangePassword';
+import EmployerDashboard from '../pages/EmployerDashboard';
 import NotFound from '../pages/NotFound';
+import Payments from '../pages/Payments';
 import ProfilePage from '../pages/ProfilePage';
+import PostJobs from '../pages/PostJobs';
 
 export default function AdminRouter() {
 
@@ -17,6 +19,12 @@ export default function AdminRouter() {
             </Route>
             <Route path="/profile">
                 <ProfilePage />
+            </Route>
+            <Route path="/payments">
+                <Payments />
+            </Route>
+            <Route path="/postjobs">
+                <PostJobs />
             </Route>
             <Route>
                 <NotFound />

@@ -35,7 +35,7 @@ function getJobById(id) {
 
 function addJob(job) {
   return new Promise((resolve, reject) => {
-    const query = `INSERT INTO Job(title,description,date_posted,employer_id_fk)VALUES('${job.title}','${job.description}',NOW(),'${job.employer_id_fk}')`;
+    const query = `INSERT INTO Job(title,description,category,date_posted,employer_id_fk)VALUES('${job.title}','${job.description}', '${job.category}',NOW(),'${job.employer_id_fk}')`;
     db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
