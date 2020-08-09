@@ -33,18 +33,12 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
-export function apiUpdateUser(userId, toUpdate){
-  return axios.put(`/user/${userId}`, toUpdate)
+export function apiGetAllJobsByUser(userId){
+  return axios.get(`/job/user/${userId}`)
 }
 
-export function apiApply(application_status, user_id, employer_id, job_id) {
-  return axios.post('application', {
-   status: application_status,
-   user_id_fk: user_id,
-   employer_id_fk: employer_id,
-   job_id_fk: job_id,
-
-  })
+export function apiUpdateUser(userId, toUpdate){
+  return axios.put(`/user/${userId}`, toUpdate)
 }
 
 export function apiSignUp(email, password, fname, lname) {
@@ -73,4 +67,14 @@ export function apiChangePassword(oldPassword, newPassword, id) {
 
 export function apiDeleteApplication(application_id){
   return axios.delete(`/application/${application_id}`);
+}
+
+export function apiApply(application_status, user_id, employer_id, job_id) {
+  return axios.post('application', {
+   status: application_status,
+   user_id_fk: user_id,
+   employer_id_fk: employer_id,
+   job_id_fk: job_id,
+
+  })
 }
