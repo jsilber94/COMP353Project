@@ -5,6 +5,7 @@ import Header from '../components/layout/Header';
 import NotFound from '../pages/NotFound';
 import { useSelector } from 'react-redux';
 import { apiGetUser, apiUpdateUser, apiDeleteUser } from '../Api'
+import Login from '../pages/auth/Login'
 
 function ChangeCard(props){
   const [email, setEmail] = useState(props.user.email);
@@ -79,11 +80,10 @@ function ProfilePage(){
       if(window.confirm("Are you sure you want to delete your account?")){
         apiDeleteUser(id)
         .then((response) =>{
-            console.log(response)
+          
         }).catch((error) => {
           console.log(error)
         })
-        history.push("/")
       }
     }
 
@@ -102,6 +102,7 @@ function ProfilePage(){
       setUserFetched(true)
     }
 
+    if(user){
       return (    <div>
             <Header/>
               <Card style={{ width: '50%', padding: '10%', margin: 'auto', marginTop: '2%' }}>
@@ -112,10 +113,13 @@ function ProfilePage(){
                   {user.balance ? <ListGroupItem>Balance: {user.balance}</ListGroupItem> : null}
                 </ListGroup>
                 <Button style={{ marginTop: '20px' }} onClick={genChangeCard} >Change Information</Button>
-                <Button variant="danger" style={{ marginTop: '20px' }} onClick={deleteAccount}>Delete Account</Button>
+                <Button href="/" variant="danger" style={{ marginTop: '20px' }} onClick={deleteAccount}>Delete Account</Button>
               </Card>
               {changeInfoCard ? <ChangeCard func={fetchUser} user={user}/> : null}
         </div>)
+    }else{
+      return <Login/>
+    }
   }
 
 export default ProfilePage;
