@@ -85,7 +85,6 @@ export default function SignUp() {
           <FormControl
             as="select"
             onChange={(e) => {
-              console.log(e.target.value)
               let rl = `${e.target.value}`.toLowerCase()
               setRole(rl)}}
           >

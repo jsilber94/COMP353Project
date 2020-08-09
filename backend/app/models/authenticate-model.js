@@ -60,7 +60,7 @@ function signup(user) {
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'User already exists. Please try with a different email' });
           } else {
-            db.query(`INSERT INTO User(fname,lname,email,password_hash)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}')`, (error2) => {
+            db.query(`INSERT INTO User(fname,lname,email,password_hash,role)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}','${user.role}')`, (error2) => {
               if (error2) {
                 dbFunc.connectionRelease();
                 reject(error2);
