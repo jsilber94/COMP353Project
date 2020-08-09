@@ -97,6 +97,7 @@ function updateUser(id, user) {
       query += `${entry}='${user[entry]}'`;
       if (!--counter) {
         query += ` where user_id=${id}`;
+        break;
       } else {
         query += ',';
       }
