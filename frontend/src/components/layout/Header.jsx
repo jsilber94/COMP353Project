@@ -16,7 +16,6 @@ function Header() {
   })
 
   const role = useSelector((state) => {
-    console.log(state)
     return state.authenticationReducer.role
   });
 
@@ -40,12 +39,16 @@ function Header() {
     history.push('/reportBalance')
   };
 
-  const fetchUser = () => {
+  const navigateToProfile = () => {
     history.push('/profile')
   }
 
   const navigateToApplications = () => {
     history.push('/applications');
+  }
+
+  const navigateToPaymentsMethods = () => {
+    history.push('/payments');
   }
 
 
@@ -73,8 +76,9 @@ function Header() {
         className="justify-content-end" alignRight>
         <Dropdown.Item href="/">Logout</Dropdown.Item>
         <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
-        <Dropdown.Item onClick={fetchUser}>Profile</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToProfile}>Profile</Dropdown.Item>
         <Dropdown.Item onClick={navigateToApplications}>Applications</Dropdown.Item>
+        <Dropdown.Item onClick={navigateToPaymentsMethods}>Payment Options</Dropdown.Item>
       </DropdownButton>
     </Navbar>
   );

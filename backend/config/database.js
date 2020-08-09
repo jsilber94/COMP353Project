@@ -21,6 +21,6 @@ module.exports = mysql.createPool({
   port: 3306,
   host: 'localhost',
   user: 'root',
-  password: 'Supersql321!',
+  password: 'root',
   database: 'CareerPortal',
 });

@@ -89,3 +89,19 @@ export function apiApply(application_status, user_id, employer_id, job_id) {
 
   })
 }
+
+export function apigetCreditCardByUserId(user_id){
+  return axios.get(`/creditCard/user/${user_id}`);
+}
+
+export function apiDeleteCreditCard(creditCard_id){
+  return axios.delete(`/creditCard/${creditCard_id}`);
+}
+
+export function apiGetCheckingAccountsByUserId(user_id){
+  return axios.get(`checkingAccount/user/${user_id}`);
+}
+
+export function apiDeleteCheckingAccount(checkingAccount_id){
+  return axios.delete(`checkingAccount/${checkingAccount_id}`);
+}

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import Applications from '../pages/Applications';
+import ChangePassword from '../pages/auth/ChangePassword';
 import Dashboard from '../pages/Dashboard';
 import NotFound from '../pages/NotFound';
-import ChangePassword from '../pages/auth/ChangePassword';
+import Payments from '../pages/Payments';
 import ProfilePage from '../pages/ProfilePage';
-import Header from '../components/layout/Header';
-import Applications from '../pages/Applications';
 
 
 export default function AdminRouter() {
@@ -23,6 +23,9 @@ export default function AdminRouter() {
             </Route>
             <Route path="/applications">
                 <Applications />
+            </Route>
+            <Route path="/payments">
+                <Payments />
             </Route>
             <Route>
                 <NotFound />

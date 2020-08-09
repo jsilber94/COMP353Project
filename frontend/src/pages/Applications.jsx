@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import Header from '../components/layout/Header';
-import { useSelector } from 'react-redux';
-import { apiGetAllJobs, apiGetAllApplications, apiDeleteApplication } from '../Api';
-import Table from 'react-bootstrap/Table';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+import { useSelector } from 'react-redux';
+import { apiDeleteApplication, apiGetAllApplications, apiGetAllJobs } from '../Api';
+import Header from '../components/layout/Header';
 
 export default function Applications() {
     const [userApplications, setUserApplications] = useState([]);
