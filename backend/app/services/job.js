@@ -50,12 +50,23 @@ function getJobById(id) {
   });
 }
 
+function getAllJobsByUserId(userId){
+  return new Promise((resolve, reject) => {
+    jobModel.getAllJobsByUserId(userId).then((data)=>{
+      resolve(data);
+    }).catch((error) =>{
+      reject(error)
+    })
+  })
+}
+
 const jobService = {
   getAllJob,
   getJobById,
   addJob,
   updateJob,
   deleteJob,
+  getAllJobsByUserId
 };
 
 module.exports = jobService;

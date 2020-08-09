@@ -25,6 +25,10 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
+export function apiGetAllJobsByUser(userId){
+  return axios.get(`/job/user/${userId}`)
+}
+
 export function apiUpdateUser(userId, toUpdate){
   return axios.put(`/user/${userId}`, toUpdate)
 }

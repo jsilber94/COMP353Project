@@ -71,12 +71,30 @@ function deleteJob(id) {
   });
 }
 
+function getAllJobsByUserId(userId){
+  const query = `SELECT DISTINCT Job.title, Job.description, Job.category, Application.status from Application, Job, User where Application.user_id_fk='${userId}' AND Job.job_id=Application.job_id_fk`
+  console.log(query)
+  return new Promise((resolve, reject) =>{
+    db.query(query, (error, rows) =>{
+      if(error){
+        dbFunc.connectionRelease();
+        console.log(error)
+        reject(error);
+      }else{
+        dbFunc.connectionRelease;
+        resolve(rows);
+      }
+    })
+  })
+}
+
 const jobModel = {
   getAllJob,
   addJob,
   updateJob,
   deleteJob,
   getJobById,
+  getAllJobsByUserId,
 };
 
 module.exports = jobModel;
