@@ -17,12 +17,22 @@ export default function Login() {
   const authenticate = () => {
     apiLogin(email, password)
       .then((response) => {
+        console.log(response);
         if (response.data.success) {
           dispatch(loginRedux(response.data.user.role, response.data.user.user_id, response.data.user.category));
 
           if (response.data.user.role == 'admin') {
-            history.push("/adminDashboard")
-          } else history.push("/dashboard");
+            dispatch(loginRedux('admin', response.data.user.user_id, response.data.user.category));
+            history.push("/adminDashboard");
+          }
+          else if (response.data.user.role == 'employer') {
+            dispatch(loginRedux('employer', response.data.user.user_id, response.data.user.category));
+            history.push("/employerDashboard");
+          } else {
+            dispatch(loginRedux('user', response.data.user.user_id, response.data.user.category));
+            history.push("/dashboard");
+          }
+
         } else {
           setErrorMessage('Wrong credentials!');
         }

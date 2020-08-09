@@ -5,9 +5,9 @@ import ReportBalance from '../pages/ReportBalance';
 import ReportUser from '../pages/ReportUser';
 import ChangePassword from '../pages/auth/ChangePassword';
 import NotFound from '../pages/NotFound';
+import ProfilePage from '../pages/ProfilePage'
 
 export default function AdminRouter() {
-
     return (
         <Switch>
             <Route path="/adminDashboard">
@@ -26,6 +26,10 @@ export default function AdminRouter() {
                 <ChangePassword />
             </Route>
 
+            <Route path="/profile">
+                <ProfilePage />
+            </Route>
+            
             <Route>
                 <NotFound />
             </Route>

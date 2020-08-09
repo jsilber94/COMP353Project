@@ -50,6 +50,16 @@ function deleteJob(req, res) {
   });
 }
 
+function getAllJobsByUserId(req, res){
+  const userId = req.params.id;
+  jobService.getAllJobsByUserId(userId).then((data) => {
+    res.json(data);
+  }).catch((error) => {
+    res.status(400);
+    res.send(error.message)
+  })
+}
+
 function init(router) {
   router.route('/job')
     .get(getAllJobs)
@@ -58,6 +68,8 @@ function init(router) {
     .get(getJobById)
     .delete(deleteJob)
     .put(updateJob);
+  router.route('/job/user/:id')
+    .get(getAllJobsByUserId)
 }
 
 module.exports.init = init;

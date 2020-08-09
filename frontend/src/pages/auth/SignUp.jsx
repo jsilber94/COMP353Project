@@ -13,20 +13,25 @@ export default function SignUp() {
   const [fname, setfName] = useState('');
   const [lname, setlName] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const [role, setRole] = useState("user")
   const dispatch = useDispatch();
   const history = useHistory();
 
   const signup = () => {
-    apiSignUp(email, password, fname, lname)
+
+    apiSignUp(email, password, fname, lname, role)
       .then((response) => {
         if (response.data.success) {
-          if (response.data.data.isAdmin == 1) {
-            history.push("/adminDashboard");
+          if (response.data.data.role === 'admin') {
             dispatch(loginRedux('admin', response.data.data.user_id, response.data.data.category));
+            history.push("/adminDashboard");
           }
-          else if (response.data.data.isAdmin == 0) {
-            history.push("/dashboard");
+          else if (response.data.data.role == 'employer') {
+            dispatch(loginRedux('employer', response.data.data.user_id, response.data.data.category));
+            history.push("/employerDashboard");
+          } else {
             dispatch(loginRedux('user', response.data.data.user_id, response.data.data.category));
+            history.push("/dashboard");
           }
         } else {
           setErrorMessage('Email already taken! Please choose another one.');
@@ -75,6 +80,19 @@ export default function SignUp() {
           />
         </FormGroup>
 
+        <FormGroup controlId="role">
+          <FormLabel>Role</FormLabel>
+          <FormControl
+            as="select"
+            onChange={(e) => {
+              let rl = `${e.target.value}`.toLowerCase()
+              setRole(rl)}}
+          >
+            <option>User</option>  
+            <option>Admin</option>  
+            <option>Employer</option>  
+          </FormControl>
+        </FormGroup>
         <Button onClick={signup} type="Submit">Sign Up</Button>
         <div>
           {errorMessage}
