@@ -25,8 +25,8 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
-export function apiUpdateUser(userId, user){
-  return axios.put(`/user/${userId}`, user)
+export function apiUpdateUser(userId, toUpdate){
+  return axios.put(`/user/${userId}`, toUpdate)
 }
 
 export function apiSignUp(email, password, fname, lname) {
@@ -36,6 +36,10 @@ export function apiSignUp(email, password, fname, lname) {
     fname,
     lname,
   })
+}
+
+export function apiDeleteUser(userId){
+  return axios.delete(`/user/${userId}`)
 }
 
 export function apiForgotPassword(email) {
