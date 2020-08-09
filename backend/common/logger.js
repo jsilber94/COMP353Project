@@ -15,8 +15,47 @@ function insertNewLog(query, tableName) {
   });
 }
 
+function getAllLogs() {
+  return new Promise((resolve, reject) => {
+    db.query('Select * from logs', (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
+function getLogs() {
+  return new Promise((resolve, reject) => {
+    getAllLogs().then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
+function getLogsModel(req, res) {
+  getLogs().then((data) => {
+    res.json(data);
+  }).catch((err) => {
+    res.status(400);
+    res.send(err.message);
+  });
+}
+
+function init(router) {
+  router.route('/logs')
+    .get(getLogsModel);
+}
+
 const loggerModel = {
   insertNewLog,
+  init,
 };
 
 module.exports = loggerModel;

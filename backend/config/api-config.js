@@ -13,6 +13,7 @@ const EmployerRoute = require('../app/routes/employer');
 const ApplicationRoute = require('../app/routes/application');
 const CheckingAccountRoute = require('../app/routes/PaymentOptions/checkingAccount');
 const CreditCardRoute = require('../app/routes/PaymentOptions/creditCard');
+const LoggerRoute = require('../common/logger')
 
 dbfunc.connectionCheck.then((data) => {
   console.log(data);
@@ -64,5 +65,5 @@ EmployerRoute.init(router);
 ApplicationRoute.init(router);
 CreditCardRoute.init(router);
 CheckingAccountRoute.init(router);
-
+LoggerRoute.init(router);
 module.exports = ApiConfig;
