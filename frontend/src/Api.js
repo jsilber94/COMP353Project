@@ -16,11 +16,15 @@ export function apiGetAllUsers() {
 }
 
 export function apiGetAllApplications(){
-  return axios.get(`application`);
+  return axios.get(`/application`)
 }
 
 export function apiGetUser(userId){
   return axios.get(`/user/${userId}`)
+}
+
+export function apiGetJobById(jobId){
+  return axios.get(`/job/${jobId}`);
 }
 
 export function apiUpdateCategory(userId, category) {
@@ -61,4 +65,8 @@ export function apiChangePassword(oldPassword, newPassword, id) {
     oldPassword,
     newPassword
   })
+}
+
+export function apiDeleteApplication(application_id){
+  return axios.delete(`/application/${application_id}`);
 }

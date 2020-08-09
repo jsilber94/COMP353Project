@@ -9,10 +9,6 @@ import Button from 'react-bootstrap/Button';
 function JobEntry(props) {
     const [userApplications, setUserApplications] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const style = {
-        margin: 20,
-    }
-
     const user_id = useSelector((state) => {
         return state.authenticationReducer.id
     });
@@ -44,6 +40,10 @@ function JobEntry(props) {
             })
     })
 
+    const style = {
+        margin: 20,
+    }
+
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
         style={style}
     >
@@ -69,8 +69,8 @@ function JobEntry(props) {
 }
 
 function JobTable() {
-    const [jobs, setJobs] = useState([])
-    const [isMade, setIsMade] = useState(false)
+    const [jobs, setJobs] = useState([]);
+    const [isMade, setIsMade] = useState(false);
     const [categories, setCategories] = useState([]);
     const [currentCategory, setCurrentCategory] = useState('');
 
