@@ -21,7 +21,7 @@ module.exports = mysql.createPool({
   port: 3306,
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: 'root',
   database: 'CareerPortal',
   connectTimeout  : 60 * 60 * 1000,
   acquireTimeout  : 60 * 60 * 1000,
