@@ -3,7 +3,6 @@ import { apiGetAllJobs } from '../Api';
 import React from 'react';
 import Media from 'react-bootstrap/Media';
 import logo from './assets/job_logo.png';
-import DropdownButton from 'react-bootstrap';
 
 function JobEntry(props) {
 
