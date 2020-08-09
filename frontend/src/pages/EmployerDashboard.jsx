@@ -1,12 +1,15 @@
 import React from 'react';
-import Header from '../components/layout/Header';
+import EmployerHeader from '../components/layout/EmployerHeader';
+import UserCategory from '../components/UserCategory';
+import User from '../components/Users'
 
 function EmployerDashboard(props) {
 
     return (
         <div>
-            <Header></Header>
-            Hello world
+            <EmployerHeader />
+            <UserCategory />
+            <User></User>
         </div>
     );
 }
