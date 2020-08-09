@@ -1,22 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Dashboard from '../pages/Dashboard';
-import NotFound from '../pages/NotFound';
+import EmployerDashboard from '../pages/EmployerDashboard';
 import ChangePassword from '../pages/auth/ChangePassword';
-import ProfilePage from '../pages/ProfilePage';
+import NotFound from '../pages/NotFound';
 
 export default function AdminRouter() {
 
     return (
         <Switch>
-            <Route path="/dashboard">
-                <Dashboard />
+            <Route path="/employerDashboard">
+                <EmployerDashboard />
             </Route>
             <Route path="/change">
                 <ChangePassword />
-            </Route>
-            <Route path="/profile">
-                <ProfilePage />
             </Route>
             <Route>
                 <NotFound />
