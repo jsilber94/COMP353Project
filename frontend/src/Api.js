@@ -15,6 +15,10 @@ export function apiGetAllUsers() {
   return axios.get('user')
 }
 
+export function apiGetAllApplications(){
+  return axios.get(`application`);
+}
+
 export function apiGetUser(userId){
   return axios.get(`/user/${userId}`)
 }
