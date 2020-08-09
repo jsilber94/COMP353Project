@@ -45,7 +45,6 @@ function JobEntry(props) {
     })
 
     const isUserRestricted = () => {
-        console.log(user_category);
         switch(user_category){
             case 'Basic':
                 return true;

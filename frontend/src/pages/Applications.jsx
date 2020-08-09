@@ -44,13 +44,11 @@ export default function Applications() {
     })
 
     const deleteApplication = (application_id) => {
-        console.log(application_id);
-
         apiDeleteApplication(application_id)
         .then((response) => {
             console.log(response);
             if (response.status == 200) {
-                console.log("deleted");
+                console.log(`application ${application_id} deleted`);
             } else {
                 setErrorMessage('Could not delete application.');
             }

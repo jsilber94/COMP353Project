@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/Button';
 import { apiUpdateCategory } from '../Api';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import authenticationReducer from '../store/reducers/auth';
+import { categoryRedux } from '../store/action/auth';
 
 export default function UserCategory() {
     const dispatch = useDispatch();
 
-    const id = useSelector((state) => {
+    const user_id = useSelector((state) => {
         return state.authenticationReducer.id
     });
 
@@ -17,17 +17,20 @@ export default function UserCategory() {
             category
     });
 
+    const userRole = useSelector((state) => {
+        return state.authenticationReducer.role
+    });
+
     const [category, setCategory] = useState(userCategory);
     const [errorMessage, setErrorMessage] = useState('');
 
     const changeCategory = (new_category) => {
-        apiUpdateCategory(id, new_category)
+        apiUpdateCategory(user_id, new_category)
             .then((response) => {
                 if (response.statusText == "OK") {
                     setCategory(new_category);
-
                     //update the category within the reducer for ease of job filtering restrictions
-                    dispatch(authenticationReducer(new_category));
+                    dispatch(categoryRedux(userRole, user_id, new_category));
                 } else {
                     setErrorMessage(response.data.message);
                 }
