@@ -24,8 +24,7 @@ export default function Login() {
           if (response.data.user.role == 'admin') {
             dispatch(loginRedux('admin', response.data.user.user_id, response.data.user.category));
             history.push("/adminDashboard");
-          }
-          else if (response.data.user.role == 'employer') {
+          } else if (response.data.user.role == 'employer') {
             dispatch(loginRedux('employer', response.data.user.user_id, response.data.user.category));
             history.push("/employerDashboard");
           } else {
