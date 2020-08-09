@@ -15,6 +15,10 @@ export function apiGetAllUsers() {
   return axios.get('user')
 }
 
+export function apiGetAllApplications(){
+  return axios.get(`application`);
+}
+
 export function apiGetUser(userId){
   return axios.get(`/user/${userId}`)
 }
@@ -22,6 +26,16 @@ export function apiGetUser(userId){
 export function apiUpdateCategory(userId, category) {
   return axios.put(`/user/${userId}/category`, {
     category: category
+  })
+}
+
+export function apiApply(application_status, user_id, employer_id, job_id) {
+  return axios.post('application', {
+   status: application_status,
+   user_id_fk: user_id,
+   employer_id_fk: employer_id,
+   job_id_fk: job_id,
+
   })
 }
 

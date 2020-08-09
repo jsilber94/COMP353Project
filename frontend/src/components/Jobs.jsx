@@ -1,14 +1,48 @@
-import { useState } from 'react';
-import { apiGetAllJobs } from '../Api';
+import { useState, useEffect } from 'react';
+import { apiApply, apiGetAllJobs, apiGetAllApplications } from '../Api';
+import { useSelector } from 'react-redux';
 import React from 'react';
 import Media from 'react-bootstrap/Media';
 import logo from './assets/job_logo.png';
+import Button from 'react-bootstrap/Button';
 
 function JobEntry(props) {
-
+    const [userApplications, setUserApplications] = useState([]);
+    const [errorMessage, setErrorMessage] = useState('');
     const style = {
         margin: 20,
     }
+
+    const user_id = useSelector((state) => {
+        return state.authenticationReducer.id
+    });
+
+    const apply = () => {
+        apiApply("submitted", user_id, props.employer_id, props.job_id)
+            .then((response) => {
+                if (response.statusText == "OK") {
+                    console.log("success");
+                } else {
+                    setErrorMessage('Application unsuccessful.');
+                }
+            }).catch((error) => {
+                setErrorMessage('Application unsuccessful.');
+            });
+    };
+
+    const alreadyApplied = () => {
+        return userApplications.some(application => application.job_id_fk == props.job_id);
+    }
+
+    //this will run on every render (fixes cases where buttons disables are delayed)
+    useEffect(() => {
+        apiGetAllApplications(user_id)
+            .then((response) => {
+                if (response.status === 200) {
+                    setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
+                }
+            })
+    })
 
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
         style={style}
@@ -25,6 +59,8 @@ function JobEntry(props) {
                 <h5>{props.title}</h5>
                 <p>
                     {props.description}
+                    <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={alreadyApplied()}>Apply</Button>
+                    {errorMessage}
                 </p>
             </Media.Body>
         </Media>
@@ -71,7 +107,7 @@ function JobTable() {
         let values = [];
         jobs.map(job => {
             if (job.category == currentCategory) {
-                values.push(<JobEntry title={job.title} description={job.description} key={job.job_id} />);
+                values.push(<JobEntry title={job.title} description={job.description} key={job.job_id} employer_id={job.Employer_id_fk} job_id={job.job_id} />);
             }
         });
         return values;
