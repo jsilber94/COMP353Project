@@ -1,12 +1,9 @@
-import { useState } from 'react';
-import { apiGetAllJobs } from '../Api'
-import { apiGetAllUsers } from '../Api'
-import React from 'react'
-import Media from 'react-bootstrap/Media'
-import logo from './assets/job_logo.png'
-import { apiApply } from '../Api';
-import { useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Media from 'react-bootstrap/Media';
+import { useSelector } from 'react-redux';
+import { apiApply, apiGetAllJobs } from '../Api';
+import logo from './assets/job_logo.png';
 
 function JobTable() {
     const [jobs, setJobs] = useState([])
@@ -35,11 +32,13 @@ function JobTable() {
 
     return (
         <div style={styles}>
-            {/* {console.log(jobs)} */}
-            {
-                jobs.map(
-                    retrievedJob => <JobEntry title={retrievedJob.title} description={retrievedJob.description} key={retrievedJob.job_id} employer_id={retrievedJob.Employer_id_fk} job_id={retrievedJob.job_id}/>
-                )}
+            {jobs.map(job =>
+                <JobEntry
+                    title={job.title}
+                    description={job.description}
+                    key={job.job_id}
+                    employer_id={job.Employer_id_fk}
+                    job_id={job.job_id} />)}
         </div>
     )
 
@@ -54,7 +53,6 @@ function JobTable() {
         });
 
         const apply = () => {
-            console.log(props);
             apiApply("submitted", user_id, props.employer_id, props.job_id)
                 .then((response) => {
                     if (response.statusText == "OK") {
@@ -83,12 +81,13 @@ function JobTable() {
                     <p>
                         {props.description}
                         <Button style={{ margin: '1%' }} onClick={() => apply()} >Apply</Button>
+                        {errorMessage}
                     </p>
                 </Media.Body>
             </Media>
         </div>
-    )
-}
+        )
+    }
 
 }
 

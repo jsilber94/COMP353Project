@@ -21,9 +21,9 @@ export function apiUpdateCategory(userId, category) {
   })
 }
 
-export function apiApply(appication_status, user_id, employer_id, job_id) {
+export function apiApply(application_status, user_id, employer_id, job_id) {
   return axios.post('application', {
-   status: appication_status,
+   status: application_status,
    user_id_fk: user_id,
    employer_id_fk: employer_id,
    job_id_fk: job_id,
