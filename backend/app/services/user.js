@@ -20,6 +20,36 @@ function updateUser(id, userData) {
   });
 }
 
+function updateUserFName(id, fname){
+  return new Promise((resolve, reject) =>{
+    userModel.updateUserFName(id, fname).then((data) =>{
+      resolve(data);
+    }).catch((error) =>{
+      reject(err);
+    })
+  })
+}
+
+function updateUserLName(id, lname){
+  return new Promise((resolve, reject) =>{
+    userModel.updateUserLName(id, lname).then((data) =>{
+      resolve(data);
+    }).catch((error) =>{
+      reject(err);
+    })
+  })
+}
+
+function updateUserEmail(id, email){
+  return new Promise((resolve, reject) =>{
+    userModel.updateUserLName(id, email).then((data) =>{
+      resolve(data);
+    }).catch((error) =>{
+      reject(err);
+    })
+  })
+}
+
 function deleteUser(id) {
   return new Promise((resolve, reject) => {
     userModel.deleteUser(id).then((data) => {

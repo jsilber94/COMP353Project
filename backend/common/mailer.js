@@ -1,5 +1,9 @@
 const nodemailer = require('nodemailer');
 
+const userKeys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'isAdmin']
+const jobKeys = ['title', 'description', 'category', 'date_posted', 'Employer_id_fk', 'numNeeded']
+const applicationKeys = ['status', 'date_applied', 'user_id_fk', 'employer_id_fk', 'job_id_fk']
+
 const fromEmail = 'comp353testemail@gmail.com';
 const fromPassword = 'Create123!';
 
@@ -30,6 +34,10 @@ function mail(messageBody, to, subject) {
     // shut down the connection pool, no more messages.
     // Comment this line out to continue sending emails.
   });
+}
+
+function generateQuery(id, body, type){
+  
 }
 
 module.exports = {
