@@ -105,3 +105,7 @@ export function apiGetCheckingAccountsByUserId(user_id){
 export function apiDeleteCheckingAccount(checkingAccount_id){
   return axios.delete(`checkingAccount/${checkingAccount_id}`);
 }
+
+export function apiGetEmployerById(employer_id){
+  return axios.get(`/employer/${employer_id}`);
+}
