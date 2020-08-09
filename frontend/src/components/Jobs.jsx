@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react';
-import { apiApply, apiGetAllJobs, apiGetAllApplications } from '../Api';
+import { apiApply, apiGetAllJobs, apiGetAllApplications, apiGetEmployerById } from '../Api';
 import { useSelector } from 'react-redux';
 import React from 'react';
 import Media from 'react-bootstrap/Media';
 import logo from './assets/job_logo.png';
 import Button from 'react-bootstrap/Button';
+import Toast from 'react-bootstrap/Toast';
+
 
 function JobEntry(props) {
     const [userApplications, setUserApplications] = useState([]);
+    const [employer, setEmployer] = useState();
+    const [employerContactInfo, setEmployerContactInfo] = useState('');
+    const [isMade, setIsMade] = useState(false);
+    const [showT, setShowT] = useState(false);
+    const toggleShowT = () => setShowT(!showT);
     const [errorMessage, setErrorMessage] = useState('');
     const style = {
         margin: 20,
@@ -20,6 +27,20 @@ function JobEntry(props) {
     const user_category = useSelector((state) => {
         return state.authenticationReducer.category
     });
+
+    const getEmployerInfo = () => {
+        apiGetEmployerById(props.employer_id)
+            .then((response) => {
+                if (response.status === 200) {
+                    setEmployer(response.data[0]);
+                }
+            });
+    }
+
+    if (!isMade) {
+        getEmployerInfo();
+        setIsMade(true);
+    }
 
     const apply = () => {
         apiApply("submitted", user_id, props.employer_id, props.job_id)
@@ -41,11 +62,11 @@ function JobEntry(props) {
                 if (response.status === 200) {
                     setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
                 }
-            })
-    })
+            });
+    });
 
     const isUserRestricted = () => {
-        switch(user_category){
+        switch (user_category) {
             case 'Basic':
                 return true;
             case 'Prime':
@@ -54,11 +75,19 @@ function JobEntry(props) {
             case 'Gold':
                 return false;
         }
-    }
+    };
 
     const cannotApply = () => {
         return (userApplications.some(application => application.job_id_fk == props.job_id) || isUserRestricted());
+    };
+
+    const displayContactInfo = () => {
+        if (typeof employer != "undefined") {
+            setEmployerContactInfo(`Name: ${employer.fname} ${employer.lname}   Email: ${employer.email}`);
+            toggleShowT();
+        }
     }
+
 
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
         style={style}
@@ -76,6 +105,14 @@ function JobEntry(props) {
                 <p>
                     {props.description}
                     <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={cannotApply()}>Apply</Button>
+                    <Button variant="warning" onClick={() => displayContactInfo()}>Stop... Get Some Help</Button>
+                    <Toast show={showT} onClose={toggleShowT}>
+                        <Toast.Header>
+                            <img src="holder.js/20x20?text=%20" className="rounded mr-2" alt="" />
+                            <strong className="mr-auto">Employer Contact Info</strong>
+                        </Toast.Header>
+                        <Toast.Body>{employerContactInfo}</Toast.Body>
+                    </Toast>
                     {errorMessage}
                 </p>
             </Media.Body>

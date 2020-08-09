@@ -76,6 +76,7 @@ export function apiGetOutstandingBalanceReport() {
 export function apiGetUsersForEmployerReport(employerId) {
   return axios.get(`/admin/report/employer/${employerId}`);
 }
+
 export function apiDeleteApplication(application_id) {
   return axios.delete(`/application/${application_id}`);
 }
@@ -102,14 +103,31 @@ export function apigetCreditCardByUserId(user_id){
   return axios.get(`/creditCard/user/${user_id}`);
 }
 
-export function apiDeleteCreditCard(creditCard_id){
+export function apiDeleteCreditCard(creditCard_id) {
   return axios.delete(`/creditCard/${creditCard_id}`);
 }
 
-export function apiGetCheckingAccountsByUserId(user_id){
+export function apiGetCheckingAccountsByUserId(user_id) {
   return axios.get(`checkingAccount/user/${user_id}`);
 }
 
-export function apiDeleteCheckingAccount(checkingAccount_id){
+export function apiDeleteCheckingAccount(checkingAccount_id) {
   return axios.delete(`checkingAccount/${checkingAccount_id}`);
+}
+
+export function apiPostJob(title, description, category, employer_id_fk) {
+  return axios.post('/job', {
+    title,
+    description,
+    category,
+    employer_id_fk
+  });
+}
+
+export function apiGetLogs() {
+  return axios.get(`logs`);
+}
+
+export function apiGetEmployerById(employer_id){
+  return axios.get(`/employer/${employer_id}`);
 }

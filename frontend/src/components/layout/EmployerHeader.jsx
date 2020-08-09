@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
-import { DropdownButton, Dropdown } from 'react-bootstrap';
+import React from 'react';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 function EmployerHeader() {
     const history = useHistory();
-
-    const id = useSelector((state) => {
-        return state.authenticationReducer.id
-    })
-
-    const role = useSelector((state) => {
-        return state.authenticationReducer.role
-    });
 
     const navigateToChangePassword = () => {
         history.push('/change');
@@ -28,6 +19,14 @@ function EmployerHeader() {
         history.push('/profile');
     }
 
+    const navigateToPaymentsMethods = () => {
+        history.push('/payments');
+    }
+
+    const navigateToPostJobs = () => {
+        history.push('/postjobs');
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand onClick={navigateToDashboard}>Databases 353</Navbar.Brand>
@@ -35,7 +34,7 @@ function EmployerHeader() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                     <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
-                    <Nav.Link href="#postjobs">Post Jobs</Nav.Link>
+                    <Nav.Link onClick={navigateToPostJobs}>Post Jobs</Nav.Link>
                     <Nav.Link href="#postjobs">Maintain Jobs</Nav.Link>
                     <Nav.Link href="#summary">Summary</Nav.Link>
                 </Nav>
@@ -45,6 +44,7 @@ function EmployerHeader() {
                 <Dropdown.Item href="/">Logout</Dropdown.Item>
                 <Dropdown.Item onClick={navigateToChangePassword}>Change Password</Dropdown.Item>
                 <Dropdown.Item onClick={fetchUser}>Profile</Dropdown.Item>
+                <Dropdown.Item onClick={navigateToPaymentsMethods}>Payment Options</Dropdown.Item>
             </DropdownButton>
         </Navbar>
     );

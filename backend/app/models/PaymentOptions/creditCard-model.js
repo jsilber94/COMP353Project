@@ -1,14 +1,17 @@
 const db = require('../../../config/database');
 const dbFunc = require('../../../config/db-function');
+const loggerModel = require('../../../common/logger');
 
 function getCreditCardById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM CreditCard WHERE CreditCard_id=${id}`, (error, rows) => {
+    const query = `SELECT * FROM CreditCard WHERE CreditCard_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -17,12 +20,14 @@ function getCreditCardById(id) {
 
 function getCreditCardByUserId(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM CreditCard WHERE user_id_fk=${id}`, (error, rows) => {
+    const query = `SELECT * FROM CreditCard WHERE user_id_fk=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -38,6 +43,7 @@ function addCreditCard(creditCard) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -46,12 +52,14 @@ function addCreditCard(creditCard) {
 
 function updateCreditCard(id, creditCard) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE CreditCard set default_option=${creditCard.defaultOption}, expirary_date=${creditCard.expiry_date}, pin='${creditCard.pin}' WHERE creditCard_id=${id}`, (error, rows) => {
+    const query = `UPDATE CreditCard set default_option=${creditCard.defaultOption}, expirary_date=${creditCard.expiry_date}, pin='${creditCard.pin}' WHERE creditCard_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });
@@ -60,12 +68,14 @@ function updateCreditCard(id, creditCard) {
 
 function deleteCreditCard(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM CreditCard WHERE creditCard_id=${id}`, (error, rows) => {
+    const query = `DELETE FROM CreditCard WHERE creditCard_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'CreditCard');
         resolve(rows);
       }
     });

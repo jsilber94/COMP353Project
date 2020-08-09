@@ -1,12 +1,14 @@
 const bcrypt = require('bcryptjs');
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
+const loggerModel = require('../../common/logger');
 
 const mailer = require('../../common/mailer');
 
 function authenticate(authenticData) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM User WHERE email ='${authenticData.email}'`, (error, rows) => {
+    const query = `SELECT * FROM User WHERE email ='${authenticData.email}'`;
+    db.query(query, (error, rows) => {
       if (error) {
         reject(error);
       } else if (rows.length < 1) {
@@ -27,6 +29,7 @@ function authenticate(authenticData) {
             user2.date_last_payment = rows[0].date_last_payment;
             user2.role = rows[0].role;
             user2.withdrawal_status = rows[0].withdrawal_status;
+            loggerModel.insertNewLog(query, 'Auth');
             resolve(user2);
           } else {
             // eslint-disable-next-line prefer-promise-reject-errors
@@ -50,21 +53,25 @@ function signup(user) {
         }
         // eslint-disable-next-line no-param-reassign
         user.password_hash = hash;
-        return db.query(`SELECT * FROM User WHERE email='${user.email}'`, (error, rows) => {
+        let query = `SELECT * FROM User WHERE email='${user.email}'`;
+        return db.query(query, (error, rows) => {
           if (error) {
             dbFunc.connectionRelease();
             reject(error);
           } else if (rows.length > 0) {
             dbFunc.connectionRelease();
+            loggerModel.insertNewLog(query, 'Auth');
             // eslint-disable-next-line prefer-promise-reject-errors
             reject({ success: false, message: 'User already exists. Please try with a different email' });
           } else {
-            db.query(`INSERT INTO User(fname,lname,email,password_hash,role)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}','${user.role}')`, (error2) => {
+            query = `INSERT INTO User(fname,lname,email,password_hash,role)VALUES('${user.fname}','${user.lname}','${user.email}','${user.password_hash}','${user.role}')`;
+            db.query(query, (error2) => {
               if (error2) {
                 dbFunc.connectionRelease();
                 reject(error2);
               } else {
                 dbFunc.connectionRelease();
+                loggerModel.insertNewLog(query, 'Auth');
                 resolve(authenticate(user));
               }
             });
@@ -77,7 +84,8 @@ function signup(user) {
 
 function changePassword(userId, oldPassword, newPassword) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT password_hash FROM User WHERE user_id =${userId}`, (error, rows) => {
+    let query = `SELECT password_hash FROM User WHERE user_id =${userId}`;
+    db.query(query, (error, rows) => {
       if (error) {
         return reject(error);
       }
@@ -96,12 +104,14 @@ function changePassword(userId, oldPassword, newPassword) {
               }
               // eslint-disable-next-line no-param-reassign
               newPassword = hash;
-              return db.query(`UPDATE User set password_hash='${newPassword}' WHERE user_id=${userId}`, (error4) => {
+              query = `UPDATE User set password_hash='${newPassword}' WHERE user_id=${userId}`;
+              return db.query(query, (error4) => {
                 if (error4) {
                   dbFunc.connectionRelease();
                   return reject(error4);
                 }
                 dbFunc.connectionRelease();
+                loggerModel.insertNewLog(query, 'Auth');
                 return resolve('Password has been changed');
               });
             });
@@ -114,13 +124,17 @@ function changePassword(userId, oldPassword, newPassword) {
 }
 
 function resetPassword(email) {
-  return new Promise((resolve, reject) => db.query(`SELECT * FROM User WHERE email='${email}'`, (error, rows) => {
-    if (rows.length > 0 && rows[0]) {
-      mailer.mail('Reset your email here: ', email, 'Password reset');
-      resolve('Reset email sent!');
-    }
-    reject(new Error('Email is not a match'));
-  }));
+  return new Promise((resolve, reject) => {
+    const query = `SELECT * FROM User WHERE email='${email}'`;
+    db.query(query, (error, rows) => {
+      if (rows.length > 0 && rows[0]) {
+        loggerModel.insertNewLog(query, 'Auth');
+        mailer.mail('Reset your email here: ', email, 'Password reset');
+        resolve('Reset email sent!');
+      }
+      reject(new Error('Email is not a match'));
+    });
+  });
 }
 
 const authenticModel = {
