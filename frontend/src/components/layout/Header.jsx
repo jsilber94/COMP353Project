@@ -64,7 +64,11 @@ function Header() {
           <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
           <Nav.Link href="#admin">Admin</Nav.Link>
           <Nav.Link href="#user">User</Nav.Link>
-          <Nav.Link onClick={navigateToLogs}>Logs</Nav.Link>
+          {
+            role == 'admin' ?
+              <Nav.Link onClick={navigateToLogs}>Logs</Nav.Link> : ""
+          }
+
           {
             role == 'admin' ?
               <Nav.Link onClick={generateUsersReport}>Report of All Users</Nav.Link> : ""
