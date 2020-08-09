@@ -6,6 +6,7 @@ import ReportUser from '../pages/ReportUser';
 import ChangePassword from '../pages/auth/ChangePassword';
 import NotFound from '../pages/NotFound';
 import ProfilePage from '../pages/ProfilePage'
+import Logs from '../pages/Logs'
 
 export default function AdminRouter() {
     return (
@@ -28,6 +29,10 @@ export default function AdminRouter() {
 
             <Route path="/profile">
                 <ProfilePage />
+            </Route>
+
+            <Route path="/logs">
+                <Logs />
             </Route>
             
             <Route>

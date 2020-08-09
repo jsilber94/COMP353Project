@@ -1,17 +1,19 @@
 const db = require('../../config/database');
 const dbFunc = require('../../config/db-function');
-const dbFunction = require('../../config/db-function');
+const loggerModel = require('../../common/logger');
 
 const keys = ['fname', 'lname', 'category', 'email', 'password_hash', 'balance', 'date_last_payment', 'withdrawal_status', 'role'];
 
 function getAllUser() {
   return new Promise((resolve, reject) => {
-    db.query('select * FROM User', (error, rows) => {
+    const query = 'select * FROM User';
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -20,12 +22,14 @@ function getAllUser() {
 
 function getUserById(id) {
   return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM User WHERE user_id =${id}`, (error, rows) => {
+    const query = `SELECT * FROM User WHERE user_id =${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -34,12 +38,14 @@ function getUserById(id) {
 
 function addUser(user) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO User(fname,lname,category,email,password_hash,balance,withdrawal_status)VALUES('${user.fname}','${user.lname}','${user.category}','${user.email}','${user.password_hash}',${user.balance},'${user.withdrawal_status}')`, (error, rows) => {
+    const query = `INSERT INTO User(fname,lname,category,email,password_hash,balance,withdrawal_status)VALUES('${user.fname}','${user.lname}','${user.category}','${user.email}','${user.password_hash}',${user.balance},'${user.withdrawal_status}')`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -48,12 +54,14 @@ function addUser(user) {
 
 function updateUserFName(id, fname) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set fname='${fname}' Where user_id=${id}`, (error, rows) => {
+    const query = `UPDATE User set fname='${fname}' Where user_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
-        dbFunction.connectionRelease();
+        dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -62,12 +70,14 @@ function updateUserFName(id, fname) {
 
 function updateUserLName(id, lname) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set lname='${lname}' Where user_id=${id}`, (error, rows) => {
+    const query = `UPDATE User set lname='${lname}' Where user_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
-        dbFunction.connectionRelease();
+        dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -76,12 +86,14 @@ function updateUserLName(id, lname) {
 
 function updateUserEmail(id, email) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set email='${email}' Where user_id=${id}`, (error, rows) => {
+    const query = `UPDATE User set email='${email}' Where user_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
-        dbFunction.connectionRelease();
+        dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -107,8 +119,6 @@ function updateUser(id, user) {
     counter -= 1;
   }
 
-  console.log(query);
-
   return new Promise((resolve, reject) => {
     db.query(query, (error, rows) => {
       if (error) {
@@ -117,6 +127,7 @@ function updateUser(id, user) {
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -125,12 +136,14 @@ function updateUser(id, user) {
 
 function deleteUser(id) {
   return new Promise((resolve, reject) => {
-    db.query(`DELETE FROM User WHERE user_id='${id}'`, (error, rows) => {
+    const query = `DELETE FROM User WHERE user_id='${id}'`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -139,12 +152,14 @@ function deleteUser(id) {
 
 function respondToApplication(id, response) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='${response}' WHERE application_id=${id}`, (error, rows) => {
+    const query = `UPDATE application set status='${response}' WHERE application_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -153,12 +168,14 @@ function respondToApplication(id, response) {
 
 function makeManualPayment(id, customAmount) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set balance=(balance-${customAmount}), date_last_payment = current_date() WHERE user_id=${id}`, (error, rows) => {
+    const query = `UPDATE User set balance=(balance-${customAmount}), date_last_payment = current_date() WHERE user_id=${id}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -167,12 +184,14 @@ function makeManualPayment(id, customAmount) {
 
 function withdrawApplication(userId, applicationId) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE application set status='withdrawed' WHERE user_id_fk=${userId} and application_id=${applicationId}`, (error, rows) => {
+    const query = `UPDATE application set status='withdrawed' WHERE user_id_fk=${userId} and application_id=${applicationId}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -181,12 +200,14 @@ function withdrawApplication(userId, applicationId) {
 
 function updateCategory(userId, category) {
   return new Promise((resolve, reject) => {
-    db.query(`UPDATE User set category='${category}' WHERE user_id=${userId}`, (error, rows) => {
+    const query = `UPDATE User set category='${category}' WHERE user_id=${userId}`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(getAllUser());
       }
     });
@@ -195,17 +216,19 @@ function updateCategory(userId, category) {
 
 function getOutstandingBalanceReport() {
   return new Promise((resolve, reject) => {
-    db.query(`(select      fname, lname, email, balance, date_last_payment as 'owing since'      from user      where (user.balance != 0 and user.role not like 'Admin'))
-   union
-   (select
-      fname, lname, email, balance, date_last_payment as 'owing since'
-      from employer
-      where (employer.balance != 0))`, (error, rows) => {
+    const query = `(select      fname, lname, email, balance, date_last_payment as 'owing since'      from user      where (user.balance != 0 and user.role not like 'Admin'))
+    union
+    (select
+       fname, lname, email, balance, date_last_payment as 'owing since'
+       from employer
+       where (employer.balance != 0))`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
@@ -214,17 +237,19 @@ function getOutstandingBalanceReport() {
 
 function getUsersForEmployerReport(id) {
   return new Promise((resolve, reject) => {
-    db.query(`select user.fname, user.lname, user.category, user.email, user.balance 
+    const query = `select user.fname, user.lname, user.category, user.email, user.balance 
     from User, employer, application 
     where Employer_id = ${id} 
     and Employer_id = application.employer_id_fk 
     and user_id = application.user_id_fk 
-    and role like 'Employee';`, (error, rows) => {
+    and role like 'Employee';`;
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
       } else {
         dbFunc.connectionRelease();
+        loggerModel.insertNewLog(query, 'User');
         resolve(rows);
       }
     });
