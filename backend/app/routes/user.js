@@ -122,6 +122,8 @@ function init(router) {
     .get(withdrawApplication);
   router.route('/user/payment/:userId')
     .patch(makeManualPayment);
+    router.route('/user/:userId/category')
+    .put(updateCategory);
 }
 
 module.exports.init = init;
