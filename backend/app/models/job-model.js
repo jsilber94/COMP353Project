@@ -31,7 +31,7 @@ function getJobById(id) {
 
 function addJob(job) {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO Job(title,description,date_posted,employer_id_fk)VALUES('${job.title}','${job.description}',NOW(),'${job.employer_id_fk}')`, (error, rows) => {
+    db.query(`INSERT INTO Job(title,description,category,date_posted,employer_id_fk)VALUES('${job.title}','${job.description}', '${job.category}',NOW(),'${job.employer_id_fk}')`, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
@@ -71,16 +71,16 @@ function deleteJob(id) {
   });
 }
 
-function getAllJobsByUserId(userId){
+function getAllJobsByUserId(userId) {
   const query = `SELECT DISTINCT Job.title, Job.description, Job.category, Application.status from Application, Job, User where Application.user_id_fk='${userId}' AND Job.job_id=Application.job_id_fk`
   console.log(query)
-  return new Promise((resolve, reject) =>{
-    db.query(query, (error, rows) =>{
-      if(error){
+  return new Promise((resolve, reject) => {
+    db.query(query, (error, rows) => {
+      if (error) {
         dbFunc.connectionRelease();
         console.log(error)
         reject(error);
-      }else{
+      } else {
         dbFunc.connectionRelease;
         resolve(rows);
       }
