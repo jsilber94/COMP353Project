@@ -13,11 +13,13 @@ export default function SignUp() {
   const [fname, setfName] = useState('');
   const [lname, setlName] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const [role, setRole] = useState("user")
   const dispatch = useDispatch();
   const history = useHistory();
 
   const signup = () => {
-    apiSignUp(email, password, fname, lname)
+
+    apiSignUp(email, password, fname, lname, role)
       .then((response) => {
         if (response.data.success) {
           if (response.data.data.role === 'admin') {
@@ -78,6 +80,20 @@ export default function SignUp() {
           />
         </FormGroup>
 
+        <FormGroup controlId="role">
+          <FormLabel>Role</FormLabel>
+          <FormControl
+            as="select"
+            onChange={(e) => {
+              console.log(e.target.value)
+              let rl = `${e.target.value}`.toLowerCase()
+              setRole(rl)}}
+          >
+            <option>User</option>  
+            <option>Admin</option>  
+            <option>Employer</option>  
+          </FormControl>
+        </FormGroup>
         <Button onClick={signup} type="Submit">Sign Up</Button>
         <div>
           {errorMessage}
