@@ -89,7 +89,6 @@ export default function SignUp() {
               setRole(rl)}}
           >
             <option>User</option>  
-            <option>Admin</option>  
             <option>Employer</option>  
           </FormControl>
         </FormGroup>
