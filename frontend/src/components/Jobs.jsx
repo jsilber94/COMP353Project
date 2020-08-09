@@ -9,15 +9,23 @@ import Button from 'react-bootstrap/Button';
 function JobEntry(props) {
     const [userApplications, setUserApplications] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const style = {
+        margin: 20,
+    }
+
     const user_id = useSelector((state) => {
         return state.authenticationReducer.id
+    });
+
+    const user_category = useSelector((state) => {
+        return state.authenticationReducer.category
     });
 
     const apply = () => {
         apiApply("submitted", user_id, props.employer_id, props.job_id)
             .then((response) => {
                 if (response.statusText == "OK") {
-                    console.log("success");
+                    console.log("application successful");
                 } else {
                     setErrorMessage('Application unsuccessful.');
                 }
@@ -25,10 +33,6 @@ function JobEntry(props) {
                 setErrorMessage('Application unsuccessful.');
             });
     };
-
-    const alreadyApplied = () => {
-        return userApplications.some(application => application.job_id_fk == props.job_id);
-    }
 
     //this will run on every render (fixes cases where buttons disables are delayed)
     useEffect(() => {
@@ -40,8 +44,21 @@ function JobEntry(props) {
             })
     })
 
-    const style = {
-        margin: 20,
+    const isUserRestricted = () => {
+        console.log(user_category);
+        switch(user_category){
+            case 'Basic':
+                return true;
+            case 'Prime':
+                return userApplications.length >= 5;
+                break;
+            case 'Gold':
+                return false;
+        }
+    }
+
+    const cannotApply = () => {
+        return (userApplications.some(application => application.job_id_fk == props.job_id) || isUserRestricted());
     }
 
     return (<div className="w-responsive text-center mx-auto p-3 mt-2 shadow-sm border border-dark rounded"
@@ -59,7 +76,7 @@ function JobEntry(props) {
                 <h5>{props.title}</h5>
                 <p>
                     {props.description}
-                    <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={alreadyApplied()}>Apply</Button>
+                    <Button style={{ margin: '1%' }} onClick={() => apply()} disabled={cannotApply()}>Apply</Button>
                     {errorMessage}
                 </p>
             </Media.Body>

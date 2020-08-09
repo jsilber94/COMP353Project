@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import { apiUpdateCategory } from '../Api';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import authenticationReducer from '../store/reducers/auth';
 
 export default function UserCategory() {
+    const dispatch = useDispatch();
 
     const id = useSelector((state) => {
         return state.authenticationReducer.id
@@ -22,6 +25,9 @@ export default function UserCategory() {
             .then((response) => {
                 if (response.statusText == "OK") {
                     setCategory(new_category);
+
+                    //update the category within the reducer for ease of job filtering restrictions
+                    dispatch(authenticationReducer(new_category));
                 } else {
                     setErrorMessage(response.data.message);
                 }
