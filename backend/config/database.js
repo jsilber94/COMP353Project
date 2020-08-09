@@ -22,5 +22,5 @@ module.exports = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'careerportal',
+  database: 'CareerPortal',
 });
