@@ -41,20 +41,20 @@ export default function Applications() {
     useEffect(() => {
         getAllUserApplications();
         retrieveJobs();
-    })
+    }, [])
 
     const deleteApplication = (application_id) => {
         apiDeleteApplication(application_id)
-        .then((response) => {
-            console.log(response);
-            if (response.status == 200) {
-                console.log(`application ${application_id} deleted`);
-            } else {
+            .then((response) => {
+                console.log(response);
+                if (response.status == 200) {
+                    console.log(`application ${application_id} deleted`);
+                } else {
+                    setErrorMessage('Could not delete application.');
+                }
+            }).catch((error) => {
                 setErrorMessage('Could not delete application.');
-            }
-        }).catch((error) => {
-            setErrorMessage('Could not delete application.');
-        });
+            });
     }
 
     const applicationRows = () => {
