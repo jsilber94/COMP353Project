@@ -43,7 +43,7 @@ function JobEntry(props) {
                     setUserApplications(response.data.filter(application => application.user_id_fk == user_id));
                 }
             })
-    })
+    }, [])
 
     const isUserRestricted = () => {
         switch (user_category) {
