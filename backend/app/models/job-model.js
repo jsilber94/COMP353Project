@@ -4,7 +4,8 @@ const loggerModel = require('../../common/logger');
 
 function getAllJob() {
   return new Promise((resolve, reject) => {
-    const query = db.query('select * from Job', (error, rows) => {
+    const query = 'select * from Job';
+    db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
         reject(error);
