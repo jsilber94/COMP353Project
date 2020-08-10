@@ -143,3 +143,9 @@ export function apiUpdateJob(title, description, category, id) {
 export function apiGetSummary() {
   return axios.get('/summary');
 }
+
+export function apiUpdateApplication(id, status) {
+  return axios.put('/application/' + id, {
+    status
+  })
+}

@@ -39,7 +39,7 @@ function addApplication(req, res) {
 
 function updateApplication(req, res) {
   const applicationData = req.body;
-  const { id } = req.params.id;
+  const { id } = req.params;
   applicationService.updateApplication(id, applicationData).then((data) => {
     res.json(data);
   }).catch((err) => {
