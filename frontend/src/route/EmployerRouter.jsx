@@ -7,6 +7,7 @@ import Payments from '../pages/Payments';
 import ProfilePage from '../pages/ProfilePage';
 import PostJobs from '../pages/PostJobs';
 import MaintainJobs from '../pages/MaintainJobs';
+import Summary from '../pages/Summary';
 
 export default function AdminRouter() {
 
@@ -29,6 +30,9 @@ export default function AdminRouter() {
             </Route>
             <Route path="/maintain">
                 <MaintainJobs />
+            </Route>
+            <Route path="/summary">
+                <Summary />
             </Route>
             <Route>
                 <NotFound />

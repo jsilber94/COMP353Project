@@ -8,6 +8,14 @@ function getAllApplications(req, res) {
   });
 }
 
+function getSummary(req, res) {
+  applicationService.getSummary().then((data) => {
+    res.send(data);
+  }).catch((err) => {
+    res.send(err);
+  });
+}
+
 function getApplicationById(req, res) {
   const applicationId = req.params.id;
 
@@ -58,6 +66,8 @@ function init(router) {
     .get(getApplicationById)
     .delete(deleteApplication)
     .put(updateApplication);
+  router.route('/summary')
+    .get(getSummary)
 }
 
 module.exports.init = init;
