@@ -1,9 +1,9 @@
 const db = require('../config/database');
 const dbFunc = require('../config/db-function');
 
-function insertNewLog(query, tableName) {
+function insertNewLog(query = 'Unknown', tableName = 'unknown') {
   return new Promise((resolve, reject) => {
-    db.query(`INSERT INTO Logs(query,table_name)VALUES('${query}','${tableName}')`, (error, rows) => {
+    db.query(`INSERT INTO Logs (query,table_name)VALUES('${escape(query)}','${tableName}');`, (error, rows) => {
       if (error) {
         console.log(error);
         dbFunc.connectionRelease();
