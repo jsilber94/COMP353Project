@@ -27,6 +27,10 @@ function EmployerHeader() {
         history.push('/postjobs');
     }
 
+    const navigateToMaintainJobs = () => {
+        history.push('/maintain');
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand onClick={navigateToDashboard}>Databases 353</Navbar.Brand>
@@ -35,7 +39,7 @@ function EmployerHeader() {
                 <Nav className="mr-auto">
                     <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
                     <Nav.Link onClick={navigateToPostJobs}>Post Jobs</Nav.Link>
-                    <Nav.Link href="#postjobs">Maintain Jobs</Nav.Link>
+                    <Nav.Link onClick={navigateToMaintainJobs}>Maintain Jobs</Nav.Link>
                     <Nav.Link href="#summary">Summary</Nav.Link>
                 </Nav>
             </Navbar.Collapse>

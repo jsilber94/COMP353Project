@@ -128,6 +128,14 @@ export function apiGetLogs() {
   return axios.get(`logs`);
 }
 
-export function apiGetEmployerById(employer_id){
+export function apiGetEmployerById(employer_id) {
   return axios.get(`/employer/${employer_id}`);
+}
+
+export function apiUpdateJob(title, description, category, id) {
+  return axios.put('/job/' + id, {
+    title,
+    description,
+    category
+  })
 }
