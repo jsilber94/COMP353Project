@@ -20,7 +20,7 @@ function getAllApplication() {
 
 function getSummary() {
   return new Promise((resolve, reject) => {
-    const query = 'SELECT Application.status, Application.date_applied, Job.title, User.fname, Application.employer_id_fk FROM Application, Job, User WHERE Application.job_id_fk =Job.job_id AND User.user_id = Application.user_id_fk';
+    const query = 'SELECT Application.status, Application.date_applied, Job.title, User.fname, Application.employer_id_fk, Application.application_id FROM Application, Job, User WHERE Application.job_id_fk =Job.job_id AND User.user_id = Application.user_id_fk';
     db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
@@ -67,7 +67,7 @@ function addApplication(application) {
 
 function updateApplication(id, application) {
   return new Promise((resolve, reject) => {
-    const query = `UPDATE Application set status='${application.status}' WHERE application_id='${id}'`
+    const query = `UPDATE Application set status='${application.status}' WHERE application_id=${id}`
     db.query(query, (error, rows) => {
       if (error) {
         dbFunc.connectionRelease();
