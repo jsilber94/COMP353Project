@@ -18,6 +18,21 @@ function getAllApplication() {
   });
 }
 
+function getSummary() {
+  return new Promise((resolve, reject) => {
+    const query = 'SELECT Application.status, Application.date_applied, Job.title, User.fname, Application.employer_id_fk FROM Application, Job, User WHERE Application.job_id_fk =Job.job_id AND User.user_id = Application.user_id_fk';
+    db.query(query, (error, rows) => {
+      if (error) {
+        dbFunc.connectionRelease();
+        reject(error);
+      } else {
+        dbFunc.connectionRelease();
+        resolve(rows);
+      }
+    });
+  });
+}
+
 function getApplicationById(id) {
   return new Promise((resolve, reject) => {
     const query = `SELECT * FROM Application WHERE application_id =${id}`;
@@ -84,6 +99,7 @@ function deleteApplication(id) {
 
 const applicationModel = {
   getAllApplication,
+  getSummary,
   addApplication,
   updateApplication,
   deleteApplication,

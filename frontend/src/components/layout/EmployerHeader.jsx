@@ -31,6 +31,10 @@ function EmployerHeader() {
         history.push('/maintain');
     }
 
+    const navigateToSummary = () => {
+        history.push('/summary');
+    }
+
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand onClick={navigateToDashboard}>Databases 353</Navbar.Brand>
@@ -40,7 +44,7 @@ function EmployerHeader() {
                     <Nav.Link onClick={navigateToDashboard}>Dashboard</Nav.Link>
                     <Nav.Link onClick={navigateToPostJobs}>Post Jobs</Nav.Link>
                     <Nav.Link onClick={navigateToMaintainJobs}>Maintain Jobs</Nav.Link>
-                    <Nav.Link href="#summary">Summary</Nav.Link>
+                    <Nav.Link onClick={navigateToSummary}>Summary</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
             <DropdownButton id="dropdown-menu-align-right" title="Settings"

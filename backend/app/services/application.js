@@ -50,8 +50,19 @@ function getApplicationById(id) {
   });
 }
 
+function getSummary() {
+  return new Promise((resolve, reject) => {
+    applicationModel.getSummary().then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      reject(err);
+    });
+  });
+}
+
 const applicationService = {
   getAllApplication,
+  getSummary,
   getApplicationById,
   addApplication,
   updateApplication,
